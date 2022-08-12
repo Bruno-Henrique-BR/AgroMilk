@@ -20,6 +20,7 @@ public class PessoaEntity {
     private String cpfCnpj;
 
     private Date dataNascimento;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_tipo_pessoa", nullable = false)
     private TipoPessoaEntity tipoPessoaId;
 }

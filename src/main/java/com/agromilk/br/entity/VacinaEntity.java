@@ -14,7 +14,8 @@ public class VacinaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_VACINA")
     private Long idVacina;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_animal", nullable = false)
     private AnimalEntity idAnimal;
 
     private Date data;

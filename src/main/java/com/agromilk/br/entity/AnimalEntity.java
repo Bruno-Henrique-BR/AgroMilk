@@ -30,7 +30,8 @@ public class AnimalEntity {
     @Column(name = "COR")
     @NotNull
     private String cor;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_rebanho", nullable = false)
     private RebanhoEntity idRebanho;
 
 }
