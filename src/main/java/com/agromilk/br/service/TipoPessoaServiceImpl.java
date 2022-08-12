@@ -1,9 +1,6 @@
 package com.agromilk.br.service;
 
-import com.agromilk.br.entity.PessoaEntity;
 import com.agromilk.br.entity.TipoPessoaEntity;
-import com.agromilk.br.repository.PessoaRepository;
-import com.agromilk.br.repository.TanqueRepository;
 import com.agromilk.br.repository.TipoPessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
