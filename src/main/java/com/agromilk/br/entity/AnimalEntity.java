@@ -31,4 +31,6 @@ public class AnimalEntity {
     @NotNull
     private String cor;
 
+    private RebanhoEntity idRebanho;
+
 }
