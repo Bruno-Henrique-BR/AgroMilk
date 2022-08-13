@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "ANIMAL")
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AnimalEntity {
 
     @Id
@@ -24,5 +24,6 @@ public class AnimalEntity {
     @JoinColumn(name = "ID_REBANHO",referencedColumnName = "ID_REBANHO")
     private RebanhoEntity rebanho;
 
-
+    public AnimalEntity(Long idAnimal, String codigo, String apelido, LocalDate dataNascimento, LocalDate dataCompra, String cor) {
+    }
 }

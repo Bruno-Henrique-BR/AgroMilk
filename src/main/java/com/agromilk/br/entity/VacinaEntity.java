@@ -15,7 +15,7 @@ public class VacinaEntity {
     @Column(name = "ID_VACINA")
     private Long idVacina;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_animal", nullable = false)
+    @JoinColumn(name = "ID_ANIMAL", nullable = false)
     private AnimalEntity idAnimal;
 
     private Date data;

@@ -19,6 +19,10 @@ public class TanqueEntity {
 
     private Double capacidade;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_MARCA",referencedColumnName = "ID_MARCA")
+    private MarcaEntity marca;
+
     private String modelo;
 
     private Date dataFabricacao;

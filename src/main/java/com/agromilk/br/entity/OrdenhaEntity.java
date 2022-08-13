@@ -17,7 +17,7 @@ public class OrdenhaEntity {
     private Long idOrdenha;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_animal", nullable = false)
+    @JoinColumn(name = "ID_ANIMAL", nullable = false)
     private AnimalEntity idAnimal;
 
     private Date data;
@@ -25,14 +25,14 @@ public class OrdenhaEntity {
     private Time hora;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_tanque", nullable = false)
+    @JoinColumn(name = "ID_TANQUE", nullable = false)
     private TanqueEntity idTanque;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_pessoa", nullable = false)
+    @JoinColumn(name = "ID_ORDENHA", nullable = false)
     private PessoaEntity idPessoa;
 
-    private Double kg;
+    private Double quantidade;
 
 
 
