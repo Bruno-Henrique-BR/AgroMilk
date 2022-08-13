@@ -1,5 +1,8 @@
 package com.agromilk.br.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "ANIMAL")
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AnimalEntity {
 
     @Id
@@ -17,13 +20,14 @@ public class AnimalEntity {
     private Long idAnimal;
     private String codigo;
     private String apelido;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataCompra;
     private String cor;
     @ManyToOne
     @JoinColumn(name = "ID_REBANHO",referencedColumnName = "ID_REBANHO")
     private RebanhoEntity rebanho;
 
-    public AnimalEntity(Long idAnimal, String codigo, String apelido, LocalDate dataNascimento, LocalDate dataCompra, String cor) {
-    }
 }

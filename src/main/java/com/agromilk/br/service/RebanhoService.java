@@ -8,4 +8,6 @@ public interface RebanhoService {
 
     RebanhoEntity salvar(RebanhoEntity rebanho);
     List<RebanhoEntity> listar();
+
+    void excluir(Long idRebanho) throws Exception;
 }

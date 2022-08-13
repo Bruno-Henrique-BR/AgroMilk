@@ -31,4 +31,10 @@ public class RebanhoController {
         List<RebanhoEntity> rebanho = rebanhoService.listar();
         return ResponseEntity.ok(rebanho);
     }
+
+    @DeleteMapping("/{idRebanho}")
+    public ResponseEntity<RebanhoEntity> excluir(@PathVariable Long idRebanho) throws Exception {
+        rebanhoService.excluir(idRebanho);
+        return ResponseEntity.noContent().build();
+    }
 }
