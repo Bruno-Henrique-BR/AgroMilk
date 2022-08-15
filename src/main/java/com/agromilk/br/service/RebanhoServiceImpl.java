@@ -4,7 +4,6 @@ import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.RebanhoEntity;
 import com.agromilk.br.repository.RebanhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.IsNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +15,6 @@ public class RebanhoServiceImpl implements RebanhoService {
 
     @Autowired
     private RebanhoRepository rebanhoRepository;
-
-    @Autowired
-    private RebanhoEntity rebanhoEntity;
-
-    @Autowired
-    private AnimalEntity animalEntity;
 
     public RebanhoServiceImpl(RebanhoRepository rebanhoRepository) {
         this.rebanhoRepository = rebanhoRepository;
@@ -43,10 +36,10 @@ public class RebanhoServiceImpl implements RebanhoService {
 
     @Override
     public void excluir(Long idRebanho) throws Exception {
-     //   if (rebanhoRepository.validadeDeleteRebanho(rebanhoEntity.getIdRebanho()))
+        if (rebanhoRepository.validadeDeleteRebanho(idRebanho) != null)
            {
             throw new Exception("Rebanho contem animais");
         }
-       // rebanhoRepository.deleteById(idRebanho);
+        rebanhoRepository.deleteById(idRebanho);
     }
 }
