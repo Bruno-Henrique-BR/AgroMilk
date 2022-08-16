@@ -1,6 +1,5 @@
 package com.agromilk.br.service;
 
-import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.RebanhoEntity;
 import com.agromilk.br.repository.RebanhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,6 @@ public class RebanhoServiceImpl implements RebanhoService {
 
     @Autowired
     private RebanhoRepository rebanhoRepository;
-
-    public RebanhoServiceImpl(RebanhoRepository rebanhoRepository) {
-        this.rebanhoRepository = rebanhoRepository;
-    }
 
 
     @Override
@@ -36,7 +31,8 @@ public class RebanhoServiceImpl implements RebanhoService {
 
     @Override
     public void excluir(Long idRebanho) throws Exception {
-        if (rebanhoRepository.validadeDeleteRebanho(idRebanho) != null)
+        RebanhoEntity rebanho = rebanhoRepository.findById(idRebanho).orElseThrow(() ->  new Exception("id não encontrado"));
+        if (rebanhoRepository.validadeDeleteRebanho(rebanho.getIdRebanho()) != null)
            {
             throw new Exception("Rebanho contem animais");
         }
