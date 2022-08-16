@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface RebanhoRepository extends JpaRepository<RebanhoEntity, Long> {
-    @Query("SELECT r FROM RebanhoEntity r INNER JOIN AnimalEntity a ON r.idRebanho = a.rebanho where r.idRebanho =:idRebanho")
 
-    Integer validadeDeleteRebanho(Long idRebanho);
 }
