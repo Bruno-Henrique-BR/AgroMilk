@@ -1,5 +1,6 @@
 package com.agromilk.br.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,11 +16,12 @@ public class ProdutoEntity {
     private String codigo;
     private String nome;
     @OneToOne
-    @JoinColumn(name = "fk_marca", nullable = false)
+    @JoinColumn(name = "ID_MARCA", referencedColumnName = "ID_MARCA")
     private MarcaEntity idMarca;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataValidade;
     @OneToOne
-    @JoinColumn(name = "fk_tipo_produto", nullable = false)
+    @JoinColumn(name = "ID_TIPO_PRODUTO", referencedColumnName = "ID_TIPO_PRODUTO")
     private TipoProdutoEntity idTipoProduto;
     private String descricao;
     private String codBarras;

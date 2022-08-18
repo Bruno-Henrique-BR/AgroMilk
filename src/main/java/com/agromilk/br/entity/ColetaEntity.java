@@ -15,7 +15,7 @@ public class ColetaEntity {
         @Column(name = "ID_COLETA")
         private Long idColeta;
         @OneToOne
-        @JoinColumn(name = "fk_tanque", nullable = false)
+        @JoinColumn(name = "ID_TANQUE", referencedColumnName = "ID_TANQUE")
         private TanqueEntity idTanque;
         private String descricao;
         private Double litros;

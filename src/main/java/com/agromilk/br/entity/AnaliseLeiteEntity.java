@@ -1,5 +1,6 @@
 package com.agromilk.br.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,8 +14,9 @@ public class AnaliseLeiteEntity {
     @Column(name = "ID_ANALISE_LEITE")
     private Long idAnaliseLeite;
     @OneToOne
-    @JoinColumn(name = "fk_coleta", nullable = false)
+    @JoinColumn(name = "ID_COLETA", referencedColumnName = "ID_COLETA")
     private ColetaEntity idColeta;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date data;
     private Double gordura;
     private Double proteina;

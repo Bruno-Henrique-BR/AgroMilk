@@ -31,4 +31,11 @@ public class AnimalEntity {
     @JoinColumn(name = "ID_REBANHO",referencedColumnName = "ID_REBANHO")
     private RebanhoEntity rebanho;
 
+    @OneToOne
+    @JoinColumn(name = "ID_RACA", referencedColumnName = "ID_RACA")
+    private RacaEntity raca;
+
+    private String sexo;
+
+
 }

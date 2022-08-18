@@ -12,7 +12,7 @@ import java.util.Date;
 public class PessoaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TANQUE")
+    @Column(name = "ID_PESSOA")
     private Long idPessoa;
 
     private String nome;
@@ -20,7 +20,13 @@ public class PessoaEntity {
     private String cpfCnpj;
 
     private Date dataNascimento;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_tipo_pessoa", nullable = false)
+
+    private String sexo;
+
+    private String endereco;
+
+    private String telefone;
+    @OneToOne
+    @JoinColumn(name = "ID_TIPO_PESSOA", referencedColumnName = "ID_TIPO_PESSOA")
     private TipoPessoaEntity tipoPessoaId;
 }
