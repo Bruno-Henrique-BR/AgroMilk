@@ -3,6 +3,7 @@ package com.agromilk.br.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -25,7 +26,7 @@ public class TanqueEntity {
 
     private String modelo;
 
-    private Date dataFabricacao;
+    private LocalDate dataFabricacao;
 
     private Boolean ativo;
 
