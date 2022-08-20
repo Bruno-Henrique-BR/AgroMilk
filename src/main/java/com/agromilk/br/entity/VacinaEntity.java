@@ -5,7 +5,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "VACINA")
@@ -20,8 +19,11 @@ public class VacinaEntity {
     @JoinColumn(name = "ID_ANIMAL", referencedColumnName = "ID_ANIMAL")
     private AnimalEntity idAnimal;
     @OneToOne
-    @JoinColumn(name = "ID_TIPO_PRODUTO", referencedColumnName = "ID_TIPO_PRODUTO")
-    private TipoProdutoEntity tipoProduto;
+    @JoinColumn(name = "ID_VACINA_PRODUTO", referencedColumnName = "ID_TIPO_PRODUTO")
+    private TipoProdutoEntity vacinaProduto;
+    @OneToOne
+    @JoinColumn(name = "ID_FUNCIONARIO", referencedColumnName = "ID_PESSOA")
+    private PessoaEntity funcionario;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate data;
 }

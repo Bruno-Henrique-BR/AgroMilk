@@ -32,6 +32,12 @@ public class OrdenhaEntity {
     @OneToOne
     @JoinColumn(name = "ID_TANQUE", referencedColumnName = "ID_TANQUE")
     private TanqueEntity tanque;
+    @ManyToOne
+    @JoinColumn(name = "ID_USUARIO",referencedColumnName = "ID_USUARIO")
+    private UsuarioEntity usuario;
+    @ManyToOne
+    @JoinColumn(name = "ID_PESSOA",referencedColumnName = "ID_PESSOA")
+    private PessoaEntity pessoa;
 
 
 

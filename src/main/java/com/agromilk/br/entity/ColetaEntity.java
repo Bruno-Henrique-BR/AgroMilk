@@ -14,9 +14,15 @@ public class ColetaEntity {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "ID_COLETA")
         private Long idColeta;
-        @OneToOne
+        @ManyToOne
         @JoinColumn(name = "ID_TANQUE", referencedColumnName = "ID_TANQUE")
         private TanqueEntity idTanque;
+        @ManyToOne
+        @JoinColumn(name = "ID_LATICINIO", referencedColumnName = "ID_PESSOA")
+        private PessoaEntity laticinio;
+        @ManyToOne
+        @JoinColumn(name = "ID_FUNCIONARIO", referencedColumnName = "ID_PESSOA")
+        private PessoaEntity funcionario;
         private String descricao;
         private Double litros;
         private LocalDate data;
