@@ -36,8 +36,8 @@ public class OrdenhaEntity {
     @JoinColumn(name = "ID_USUARIO",referencedColumnName = "ID_USUARIO")
     private UsuarioEntity usuario;
     @ManyToOne
-    @JoinColumn(name = "ID_PESSOA",referencedColumnName = "ID_PESSOA")
-    private PessoaEntity pessoa;
+    @JoinColumn(name = "ID_FUNCIONARIO",referencedColumnName = "ID_FUNCIONARIO")
+    private FuncionarioEntity funcionario;
 
 
 

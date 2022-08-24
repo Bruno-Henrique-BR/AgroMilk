@@ -1,32 +1,29 @@
 package com.agromilk.br.entity;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.util.Date;
 
 
 @Entity
-@Table(name = "PESSOA")
+@Table(name = "FUNCIONARIO")
 @Data
-public class PessoaEntity {
+public class FuncionarioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PESSOA")
-    private Long idPessoa;
+    @Column(name = "ID_FUNCIONARIO")
+    private Long idFuncionario;
 
     private String nome;
 
-    private String cpfCnpj;
+    @CPF
+    private String cpf;
 
     private Date dataNascimento;
-
-    private String sexo;
 
     private String endereco;
 
     private String telefone;
-    @OneToOne
-    @JoinColumn(name = "ID_TIPO_PESSOA", referencedColumnName = "ID_TIPO_PESSOA")
-    private TipoPessoaEntity tipoPessoaId;
 }
