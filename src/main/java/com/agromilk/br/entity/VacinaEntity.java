@@ -23,4 +23,5 @@ public class VacinaEntity {
     private FuncionarioEntity funcionario;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate data;
+    private Double quantidade;
 }

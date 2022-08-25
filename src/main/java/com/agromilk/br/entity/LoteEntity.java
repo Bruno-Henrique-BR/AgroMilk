@@ -8,17 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "REBANHO")
+@Table(name = "LOTE")
 @Data
 @RequiredArgsConstructor
-public class RebanhoEntity {
+public class LoteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_REBANHO")
-    private Long idRebanho;
+    @Column(name = "ID_LOTE")
+    private Long idLote;
     private String nome;
     private String descricao;
     @JsonIgnore
-    @OneToMany(mappedBy = "rebanho")
+    @OneToMany(mappedBy = "lote")
     private List<AnimalEntity> list = new ArrayList<>();
+    private String sexo;
 }

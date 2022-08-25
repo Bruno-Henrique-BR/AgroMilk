@@ -15,8 +15,8 @@ public class ColetaEntity {
         @Column(name = "ID_COLETA")
         private Long idColeta;
         @ManyToOne
-        @JoinColumn(name = "ID_TANQUE", referencedColumnName = "ID_TANQUE")
-        private TanqueEntity idTanque;
+        @JoinColumn(name = "ID_PRODUCAO_LEITE", referencedColumnName = "ID_PRODUCAO_LEITE")
+        private ProducaoLeiteDiaEntity producaoLeiteDia;
         @ManyToOne
         @JoinColumn(name = "ID_LATICINIO", referencedColumnName = "ID_LATICINIO")
         private LaticinioEntity laticinio;
@@ -24,7 +24,6 @@ public class ColetaEntity {
         @JoinColumn(name = "ID_FUNCIONARIO", referencedColumnName = "ID_FUNCIONARIO")
         private FuncionarioEntity funcionario;
         private String descricao;
-        private Double litros;
         private LocalDate data;
         private Time hora;
 

@@ -25,8 +25,8 @@ public class AnimalEntity {
     private LocalDate dataCompra;
     private String cor;
     @ManyToOne
-    @JoinColumn(name = "ID_REBANHO",referencedColumnName = "ID_REBANHO")
-    private RebanhoEntity rebanho;
+    @JoinColumn(name = "ID_LOTE",referencedColumnName = "ID_LOTE")
+    private LoteEntity lote;
 
     @OneToOne
     @JoinColumn(name = "ID_RACA", referencedColumnName = "ID_RACA")
