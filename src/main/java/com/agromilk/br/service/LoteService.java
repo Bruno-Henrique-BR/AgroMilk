@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LoteService {
 
-    LoteEntity salvar(LoteEntity rebanho);
+    LoteEntity salvar(LoteEntity lote);
     List<LoteEntity> listar();
 
     void excluir(Long idLote) throws Exception;

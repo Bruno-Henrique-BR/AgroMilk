@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("agromilk/rebanho")
+@RequestMapping("agromilk/lote")
 public class LoteController {
 
     @Autowired
@@ -27,9 +27,9 @@ public class LoteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LoteEntity>> rebanho(){
-        List<LoteEntity> rebanho = loteService.listar();
-        return ResponseEntity.ok(rebanho);
+    public ResponseEntity<List<LoteEntity>> lote(){
+        List<LoteEntity> lote = loteService.listar();
+        return ResponseEntity.ok(lote);
     }
 
     @DeleteMapping("/{idLote}")

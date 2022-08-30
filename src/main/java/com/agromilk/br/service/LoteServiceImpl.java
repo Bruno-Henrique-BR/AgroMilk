@@ -42,7 +42,7 @@ public class LoteServiceImpl implements LoteService {
         LoteEntity obj = findById(idLote);
 
         if (obj.getList().size() > 0) {
-            throw new Exception("Rebanho possui animais, não pode ser deletado!");
+            throw new Exception("O Lote possui animais, não pode ser deletado!");
         }
         loteRepository.deleteById(idLote);
     }
