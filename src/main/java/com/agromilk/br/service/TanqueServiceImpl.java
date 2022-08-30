@@ -1,6 +1,5 @@
 package com.agromilk.br.service;
 
-import com.agromilk.br.entity.RebanhoEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.repository.TanqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
