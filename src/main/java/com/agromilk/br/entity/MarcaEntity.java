@@ -1,8 +1,11 @@
 package com.agromilk.br.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "MARCA")
@@ -13,4 +16,7 @@ public class MarcaEntity {
     @Column(name = "ID_MARCA")
     private Long idMarca;
     private String descricao;
+    @JsonIgnore
+    @OneToMany(mappedBy = "marca")
+    private List<TanqueEntity> list = new ArrayList<>();
 }
