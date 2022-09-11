@@ -51,6 +51,20 @@ public class MarcaController {
         return new ResponseEntity<>(marcaDTO, OK);
     }
 
+    @GetMapping
+    public ResponseEntity<Page<MarcaEntity>> listarTodos(
+            @RequestParam(required = false) Long idMarca,
+            @RequestParam(required = false) String descricao,
+
+            @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
+                    value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
+
+        Page<MarcaEntity> response = marcaService.listar(
+                idMarca,
+                descricao,
+                pageable);
+        return new ResponseEntity<>(response, OK);
+    }
 
 
     @DeleteMapping("/{idMarca}")
