@@ -32,15 +32,6 @@ public class LoteServiceImpl implements LoteService {
         this.loteRepository = loteRepository;
     }
 
-
-    //@Override
-    //public LoteEntity salvar(LoteEntity lote) {
-        //return loteRepository.save(lote);
-   // }
-
-
-
-
     @Override
     public Page<LoteEntity> listar(
             Long idLote,
@@ -98,8 +89,6 @@ public class LoteServiceImpl implements LoteService {
         return saveLote;
 
     }
-
-
 
     public LoteEntity salvar(LoteRequestDTO dto)
             throws NotFoundException {
