@@ -1,13 +1,24 @@
 package com.agromilk.br.service;
 
 import com.agromilk.br.entity.LoteEntity;
-
-import java.util.List;
+import com.agromilk.br.request.LoteRequestDTO;
+import javassist.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface LoteService {
 
-    LoteEntity salvar(LoteEntity lote);
-    List<LoteEntity> listar();
+
+    Page<LoteEntity> listar(
+            Long idLote,
+            String nome,
+            String descricao,
+            String sexo,
+            Pageable pageable) throws Exception;
 
     void excluir(Long idLote) throws Exception;
+
+    LoteEntity salvar(LoteRequestDTO dto) throws NotFoundException;
+
+    LoteEntity atualizar(LoteRequestDTO dto, Long idLote) throws Exception;
 }
