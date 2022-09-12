@@ -1,9 +1,11 @@
 package com.agromilk.br.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -21,7 +23,8 @@ public class FuncionarioEntity {
     @CPF
     private String cpf;
 
-    private Date dataNascimento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate dataNascimento;
 
     private String endereco;
 

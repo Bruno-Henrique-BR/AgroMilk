@@ -1,5 +1,6 @@
 package com.agromilk.br.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.br.CPF;
@@ -22,6 +23,7 @@ public class FuncionarioDTO {
 
     private String cpf;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     private String endereco;
