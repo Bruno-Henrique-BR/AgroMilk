@@ -85,14 +85,14 @@ public class MarcaServiceImpl implements MarcaService {
             throws NotFoundException {
 
         if (nonNull(dto.getIdMarca())) {
-            throw new NotFoundException(LoteConstants.IDLOTE_INSERT);
+            throw new NotFoundException(MarcaConstants.IDMARCA_INSERT);
         }
         return saveMarca(dto);
     }
 
     public MarcaEntity atualizar(MarcaRequestDTO dto, Long idMarca) throws Exception {
         if (isNull(idMarca)) {
-            throw new BadRequestException(LoteConstants.IDLOTE_NOTFOUND);
+            throw new BadRequestException(MarcaConstants.IDMARCA_NOTFOUND);
         }
         dto.setIdMarca(idMarca);
 
