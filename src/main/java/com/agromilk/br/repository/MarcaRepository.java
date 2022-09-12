@@ -11,8 +11,8 @@ public interface MarcaRepository extends JpaRepository<MarcaEntity, Long> {
     @Query( value = "SELECT marca FROM MarcaEntity marca "
             + " WHERE 1=1 "
             + " AND ( :idMarca IS NULL OR marca.idMarca = :idMarca ) "
-            + " AND ( :descricao IS NULL OR marca.descricao LIKE :descricao ) ")
+            + " AND ( :nomeMarca IS NULL OR marca.nomeMarca LIKE :nomeMarca ) ")
     Page<MarcaEntity> findByFilter(Long idMarca,
-                                  String descricao,
+                                  String nomeMarca,
                                   Pageable pageable);
 }

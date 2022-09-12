@@ -8,7 +8,7 @@ public class MarcaRequestDTO {
 
     private Long idMarca;
 
-    @NotNull(message = "Descricao da marca é obrigatório")
-    private String descricao;
+    @NotNull(message = "Nome da marca é obrigatório")
+    private String nomeMarca;
 
 }

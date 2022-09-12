@@ -19,10 +19,8 @@ public class TanqueRequestDTO {
     @NotNull(message = "Capacidade é obrigatório")
     private Double capacidade;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_MARCA",referencedColumnName = "ID_MARCA")
     @NotNull(message = "Marca é obrigatório")
-    private MarcaEntity marca;
+    private Long idMarca;
 
     @NotNull(message = "Modelo é obrigatório")
     private String modelo;

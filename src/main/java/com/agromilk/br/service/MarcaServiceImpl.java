@@ -50,14 +50,14 @@ public class MarcaServiceImpl implements MarcaService {
     @Override
     public Page<MarcaEntity> listar(
             Long idMarca,
-            String descricao,
+            String nomeMarca,
             Pageable pageable) throws Exception {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
         Page<MarcaEntity> lista = marcaRepository.findByFilter(
                 idMarca,
-                descricao,
+                nomeMarca,
                 pageable);
 
         return lista;
@@ -75,7 +75,7 @@ public class MarcaServiceImpl implements MarcaService {
         else {
             saveMarca = new MarcaEntity();
         }
-        saveMarca.setDescricao(dto.getDescricao());
+        saveMarca.setNomeMarca(dto.getNomeMarca());
         saveMarca = marcaRepository.save(saveMarca);
         return saveMarca;
 

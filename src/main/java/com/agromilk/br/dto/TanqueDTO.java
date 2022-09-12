@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class TanqueDTO {
 
     private Long idTanque;
@@ -19,9 +19,7 @@ public class TanqueDTO {
 
     private Double capacidade;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_MARCA",referencedColumnName = "ID_MARCA")
-    private MarcaEntity marca;
+    private MarcaDTO marca;
 
     private String modelo;
 

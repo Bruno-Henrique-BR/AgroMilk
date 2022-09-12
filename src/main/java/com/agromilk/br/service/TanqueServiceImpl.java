@@ -1,20 +1,16 @@
 package com.agromilk.br.service;
 
-import com.agromilk.br.constants.LoteConstants;
 import com.agromilk.br.constants.MarcaConstants;
 import com.agromilk.br.constants.TanqueConstants;
+import com.agromilk.br.dto.TanqueDTO;
 import com.agromilk.br.entity.MarcaEntity;
-import com.agromilk.br.entity.RacaEntity;
-import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.exception.BadRequestException;
-import com.agromilk.br.repository.RacaRepository;
-import com.agromilk.br.repository.TanqueRepository;
+import com.agromilk.br.repository.MarcaRepository;
 import com.agromilk.br.repository.TanqueRepository;
 import com.agromilk.br.request.TanqueRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
-import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -36,10 +31,15 @@ public class TanqueServiceImpl implements TanqueService {
     @Autowired
     private TanqueRepository tanqueRepository;
 
+    @Autowired
+    private MarcaRepository marcaRepository;
 
-    public TanqueServiceImpl(TanqueRepository tanqueRepository) {
+
+    public TanqueServiceImpl(TanqueRepository tanqueRepository, MarcaRepository marcaRepository) {
         this.tanqueRepository = tanqueRepository;
+        this.marcaRepository = marcaRepository;
     }
+
 
     @Override
     public void excluir(Long idTanque) throws Exception {
@@ -47,11 +47,11 @@ public class TanqueServiceImpl implements TanqueService {
     }
 
     @Override
-    public Page<TanqueEntity> listar(
+    public Page<TanqueDTO> listar(
             Long idTanque,
             String descricao,
             Double capacidade,
-            MarcaEntity marca,
+            String nomeMarca,
             String modelo,
             LocalDate dataFabricacao,
             Boolean ativo,
@@ -59,11 +59,11 @@ public class TanqueServiceImpl implements TanqueService {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<TanqueEntity> lista = tanqueRepository.findByFilter(
+        Page<TanqueDTO> lista = tanqueRepository.findByFilter(
                 idTanque,
                 descricao,
                 capacidade,
-                marca,
+                nomeMarca,
                 modelo,
                 dataFabricacao,
                 ativo,
@@ -73,6 +73,11 @@ public class TanqueServiceImpl implements TanqueService {
     }
     private TanqueEntity saveTanque(TanqueRequestDTO dto)
             throws NotFoundException {
+        Optional<MarcaEntity> marca = marcaRepository
+                .findById(dto.getIdMarca());
+        if (!marca.isPresent()) {
+            throw new NotFoundException(MarcaConstants.IDMARCA_NOTFOUND);
+        }
         TanqueEntity saveTanque;
         if(nonNull(dto.getIdTanque())) {
             Optional<TanqueEntity> optionalTanque = tanqueRepository.findById(dto.getIdTanque());
@@ -86,7 +91,7 @@ public class TanqueServiceImpl implements TanqueService {
         }
         saveTanque.setDescricao(dto.getDescricao());
         saveTanque.setCapacidade(dto.getCapacidade());
-        saveTanque.setMarca(dto.getMarca());
+        saveTanque.setMarca(marca.get());
         saveTanque.setModelo(dto.getModelo());
         saveTanque.setDataFabricacao(dto.getDataFabricacao());
         saveTanque = tanqueRepository.save(saveTanque);

@@ -1,5 +1,6 @@
 package com.agromilk.br.service;
 
+import com.agromilk.br.dto.TanqueDTO;
 import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.MarcaEntity;
 import com.agromilk.br.entity.RacaEntity;
@@ -14,17 +15,18 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TanqueService {
-    Page<TanqueEntity> listar(
+
+    void excluir(Long idTanque) throws Exception;
+
+    Page<TanqueDTO> listar(
             Long idTanque,
             String descricao,
             Double capacidade,
-            MarcaEntity marca,
+            String nomeMarca,
             String modelo,
             LocalDate dataFabricacao,
             Boolean ativo,
             Pageable pageable) throws Exception;
-
-    void excluir(Long idTanque) throws Exception;
 
     TanqueEntity salvar(TanqueRequestDTO dto) throws NotFoundException;
 

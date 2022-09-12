@@ -15,7 +15,7 @@ public class MarcaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_MARCA")
     private Long idMarca;
-    private String descricao;
+    private String nomeMarca;
     @JsonIgnore
     @OneToMany(mappedBy = "marca")
     private List<TanqueEntity> list = new ArrayList<>();

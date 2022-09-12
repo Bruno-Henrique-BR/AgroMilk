@@ -1,5 +1,6 @@
 package com.agromilk.br.controller;
 
+import com.agromilk.br.dto.TanqueDTO;
 import com.agromilk.br.entity.MarcaEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.exception.BadRequestException;
@@ -47,11 +48,11 @@ public class TanqueController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TanqueEntity>> listarTodos(
+    public ResponseEntity<Page<TanqueDTO>> listarTodos(
             @RequestParam(required = false) Long idTanque,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) Double capacidade,
-            @RequestParam(required = false) MarcaEntity marca,
+            @RequestParam(required = false) String nomeMarca,
             @RequestParam(required = false) String modelo,
             @RequestParam(required = false) LocalDate dataFabricacao,
             @RequestParam(required = false) Boolean ativo,
@@ -59,11 +60,11 @@ public class TanqueController {
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
                     value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
 
-        Page<TanqueEntity> response = tanqueService.listar(
+        Page<TanqueDTO> response = tanqueService.listar(
                 idTanque,
                 descricao,
                 capacidade,
-                marca,
+                nomeMarca,
                 modelo,
                 dataFabricacao,
                 ativo,
