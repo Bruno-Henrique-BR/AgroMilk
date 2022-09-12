@@ -2,7 +2,6 @@ package com.agromilk.br.service;
 
 import com.agromilk.br.constants.MarcaConstants;
 import com.agromilk.br.constants.TanqueConstants;
-import com.agromilk.br.dto.TanqueDTO;
 import com.agromilk.br.entity.MarcaEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.exception.BadRequestException;
@@ -47,11 +46,11 @@ public class TanqueServiceImpl implements TanqueService {
     }
 
     @Override
-    public Page<TanqueDTO> listar(
+    public Page<TanqueEntity> listar(
             Long idTanque,
             String descricao,
             Double capacidade,
-            String nomeMarca,
+            MarcaEntity nomeMarca,
             String modelo,
             LocalDate dataFabricacao,
             Boolean ativo,
@@ -59,7 +58,7 @@ public class TanqueServiceImpl implements TanqueService {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<TanqueDTO> lista = tanqueRepository.findByFilter(
+        Page<TanqueEntity> lista = tanqueRepository.findByFilter(
                 idTanque,
                 descricao,
                 capacidade,
@@ -94,6 +93,7 @@ public class TanqueServiceImpl implements TanqueService {
         saveTanque.setMarca(marca.get());
         saveTanque.setModelo(dto.getModelo());
         saveTanque.setDataFabricacao(dto.getDataFabricacao());
+        saveTanque.setAtivo(dto.getAtivo());
         saveTanque = tanqueRepository.save(saveTanque);
         return saveTanque;
 

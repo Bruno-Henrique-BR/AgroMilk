@@ -48,11 +48,11 @@ public class TanqueController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TanqueDTO>> listarTodos(
+    public ResponseEntity<Page<TanqueEntity>> listarTodos(
             @RequestParam(required = false) Long idTanque,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) Double capacidade,
-            @RequestParam(required = false) String nomeMarca,
+            @RequestParam(required = false) MarcaEntity nomeMarca,
             @RequestParam(required = false) String modelo,
             @RequestParam(required = false) LocalDate dataFabricacao,
             @RequestParam(required = false) Boolean ativo,
@@ -60,7 +60,7 @@ public class TanqueController {
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
                     value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
 
-        Page<TanqueDTO> response = tanqueService.listar(
+        Page<TanqueEntity> response = tanqueService.listar(
                 idTanque,
                 descricao,
                 capacidade,

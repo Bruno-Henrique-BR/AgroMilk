@@ -18,11 +18,12 @@ public interface TanqueService {
 
     void excluir(Long idTanque) throws Exception;
 
-    Page<TanqueDTO> listar(
+
+    Page<TanqueEntity> listar(
             Long idTanque,
             String descricao,
             Double capacidade,
-            String nomeMarca,
+            MarcaEntity nomeMarca,
             String modelo,
             LocalDate dataFabricacao,
             Boolean ativo,

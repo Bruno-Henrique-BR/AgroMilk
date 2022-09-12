@@ -7,5 +7,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class MarcaDTO {
     private Long idMarca;
-    private String descricao;
+    private String nomeMarca;
 }

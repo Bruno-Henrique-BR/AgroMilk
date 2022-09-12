@@ -3,15 +3,15 @@ package com.agromilk.br.request;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 public class RacaRequestDTO {
 
     private Long idRaca;
-    @NotNull(message = "Nome da raça é obrigatório")
+    @NotEmpty(message = "Nome da raça é obrigatório")
     private String nome;
-    @NotNull(message = "Descricao da raça é obrigatório")
+    @NotEmpty(message = "Descricao da raça é obrigatório")
     private String descricao;
 
 }

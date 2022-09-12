@@ -2,13 +2,14 @@ package com.agromilk.br.request;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+
 @Data
 public class MarcaRequestDTO {
 
     private Long idMarca;
 
-    @NotNull(message = "Nome da marca é obrigatório")
+    @NotEmpty(message = "Nome da marca é obrigatório")
     private String nomeMarca;
 
 }

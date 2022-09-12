@@ -20,10 +20,10 @@ public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
             + " AND ( :modelo IS NULL OR tanque.modelo LIKE :modelo ) "
             + " AND ( :dataFabricacao IS NULL OR tanque.dataFabricacao = :dataFabricacao ) "
             + " AND ( :ativo IS NULL OR tanque.ativo = :ativo ) ")
-    Page<TanqueDTO> findByFilter(Long idTanque,
+    Page<TanqueEntity> findByFilter(Long idTanque,
                                  String descricao,
                                  Double capacidade,
-                                 String nomeMarca,
+                                 MarcaEntity nomeMarca,
                                  String modelo,
                                  LocalDate dataFabricacao,
                                  Boolean ativo,

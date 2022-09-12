@@ -6,7 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Repository;
 
+@EnableJpaRepositories
+@Repository
 public interface MarcaRepository extends JpaRepository<MarcaEntity, Long> {
     @Query( value = "SELECT marca FROM MarcaEntity marca "
             + " WHERE 1=1 "
