@@ -1,11 +1,10 @@
 package com.agromilk.br.service;
 
 import com.agromilk.br.constants.LoteConstants;
-import com.agromilk.br.entity.LoteEntity;
+import com.agromilk.br.constants.MarcaConstants;
 import com.agromilk.br.entity.MarcaEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.MarcaRepository;
-import com.agromilk.br.request.LoteRequestDTO;
 import com.agromilk.br.request.MarcaRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -70,7 +68,7 @@ public class MarcaServiceImpl implements MarcaService {
         if(nonNull(dto.getIdMarca())) {
             Optional<MarcaEntity> optionalMarca = marcaRepository.findById(dto.getIdMarca());
             if (!optionalMarca.isPresent()) {
-                throw new NotFoundException(LoteConstants.IDLOTE_NOTFOUND);
+                throw new NotFoundException(MarcaConstants.IDMARCA_NOTFOUND);
             }
             saveMarca = optionalMarca.get();
         }
