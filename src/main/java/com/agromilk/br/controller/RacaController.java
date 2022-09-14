@@ -1,5 +1,6 @@
 package com.agromilk.br.controller;
 
+import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.RacaRequestDTO;

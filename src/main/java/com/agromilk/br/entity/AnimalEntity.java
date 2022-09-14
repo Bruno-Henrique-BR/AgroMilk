@@ -32,7 +32,6 @@ public class AnimalEntity {
     @JoinColumn(name = "ID_RACA", referencedColumnName = "ID_RACA")
     private RacaEntity raca;
 
-    private String sexo;
 
 
 }

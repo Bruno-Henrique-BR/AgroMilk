@@ -7,5 +7,8 @@ public class RacaConstants {
     public static final String IDRACA_EMPTY = "Raça não informada";
     public static final String IDRACA_NOTFOUND = "Raça não encontrada";
     public static final String IDRACA_INSERT = "Não informar o idRaca no novo cadastro";
+    public static final String IDRACA_NOT_DELETED = "A raça possui animais, não pode ser deletado!";
+
+
 
 }

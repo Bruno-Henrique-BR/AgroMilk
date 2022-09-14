@@ -1,9 +1,10 @@
 package com.agromilk.br.service;
 
-import com.agromilk.br.constants.LoteConstants;
 import com.agromilk.br.constants.RacaConstants;
+import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.exception.BadRequestException;
+import com.agromilk.br.repository.AnimalRepository;
 import com.agromilk.br.repository.RacaRepository;
 import com.agromilk.br.request.RacaRequestDTO;
 import com.agromilk.br.util.Paginacao;
@@ -27,8 +28,11 @@ public class RacaServiceImpl implements RacaService {
     @Autowired
     private RacaRepository racaRepository;
 
-    public RacaServiceImpl(RacaRepository racaRepository) {
+    private AnimalRepository animalRepository;
+
+    public RacaServiceImpl(RacaRepository racaRepository, AnimalRepository animalRepository) {
         this.racaRepository = racaRepository;
+        this.animalRepository = animalRepository;
     }
 
     @Override
@@ -49,10 +53,13 @@ public class RacaServiceImpl implements RacaService {
         return lista;
     }
 
-
     @Override
     public void excluir(Long idRaca) throws Exception {
 
+        Boolean hasAnimal = animalRepository.existsByRacaIdRaca(idRaca);
+        if(Boolean.TRUE.equals(hasAnimal)){
+            throw new Exception(RacaConstants.IDRACA_NOT_DELETED);
+        }
         racaRepository.deleteById(idRaca);
     }
 
@@ -62,7 +69,7 @@ public class RacaServiceImpl implements RacaService {
         if(nonNull(dto.getIdRaca())) {
             Optional<RacaEntity> optionalRaca = racaRepository.findById(dto.getIdRaca());
             if (!optionalRaca.isPresent()) {
-                throw new NotFoundException(LoteConstants.IDLOTE_NOTFOUND);
+                throw new NotFoundException(RacaConstants.IDRACA_NOTFOUND);
             }
             saveRaca = optionalRaca.get();
         }

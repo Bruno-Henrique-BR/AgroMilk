@@ -1,8 +1,10 @@
 package com.agromilk.br.service;
 
 import com.agromilk.br.constants.LoteConstants;
+import com.agromilk.br.constants.RacaConstants;
 import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.exception.BadRequestException;
+import com.agromilk.br.repository.AnimalRepository;
 import com.agromilk.br.repository.LoteRepository;
 import com.agromilk.br.request.LoteRequestDTO;
 import com.agromilk.br.util.Paginacao;
@@ -28,8 +30,11 @@ public class LoteServiceImpl implements LoteService {
     @Autowired
     private LoteRepository loteRepository;
 
-    public LoteServiceImpl(LoteRepository loteRepository) {
+    private AnimalRepository animalRepository;
+
+    public LoteServiceImpl(LoteRepository loteRepository, AnimalRepository animalRepository) {
         this.loteRepository = loteRepository;
+        this.animalRepository = animalRepository;
     }
 
     @Override
@@ -61,10 +66,9 @@ public class LoteServiceImpl implements LoteService {
 
     @Override
     public void excluir(Long idLote) throws Exception {
-        LoteEntity obj = findById(idLote);
-
-        if (obj.getList().size() > 0) {
-            throw new Exception("O Lote possui animais, não pode ser deletado!");
+        Boolean hasAnimal = animalRepository.existsByLoteIdLote(idLote);
+        if(Boolean.TRUE.equals(hasAnimal)){
+            throw new Exception(LoteConstants.IDLOTE_NOT_DELETED);
         }
         loteRepository.deleteById(idLote);
     }

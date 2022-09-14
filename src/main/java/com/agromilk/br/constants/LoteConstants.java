@@ -8,4 +8,7 @@ public class LoteConstants {
     public static final String IDLOTE_NOTFOUND = "Lote não encontrado";
     public static final String IDLOTE_INSERT = "Não informar o idLote no novo cadastro";
 
+    public static final String IDLOTE_NOT_DELETED = "O Lote possui animais, não pode ser deletado!";
+
+
 }

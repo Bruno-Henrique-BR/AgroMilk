@@ -1,5 +1,6 @@
 package com.agromilk.br.service;
 
+import com.agromilk.br.entity.LaticinioEntity;
 import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.request.RacaRequestDTO;
 import javassist.NotFoundException;
@@ -14,7 +15,6 @@ public interface RacaService {
             String nome,
             String descricao,
             Pageable pageable) throws Exception;
-
     void excluir(Long idRaca) throws Exception;
 
     RacaEntity salvar(RacaRequestDTO dto) throws NotFoundException;

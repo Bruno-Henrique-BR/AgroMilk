@@ -100,6 +100,7 @@ public class LaticinioServiceImpl implements LaticinioService {
         if (nonNull(dto.getIdLaticinio())) {
             throw new NotFoundException(LaticinioConstants.IDLATICINIO_INSERT);
         }
+        dto.setCnpj(dto.getCnpj());
 
         return saveLaticinio(dto);
     }
