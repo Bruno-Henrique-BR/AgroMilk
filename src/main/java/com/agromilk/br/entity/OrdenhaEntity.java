@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ORDENHA")
@@ -19,12 +20,12 @@ public class OrdenhaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_ORDENHA")
     private Long idOrdenha;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @NotNull(message = "Data de ordenha é obrigatorio")
-    private LocalDate data;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
-    private Time hora;
 
+    @NotNull(message = "Data de ordenha é obrigatorio")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate data;
+
+    @NotNull(message = "Quantidade é obrigatorio")
     private Double quantidade;
     @OneToOne
     @JoinColumn(name = "ID_ANIMAL", referencedColumnName = "ID_ANIMAL")
