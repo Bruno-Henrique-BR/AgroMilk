@@ -13,6 +13,6 @@ public class RacaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_RACA")
     Long idRaca;
-    String nome;
+    String nomeRaca;
     String descricao;
 }

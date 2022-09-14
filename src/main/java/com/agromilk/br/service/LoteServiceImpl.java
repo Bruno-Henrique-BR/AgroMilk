@@ -40,7 +40,7 @@ public class LoteServiceImpl implements LoteService {
     @Override
     public Page<LoteEntity> listar(
             Long idLote,
-            String nome,
+            String nomeLote,
             String descricao,
             String sexo,
             Pageable pageable) throws Exception {
@@ -49,7 +49,7 @@ public class LoteServiceImpl implements LoteService {
 
         Page<LoteEntity> lista = loteRepository.findByFilter(
                 idLote,
-                nome,
+                nomeLote,
                 descricao,
                 sexo,
                 pageable);
@@ -86,7 +86,7 @@ public class LoteServiceImpl implements LoteService {
         else {
             saveLote = new LoteEntity();
         }
-        saveLote.setNome(dto.getNome());
+        saveLote.setNomeLote(dto.getNome());
         saveLote.setDescricao(dto.getDescricao());
         saveLote.setSexo(dto.getSexo());
         saveLote = loteRepository.save(saveLote);

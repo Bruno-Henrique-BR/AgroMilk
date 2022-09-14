@@ -1,7 +1,7 @@
 package com.agromilk.br.service;
 
-import com.agromilk.br.constants.MarcaConstants;
-import com.agromilk.br.constants.TanqueConstants;
+import com.agromilk.br.constants.*;
+import com.agromilk.br.dto.AnimalDTO;
 import com.agromilk.br.entity.*;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.AnimalRepository;
@@ -55,8 +55,9 @@ public class AnimalServiceImpl implements AnimalService {
             LocalDate dataNascimento,
             LocalDate dataCompra,
             String cor,
-            LoteEntity nomeLote,
-            RacaEntity nomeRaca,
+            String nomeLote,
+            String nomeRaca,
+            Boolean lactacao,
             Pageable pageable) throws Exception {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
@@ -70,6 +71,7 @@ public class AnimalServiceImpl implements AnimalService {
                 cor,
                 nomeLote,
                 nomeRaca,
+                lactacao,
                 pageable);
 
         return lista;
@@ -80,19 +82,19 @@ public class AnimalServiceImpl implements AnimalService {
         Optional<LoteEntity> lote = loteRepository
                 .findById(dto.getIdLote());
         if (!lote.isPresent()) {
-            throw new NotFoundException(MarcaConstants.IDMARCA_NOTFOUND);
+            throw new NotFoundException(LoteConstants.IDLOTE_NOTFOUND);
         }
 
         Optional<RacaEntity> raca = racaRepository
                 .findById(dto.getIdRaca());
         if (!raca.isPresent()) {
-            throw new NotFoundException(MarcaConstants.IDMARCA_NOTFOUND);
+            throw new NotFoundException(RacaConstants.IDRACA_NOTFOUND);
         }
         AnimalEntity saveAnimal;
         if(nonNull(dto.getIdAnimal())) {
             Optional<AnimalEntity> optionalAnimal = animalRepository.findById(dto.getIdAnimal());
             if (!optionalAnimal.isPresent()) {
-                throw new NotFoundException(TanqueConstants.IDTANQUE_NOTFOUND);
+                throw new NotFoundException(AnimalConstants.IDANIMAL_NOTFOUND);
             }
             saveAnimal = optionalAnimal.get();
         }
@@ -106,6 +108,7 @@ public class AnimalServiceImpl implements AnimalService {
         saveAnimal.setCor(dto.getCor());
         saveAnimal.setLote(lote.get());
         saveAnimal.setRaca(raca.get());
+        saveAnimal.setLactacao(dto.getLactacao());
 
         saveAnimal = animalRepository.save(saveAnimal);
         return saveAnimal;

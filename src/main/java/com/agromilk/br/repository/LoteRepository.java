@@ -16,11 +16,11 @@ public interface LoteRepository extends JpaRepository<LoteEntity, Long> {
     @Query( value = "SELECT lote FROM LoteEntity lote "
             + " WHERE 1=1 "
             + " AND ( :idLote IS NULL OR lote.idLote = :idLote ) "
-            + " AND ( :nome IS NULL OR lote.nome LIKE :nome ) "
+            + " AND ( :nomeLote IS NULL OR lote.nomeLote LIKE :nomeLote ) "
             + " AND ( :descricao IS NULL OR lote.descricao LIKE :descricao ) "
             + " AND ( :sexo IS NULL OR lote.sexo LIKE :sexo ) ")
     Page<LoteEntity> findByFilter(Long idLote,
-                               String nome,
+                               String nomeLote,
                                String descricao,
                                String sexo,
                                Pageable pageable);

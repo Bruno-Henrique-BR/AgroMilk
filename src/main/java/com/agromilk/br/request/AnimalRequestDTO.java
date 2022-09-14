@@ -31,5 +31,9 @@ public class AnimalRequestDTO {
         @NotNull(message = "Raça é obrigatório")
         private Long idRaca;
 
+        @NotNull(message = "Lactação é obrigatório")
+        private Boolean lactacao;
+
+
 
 }

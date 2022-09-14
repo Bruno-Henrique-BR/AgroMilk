@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "ANIMAL")
 @Data
-@RequiredArgsConstructor
 public class AnimalEntity {
 
     @Id
@@ -31,6 +30,8 @@ public class AnimalEntity {
     @OneToOne
     @JoinColumn(name = "ID_RACA", referencedColumnName = "ID_RACA")
     private RacaEntity raca;
+
+    private Boolean lactacao;
 
 
 

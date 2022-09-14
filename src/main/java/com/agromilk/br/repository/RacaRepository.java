@@ -11,10 +11,10 @@ public interface RacaRepository extends JpaRepository<RacaEntity, Long> {
     @Query( value = "SELECT raca FROM RacaEntity raca "
             + " WHERE 1=1 "
             + " AND ( :idRaca IS NULL OR raca.idRaca = :idRaca ) "
-            + " AND ( :nome IS NULL OR raca.nome LIKE :nome ) "
+            + " AND ( :nomeRaca IS NULL OR raca.nomeRaca LIKE :nomeRaca ) "
             + " AND ( :descricao IS NULL OR raca.descricao LIKE :descricao ) ")
     Page<RacaEntity> findByFilter(Long idRaca,
-                                   String nome,
+                                   String nomeRaca,
                                    String descricao,
                                    Pageable pageable);
 

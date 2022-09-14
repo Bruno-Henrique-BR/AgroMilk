@@ -38,7 +38,7 @@ public class RacaServiceImpl implements RacaService {
     @Override
     public Page<RacaEntity> listar(
             Long idRaca,
-            String nome,
+            String nomeRaca,
             String descricao,
             Pageable pageable) throws Exception {
 
@@ -46,7 +46,7 @@ public class RacaServiceImpl implements RacaService {
 
         Page<RacaEntity> lista = racaRepository.findByFilter(
                 idRaca,
-                nome,
+                nomeRaca,
                 descricao,
                 pageable);
 
@@ -76,7 +76,7 @@ public class RacaServiceImpl implements RacaService {
         else {
             saveRaca = new RacaEntity();
         }
-        saveRaca.setNome(dto.getNome());
+        saveRaca.setNomeRaca(dto.getNome());
         saveRaca.setDescricao(dto.getDescricao());
         saveRaca = racaRepository.save(saveRaca);
         return saveRaca;

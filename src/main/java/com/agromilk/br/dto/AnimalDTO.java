@@ -27,4 +27,7 @@ public class AnimalDTO {
     private LoteDTO lote;
 
     private RacaDTO raca;
+
+    private Boolean lactacao;
+
 }

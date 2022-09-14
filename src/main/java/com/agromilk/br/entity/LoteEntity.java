@@ -10,13 +10,12 @@ import java.util.List;
 @Entity
 @Table(name = "LOTE")
 @Data
-@RequiredArgsConstructor
 public class LoteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_LOTE")
     private Long idLote;
-    private String nome;
+    private String nomeLote;
     private String descricao;
     @JsonIgnore
     @OneToMany(mappedBy = "lote")
