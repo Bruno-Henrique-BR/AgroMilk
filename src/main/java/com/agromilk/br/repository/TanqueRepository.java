@@ -6,6 +6,7 @@ import com.agromilk.br.entity.TanqueEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
@@ -28,4 +29,20 @@ public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
                                  LocalDate dataFabricacao,
                                  Boolean ativo,
                                  Pageable pageable);
+
+    @Query( value = "UPDATE TanqueEntity  tanque " +
+            " SET tanque.quantidadeAtual = quantidadeAtual + :quantidade " +
+            " WHERE tanque.idTanque = :idTanque " )
+    @Modifying
+    void enviarLeiteTanque(Long idTanque, Double quantidade);
+
+    @Query( value = "SELECT tanque FROM TanqueEntity tanque "
+            + " WHERE 1=1 "
+            + " AND ( :capacidade IS NULL OR tanque.capacidade = :capacidade ) ")
+    void findByFilterCapacidade(Double capacidade);
+
+    @Query( value = "SELECT tanque FROM TanqueEntity tanque "
+            + " WHERE 1=1 "
+            + " AND ( :quantidadeAtual IS NULL OR tanque.quantidadeAtual = :quantidadeAtual ) ")
+    void findByFilterQuantidadeAtual(Double quantidadeAtual);
 }

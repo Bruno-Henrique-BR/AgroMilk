@@ -30,5 +30,7 @@ public class TanqueEntity {
 
     private Boolean ativo;
 
+    private Double quantidadeAtual;
+
 
 }

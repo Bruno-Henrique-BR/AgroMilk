@@ -1,6 +1,6 @@
 package com.agromilk.br.entity;
 
-import com.agromilk.br.util.BaseEntity;
+//import com.agromilk.br.util.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

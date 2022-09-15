@@ -111,6 +111,17 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
         saveOrdenha.setFuncionario(funcionario.get());
+        tanqueRepository.findByFilterCapacidade(tanque.get().getCapacidade());
+        tanqueRepository.findByFilterQuantidadeAtual(tanque.get().getQuantidadeAtual());
+        if(tanque.get().getCapacidade() > tanque.get().getQuantidadeAtual()){
+            tanqueRepository.enviarLeiteTanque(tanque.get().getIdTanque(), dto.getQuantidade());
+
+        }else {
+            throw new NotFoundException("Tanque esta cheio");
+        }
+
+
+
 
         saveOrdenha = ordenhaRepository.save(saveOrdenha);
         return saveOrdenha;
