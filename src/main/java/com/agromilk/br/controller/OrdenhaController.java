@@ -1,9 +1,8 @@
 package com.agromilk.br.controller;
 
-import com.agromilk.br.entity.AnimalEntity;
+import com.agromilk.br.dto.OrdenhaDTO;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.exception.BadRequestException;
-import com.agromilk.br.request.AnimalRequestDTO;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.service.OrdenhaService;
 import com.agromilk.br.util.Paginacao;
@@ -49,7 +48,29 @@ public class OrdenhaController {
         return new ResponseEntity<>(ordenhaDTO, OK);
     }
 
+    @GetMapping
+    public ResponseEntity<Page<OrdenhaEntity>> listarTodos(
+            @RequestParam(required = false) Long idOrdenha,
+            @RequestParam(required = false) LocalDate data,
+            @RequestParam(required = false) Long quantidade,
+            @RequestParam(required = false) Long idAnimal,
+            @RequestParam(required = false) Long idTanque,
+            @RequestParam(required = false) String nomeFuncionario,
 
+
+            @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
+                    value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
+
+        Page<OrdenhaEntity> response = ordenhaService.listar(
+                idOrdenha,
+                data,
+                quantidade,
+                idAnimal,
+                idTanque,
+                nomeFuncionario,
+                pageable);
+        return new ResponseEntity<>(response, OK);
+    }
     @DeleteMapping("/{idOrdenha}")
     public ResponseEntity<OrdenhaEntity> excluir(@PathVariable Long idOrdenha) throws Exception {
         ordenhaService.excluir(idOrdenha);

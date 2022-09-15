@@ -8,13 +8,18 @@ import com.agromilk.br.repository.AnimalRepository;
 import com.agromilk.br.repository.FuncionarioRepository;
 import com.agromilk.br.repository.OrdenhaRepository;
 import com.agromilk.br.repository.TanqueRepository;
-import com.agromilk.br.request.AnimalRequestDTO;
 import com.agromilk.br.request.OrdenhaRequestDTO;
+import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -44,6 +49,31 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     @Override
     public void excluir(Long idOrdenha) throws Exception {
         ordenhaRepository.deleteById(idOrdenha);
+    }
+
+    @Override
+    public Page<OrdenhaEntity> listar(
+            Long idOrdenha,
+            LocalDate data,
+            Long quantidade,
+            Long idAnimal,
+            Long idTanque,
+            String nomeFuncionario,
+            Pageable pageable) throws Exception {
+
+        pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
+
+        Page<OrdenhaEntity> lista = ordenhaRepository.findByFilter(
+                idOrdenha,
+                data,
+                quantidade,
+                idAnimal,
+                idTanque,
+                nomeFuncionario,
+                pageable);
+
+
+        return lista;
     }
 
     private OrdenhaEntity saveOrdenha(OrdenhaRequestDTO dto)

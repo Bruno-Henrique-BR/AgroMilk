@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Entity
@@ -18,7 +17,7 @@ public class FuncionarioEntity {
     @Column(name = "ID_FUNCIONARIO")
     private Long idFuncionario;
 
-    private String nome;
+    private String nomeFuncionario;
 
     @CPF
     private String cpf;

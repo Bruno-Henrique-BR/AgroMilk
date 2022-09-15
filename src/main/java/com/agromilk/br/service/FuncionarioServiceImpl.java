@@ -86,7 +86,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         else {
             saveFuncionario = new FuncionarioEntity();
         }
-        saveFuncionario.setNome(dto.getNome());
+        saveFuncionario.setNomeFuncionario(dto.getNome());
         saveFuncionario.setCpf(dto.getCpf());
         saveFuncionario.setDataNascimento(dto.getDataNascimento());
         saveFuncionario.setEndereco(dto.getEndereco());

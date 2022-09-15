@@ -1,5 +1,6 @@
 package com.agromilk.br.entity;
 
+import com.agromilk.br.util.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -39,11 +40,5 @@ public class OrdenhaEntity {
     @ManyToOne
     @JoinColumn(name = "ID_FUNCIONARIO",referencedColumnName = "ID_FUNCIONARIO")
     private FuncionarioEntity funcionario;
-
-
-
-
-
-
 
 }
