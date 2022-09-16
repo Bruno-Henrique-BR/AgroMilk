@@ -1,6 +1,5 @@
 package com.agromilk.br.repository;
 
-import com.agromilk.br.dto.TanqueDTO;
 import com.agromilk.br.entity.MarcaEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import org.springframework.data.domain.Page;
@@ -10,6 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
     @Query( value = "SELECT tanque FROM TanqueEntity tanque "
@@ -36,13 +36,4 @@ public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
     @Modifying
     void enviarLeiteTanque(Long idTanque, Double quantidade);
 
-    @Query( value = "SELECT tanque FROM TanqueEntity tanque "
-            + " WHERE 1=1 "
-            + " AND ( :capacidade IS NULL OR tanque.capacidade = :capacidade ) ")
-    void findByFilterCapacidade(Double capacidade);
-
-    @Query( value = "SELECT tanque FROM TanqueEntity tanque "
-            + " WHERE 1=1 "
-            + " AND ( :quantidadeAtual IS NULL OR tanque.quantidadeAtual = :quantidadeAtual ) ")
-    void findByFilterQuantidadeAtual(Double quantidadeAtual);
 }

@@ -1,6 +1,7 @@
 package com.agromilk.br.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -15,8 +16,8 @@ public class ColetaEntity {
         @Column(name = "ID_COLETA")
         private Long idColeta;
         @ManyToOne
-        @JoinColumn(name = "ID_PRODUCAO_LEITE", referencedColumnName = "ID_PRODUCAO_LEITE")
-        private ProducaoLeiteDiaEntity producaoLeiteDia;
+        @JoinColumn(name = "ID_TANQUE", referencedColumnName = "ID_TANQUE")
+        private TanqueEntity tanque;
         @ManyToOne
         @JoinColumn(name = "ID_LATICINIO", referencedColumnName = "ID_LATICINIO")
         private LaticinioEntity laticinio;

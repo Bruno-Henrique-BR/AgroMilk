@@ -35,7 +35,7 @@ public class OrdenhaController {
     @PostMapping
     public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(
             @RequestBody @Valid OrdenhaRequestDTO dto)
-            throws NotFoundException, BadRequestException {
+            throws Exception {
         OrdenhaEntity response = ordenhaService.salvar(dto);
         return new ResponseEntity<>(response, CREATED);
     }

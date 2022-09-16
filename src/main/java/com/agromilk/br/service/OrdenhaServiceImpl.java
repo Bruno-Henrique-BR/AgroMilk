@@ -77,7 +77,7 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     }
 
     private OrdenhaEntity saveOrdenha(OrdenhaRequestDTO dto)
-            throws NotFoundException {
+            throws Exception {
         Optional<AnimalEntity> animal = animalRepository
                 .findById(dto.getIdAnimal());
         if (!animal.isPresent()) {
@@ -111,16 +111,16 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
         saveOrdenha.setFuncionario(funcionario.get());
-        tanqueRepository.findByFilterCapacidade(tanque.get().getCapacidade());
-        tanqueRepository.findByFilterQuantidadeAtual(tanque.get().getQuantidadeAtual());
-        if(tanque.get().getCapacidade() > tanque.get().getQuantidadeAtual()){
-            tanqueRepository.enviarLeiteTanque(tanque.get().getIdTanque(), dto.getQuantidade());
-
-        }else {
-            throw new NotFoundException("Tanque esta cheio");
+        if(dto.getQuantidade() < 0){
+            throw new Exception("Valor invalido");
         }
-
-
+        Double soma = dto.getQuantidade() + tanque.get().getQuantidadeAtual();
+        Double capacidadeTanque = tanque.get().getCapacidade();
+        if(soma <= capacidadeTanque) {
+            tanqueRepository.enviarLeiteTanque(tanque.get().getIdTanque(), dto.getQuantidade());
+        }else{
+            throw new Exception("Tanque esta cheio");
+        }
 
 
         saveOrdenha = ordenhaRepository.save(saveOrdenha);
@@ -129,7 +129,7 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     }
 
     public OrdenhaEntity salvar(OrdenhaRequestDTO dto)
-            throws NotFoundException {
+            throws Exception {
 
         if (nonNull(dto.getIdOrdenha())) {
             throw new NotFoundException(OrdenhaConstants.IDORDENHA_INSERT);

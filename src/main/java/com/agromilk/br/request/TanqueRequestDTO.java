@@ -31,4 +31,6 @@ public class TanqueRequestDTO {
 
     private Boolean ativo;
 
+    private Double quantidadeAtual = 0.0;
+
 }

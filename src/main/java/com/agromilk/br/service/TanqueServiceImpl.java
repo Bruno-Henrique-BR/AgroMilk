@@ -94,6 +94,7 @@ public class TanqueServiceImpl implements TanqueService {
         saveTanque.setModelo(dto.getModelo());
         saveTanque.setDataFabricacao(dto.getDataFabricacao());
         saveTanque.setAtivo(dto.getAtivo());
+        saveTanque.setQuantidadeAtual(dto.getQuantidadeAtual());
         saveTanque = tanqueRepository.save(saveTanque);
         return saveTanque;
 

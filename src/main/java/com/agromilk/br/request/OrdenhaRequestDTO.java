@@ -32,4 +32,5 @@ public class OrdenhaRequestDTO {
 
     @NotNull(message = "Funcionario é obrigatorio")
     private Long idFuncionario;
+
 }

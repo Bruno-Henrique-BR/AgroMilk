@@ -17,7 +17,7 @@ public class TanqueEntity {
 
     private String descricao;
 
-    private Double capacidade;
+    private Double capacidade = 0.0;
 
     @ManyToOne
     @JoinColumn(name = "ID_MARCA",referencedColumnName = "ID_MARCA")

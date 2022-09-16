@@ -20,7 +20,7 @@ public interface OrdenhaService {
             String nomeFuncionario,
             Pageable pageable) throws Exception;
     void excluir(Long idOrdenha) throws Exception;
-    OrdenhaEntity salvar(OrdenhaRequestDTO dto) throws NotFoundException;
+    OrdenhaEntity salvar(OrdenhaRequestDTO dto) throws Exception;
 
     OrdenhaEntity atualizar(OrdenhaRequestDTO dto, Long idOrdenha) throws Exception;
 
