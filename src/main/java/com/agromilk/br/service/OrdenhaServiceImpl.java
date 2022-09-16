@@ -111,6 +111,18 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
         saveOrdenha.setFuncionario(funcionario.get());
+        this.validate(dto);
+        saveOrdenha = ordenhaRepository.save(saveOrdenha);
+        return saveOrdenha;
+
+    }
+
+    private void validate(OrdenhaRequestDTO dto) throws Exception {
+        Optional<TanqueEntity> tanque = tanqueRepository
+                .findById(dto.getIdTanque());
+        if (!tanque.isPresent()) {
+            throw new NotFoundException(TanqueConstants.IDTANQUE_NOTFOUND);
+        }
         if(dto.getQuantidade() < 0){
             throw new Exception("Valor invalido");
         }
@@ -121,11 +133,6 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         }else{
             throw new Exception("Tanque esta cheio");
         }
-
-
-        saveOrdenha = ordenhaRepository.save(saveOrdenha);
-        return saveOrdenha;
-
     }
 
     public OrdenhaEntity salvar(OrdenhaRequestDTO dto)
