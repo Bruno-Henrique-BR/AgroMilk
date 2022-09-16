@@ -72,7 +72,6 @@ public class OrdenhaServiceImpl implements OrdenhaService {
                 nomeFuncionario,
                 pageable);
 
-
         return lista;
     }
 
@@ -124,14 +123,14 @@ public class OrdenhaServiceImpl implements OrdenhaService {
             throw new NotFoundException(TanqueConstants.IDTANQUE_NOTFOUND);
         }
         if(dto.getQuantidade() < 0){
-            throw new Exception("Valor invalido");
+            throw new Exception(TanqueConstants.TANQUE_VALOR_INVALID);
         }
         Double soma = dto.getQuantidade() + tanque.get().getQuantidadeAtual();
         Double capacidadeTanque = tanque.get().getCapacidade();
         if(soma <= capacidadeTanque) {
             tanqueRepository.enviarLeiteTanque(tanque.get().getIdTanque(), dto.getQuantidade());
         }else{
-            throw new Exception("Tanque esta cheio");
+            throw new Exception(TanqueConstants.TANQUE_FULL);
         }
     }
 

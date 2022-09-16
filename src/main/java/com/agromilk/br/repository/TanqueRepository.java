@@ -36,4 +36,10 @@ public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
     @Modifying
     void enviarLeiteTanque(Long idTanque, Double quantidade);
 
+    @Query( value = "UPDATE TanqueEntity  tanque " +
+            " SET tanque.quantidadeAtual = quantidadeAtual - :quantidade " +
+            " WHERE tanque.idTanque = :idTanque " )
+    @Modifying
+    void enviarLeiteColeta(Long idTanque, Double quantidade);
+
 }

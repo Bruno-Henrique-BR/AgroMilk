@@ -1,11 +1,14 @@
 package com.agromilk.br.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "COLETA")
@@ -21,11 +24,13 @@ public class ColetaEntity {
         @ManyToOne
         @JoinColumn(name = "ID_LATICINIO", referencedColumnName = "ID_LATICINIO")
         private LaticinioEntity laticinio;
-        @ManyToOne
-        @JoinColumn(name = "ID_FUNCIONARIO", referencedColumnName = "ID_FUNCIONARIO")
-        private FuncionarioEntity funcionario;
+
+        @NotNull(message = "Quantidade é obrigatorio")
+        private Double quantidade;
+
         private String descricao;
-        private LocalDate data;
-        private Time hora;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy'T'HH:mm:ss", timezone = "America/Sao_Paulo")
+        private LocalDateTime data;
+
 
 }
