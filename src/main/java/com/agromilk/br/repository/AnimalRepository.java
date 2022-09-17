@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 
@@ -36,6 +36,11 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
                                    String nomeRaca,
                                    Boolean lactacao,
                                    Pageable pageable);
+   @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal " )
+   Long verificarQdtAnimais();
+   @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal "
+   + " WHERE animal.lactacao = true ")
+   Long verificarQdtAnimaisLactacao();
 
 }
 

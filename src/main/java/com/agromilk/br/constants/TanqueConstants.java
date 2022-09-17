@@ -13,6 +13,8 @@ public class TanqueConstants {
 
     public static final String TANQUE_FULL = "Tanque está cheio";
 
+    public static final String TANQUE_CONTEM_LEITE = "Tanque contém leite, por favor esvazie para realizar a exclusão";
+
 
 
 }

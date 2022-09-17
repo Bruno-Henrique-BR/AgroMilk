@@ -1,12 +1,14 @@
 package com.agromilk.br.service;
 
 import com.agromilk.br.constants.MarcaConstants;
+import com.agromilk.br.constants.RacaConstants;
 import com.agromilk.br.constants.TanqueConstants;
 import com.agromilk.br.entity.MarcaEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.MarcaRepository;
 import com.agromilk.br.repository.TanqueRepository;
+import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.request.TanqueRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
@@ -42,7 +44,16 @@ public class TanqueServiceImpl implements TanqueService {
 
     @Override
     public void excluir(Long idTanque) throws Exception {
-        tanqueRepository.deleteById(idTanque);
+
+        Optional<TanqueEntity> optionalTanque = tanqueRepository.findById(idTanque);
+        if(!optionalTanque.isPresent()) {
+            throw new NotFoundException(TanqueConstants.IDTANQUE_NOTFOUND);
+        }
+        Double tanque = tanqueRepository.verificarLeite(idTanque);
+        if(tanque > 0) {
+            throw new Exception(TanqueConstants.TANQUE_CONTEM_LEITE);
+        }
+            tanqueRepository.deleteById(idTanque);
     }
 
     @Override

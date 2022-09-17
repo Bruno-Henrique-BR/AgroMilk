@@ -27,4 +27,7 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
                                   Long idTanque,
                                   String nomeFuncionario,
                                   Pageable pageable);
+
+    @Query( value = "SELECT AVG(ordenha.quantidade) FROM OrdenhaEntity ordenha ")
+    Double verificarMediaLitro();
 }

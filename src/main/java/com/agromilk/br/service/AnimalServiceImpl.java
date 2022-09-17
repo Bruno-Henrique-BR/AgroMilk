@@ -1,14 +1,13 @@
 package com.agromilk.br.service;
 
 import com.agromilk.br.constants.*;
-import com.agromilk.br.dto.AnimalDTO;
 import com.agromilk.br.entity.*;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.AnimalRepository;
 import com.agromilk.br.repository.LoteRepository;
+import com.agromilk.br.repository.OrdenhaRepository;
 import com.agromilk.br.repository.RacaRepository;
 import com.agromilk.br.request.AnimalRequestDTO;
-import com.agromilk.br.request.TanqueRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -36,15 +34,33 @@ public class AnimalServiceImpl implements AnimalService {
 
     private RacaRepository racaRepository;
 
-    public AnimalServiceImpl(AnimalRepository animalRepository, LoteRepository loteRepository, RacaRepository racaRepository) {
+    private OrdenhaRepository ordenhaRepository;
+
+    public AnimalServiceImpl(AnimalRepository animalRepository, LoteRepository loteRepository, RacaRepository racaRepository, OrdenhaRepository ordenhaRepository) {
         this.animalRepository = animalRepository;
         this.loteRepository = loteRepository;
         this.racaRepository = racaRepository;
+        this.ordenhaRepository = ordenhaRepository;
     }
 
     @Override
     public void excluir(Long idAnimal) throws Exception {
         animalRepository.deleteById(idAnimal);
+    }
+
+    @Override
+    public Long animais(){
+        return animalRepository.verificarQdtAnimais();
+    }
+
+    @Override
+    public Long animaisLactacao(){
+        return animalRepository.verificarQdtAnimaisLactacao();
+    }
+
+    @Override
+    public Double animaisMediaLitro(){
+        return ordenhaRepository.verificarMediaLitro();
     }
 
     @Override

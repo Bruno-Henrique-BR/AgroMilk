@@ -1,9 +1,6 @@
 package com.agromilk.br.controller;
 
-import com.agromilk.br.dto.AnimalDTO;
 import com.agromilk.br.entity.AnimalEntity;
-import com.agromilk.br.entity.LoteEntity;
-import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.AnimalRequestDTO;
 import com.agromilk.br.service.AnimalService;
@@ -84,5 +81,20 @@ public class AnimalController {
     public ResponseEntity<AnimalEntity> excluir(@PathVariable Long idAnimal) throws Exception {
         animalService.excluir(idAnimal);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/qtsAnimal")
+    public Long qtsAnimal(){
+        return animalService.animais();
+    }
+
+    @GetMapping("/qtsAnimalLactacao")
+    public Long qtsAnimalLactacao(){
+        return animalService.animaisLactacao();
+    }
+
+    @GetMapping("/mediaLitro")
+    public Double mediaLitro(){
+        return animalService.animaisMediaLitro();
     }
 }

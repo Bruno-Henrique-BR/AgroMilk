@@ -13,7 +13,6 @@ public class AnimalRequestDTO {
         @NotNull(message = "Codigo é obrigatório")
         private String codigo;
 
-        @NotNull(message = "Apelido é obrigatório")
         private String apelido;
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
