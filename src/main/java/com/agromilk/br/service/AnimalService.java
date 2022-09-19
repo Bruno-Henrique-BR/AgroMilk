@@ -33,5 +33,11 @@ public interface AnimalService {
 
     Long animaisLactacao();
 
+    Long animaisSeca();
+
     Double animaisMediaLitro();
+
+    Double porcentagemLactantes();
+
+    Double porcentagemSecas();
 }

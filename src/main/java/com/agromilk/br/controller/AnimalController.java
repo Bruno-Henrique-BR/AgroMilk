@@ -92,9 +92,23 @@ public class AnimalController {
     public Long qtsAnimalLactacao(){
         return animalService.animaisLactacao();
     }
+    @GetMapping("/qtsAnimalSeca")
+    public Long qtsAnimalSeca(){
+        return animalService.animaisSeca();
+    }
 
     @GetMapping("/mediaLitro")
     public Double mediaLitro(){
         return animalService.animaisMediaLitro();
+    }
+
+    @GetMapping("/porcentagemLactantes")
+    public Double porcentagemLactantes(){
+        return animalService.porcentagemLactantes();
+    }
+
+    @GetMapping("/porcentagemSecas")
+    public Double porcentagemSecas(){
+        return animalService.porcentagemSecas();
     }
 }

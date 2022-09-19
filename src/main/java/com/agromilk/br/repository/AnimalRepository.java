@@ -42,6 +42,10 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
    + " WHERE animal.lactacao = true ")
    Long verificarQdtAnimaisLactacao();
 
+   @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal "
+           + " WHERE animal.lactacao = false ")
+   Long verificarQdtAnimaisSecas();
+
 }
 
 

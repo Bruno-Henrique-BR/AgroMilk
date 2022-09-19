@@ -59,9 +59,31 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
+    public Long animaisSeca(){
+        return animalRepository.verificarQdtAnimaisSecas();
+    }
+
+    @Override
     public Double animaisMediaLitro(){
         return ordenhaRepository.verificarMediaLitro();
     }
+
+    @Override
+    public Double porcentagemLactantes() {
+        Double qtdAnimal = Double.valueOf(animalRepository.verificarQdtAnimais());
+        Double qtdAnimalLactantes = Double.valueOf(animalRepository.verificarQdtAnimaisLactacao());
+        Double media = 100/qtdAnimal*qtdAnimalLactantes;
+        return media;
+    }
+
+    @Override
+    public Double porcentagemSecas() {
+        Double qtdAnimal = Double.valueOf(animalRepository.verificarQdtAnimais());
+        Double qtdAnimalNaoLactantes = Double.valueOf(animalRepository.verificarQdtAnimaisSecas());
+        Double media = 100/qtdAnimal*qtdAnimalNaoLactantes;
+        return media;
+    }
+
 
     @Override
     public Page<AnimalEntity> listar(
