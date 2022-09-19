@@ -30,4 +30,15 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
 
     @Query( value = "SELECT AVG(ordenha.quantidade) FROM OrdenhaEntity ordenha ")
     Double verificarMediaLitro();
+
+    //@Query( value = "SELECT ordenha.idAnimal,sum(ordenha.quantidade) FROM OrdenhaEntity ordenha"
+    //+"GROUP BY ordenha.idAnimal")
+    //Long quantidadeLeiteAnimal();
+
+    @Query( value = "SELECT sum(ordenha.quantidade) FROM OrdenhaEntity ordenha")
+    Long totalDeLeiteProduzido();
+
+
+
+
 }

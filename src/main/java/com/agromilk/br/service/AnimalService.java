@@ -40,4 +40,7 @@ public interface AnimalService {
     Double porcentagemLactantes();
 
     Double porcentagemSecas();
+
+    Page<AnimalEntity> listarAnimais(
+            Pageable pageable) throws Exception;
 }

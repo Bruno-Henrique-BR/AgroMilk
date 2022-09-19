@@ -46,6 +46,13 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " WHERE animal.lactacao = false ")
    Long verificarQdtAnimaisSecas();
 
+   @Query( value = "SELECT animal FROM AnimalEntity  animal "
+           + " INNER JOIN OrdenhaEntity ordenha on animal.idAnimal = ordenha.animal"
+           + " WHERE 1=1 "
+           + " AND ( :quantidade IS NULL OR ordenha.quantidade < :quantidade ) "
+           + " GROUP BY animal.idAnimal")
+   Page<AnimalEntity> animaisOrdenhaAbaixoMedia(Double quantidade, Pageable pageable);
+
 }
 
 
