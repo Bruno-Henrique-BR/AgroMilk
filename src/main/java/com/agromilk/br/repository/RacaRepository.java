@@ -6,7 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface RacaRepository extends JpaRepository<RacaEntity, Long> {
+import java.util.List;
+
+public interface   RacaRepository extends JpaRepository<RacaEntity, Long> {
 
     @Query( value = "SELECT raca FROM RacaEntity raca "
             + " WHERE 1=1 "
@@ -17,5 +19,7 @@ public interface RacaRepository extends JpaRepository<RacaEntity, Long> {
                                    String nomeRaca,
                                    String descricao,
                                    Pageable pageable);
+
+    List<RacaEntity> findByOrderByNomeRaca();
 
 }

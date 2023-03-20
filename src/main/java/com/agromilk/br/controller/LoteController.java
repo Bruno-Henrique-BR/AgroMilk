@@ -2,24 +2,23 @@ package com.agromilk.br.controller;
 
 import com.agromilk.br.dto.LoteDTO;
 import com.agromilk.br.entity.LoteEntity;
+import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.LoteRequestDTO;
 import com.agromilk.br.service.LoteService;
-import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+@CrossOrigin(origins = "http://localhost:4200")
 
 @RestController
 @RequestMapping("agromilk/lote")
@@ -40,6 +39,12 @@ public class LoteController {
         return new ResponseEntity<>(response, CREATED);
     }
 
+    @GetMapping(value = "/{idLote}")
+    public ResponseEntity<LoteDTO> findById(@PathVariable Long idLote) throws ObjectNotFoundException {
+        LoteEntity obj = loteService.findById(idLote);
+        return ResponseEntity.ok().body(new LoteDTO(obj));
+    }
+
     @PutMapping("/{idLote}")
     public ResponseEntity<LoteEntity> atualizarLote(@PathVariable Long idLote,
                                                                           @RequestBody @Valid LoteRequestDTO dto)
@@ -49,22 +54,10 @@ public class LoteController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<LoteEntity>> listarTodos(
-            @RequestParam(required = false) Long idLote,
-            @RequestParam(required = false) String nome,
-            @RequestParam(required = false) String descricao,
-            @RequestParam(required = false) String sexo,
-
-            @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
-                    value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
-
-        Page<LoteEntity> response = loteService.listar(
-                idLote,
-                nome,
-                descricao,
-                sexo,
-                pageable);
-        return new ResponseEntity<>(response, OK);
+    public ResponseEntity<List<LoteDTO>> findAll() {
+        List<LoteEntity> list = loteService.findAll();
+        List<LoteDTO> listDTO = list.stream().map(obj -> new LoteDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @DeleteMapping("/{idLote}")
@@ -72,4 +65,5 @@ public class LoteController {
         loteService.excluir(idLote);
         return ResponseEntity.noContent().build();
     }
+
 }

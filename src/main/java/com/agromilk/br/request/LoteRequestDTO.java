@@ -12,7 +12,5 @@ public class LoteRequestDTO {
     @NotEmpty(message = "Nome do lote é obrigatório")
     private String nome;
     private String descricao;
-    @NotEmpty(message = "Sexo é obrigatório")
-    private String sexo;
 
 }

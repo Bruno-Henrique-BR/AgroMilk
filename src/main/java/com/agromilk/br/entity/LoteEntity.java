@@ -20,5 +20,4 @@ public class LoteEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "lote")
     private List<AnimalEntity> list = new ArrayList<>();
-    private String sexo;
 }

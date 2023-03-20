@@ -1,5 +1,6 @@
 package com.agromilk.br.dto;
 
+import com.agromilk.br.entity.RacaEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,4 +12,14 @@ public class RacaDTO {
     private  String nome;
     private  String descricao;
 
+    public RacaDTO() {
+        super();
+    }
+
+    public RacaDTO(RacaEntity obj) {
+        super();
+        this.idRaca = obj.getIdRaca();
+        this.nome = obj.getNomeRaca();
+        this.descricao = obj.getDescricao();
+    }
 }
