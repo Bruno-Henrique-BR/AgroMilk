@@ -5,9 +5,12 @@ import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.RacaRequestDTO;
 import com.agromilk.br.service.RacaService;
+import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +47,22 @@ public class RacaController {
         RacaEntity obj = racaService.findById(idRaca);
         return ResponseEntity.ok().body(new RacaDTO(obj));
     }
+    @GetMapping
+    public ResponseEntity<List<RacaEntity>> listarTodos(
+            @RequestParam(required = false) Long idRaca,
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String descricao,
 
+            @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
+                    value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
+
+        List<RacaEntity> response = racaService.listar(
+                idRaca,
+                nome,
+                descricao,
+                pageable);
+        return new ResponseEntity<>(response, OK);
+    }
     @PutMapping("/{idRaca}")
     public ResponseEntity<RacaEntity> atualizarRaca(@PathVariable Long idRaca,
                                                     @RequestBody @Valid RacaRequestDTO dto)
@@ -53,12 +71,6 @@ public class RacaController {
         return new ResponseEntity<>(racaDTO, OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<RacaDTO>> findAll() {
-        List<RacaEntity> list = racaService.findAll();
-        List<RacaDTO> listDTO = list.stream().map(obj -> new RacaDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
-    }
 
 
     @DeleteMapping("/{idRaca}")

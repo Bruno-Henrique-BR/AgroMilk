@@ -1,12 +1,11 @@
 package com.agromilk.br.dto;
 
-import com.agromilk.br.entity.MarcaEntity;
+import com.agromilk.br.entity.RacaEntity;
+import com.agromilk.br.entity.TanqueEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Data
@@ -19,14 +18,26 @@ public class TanqueDTO {
 
     private Double capacidade;
 
-    private MarcaDTO marca;
-
     private String modelo;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataFabricacao;
 
     private Boolean ativo;
+    public TanqueDTO() {
+        super();
+    }
 
+    public TanqueDTO(TanqueEntity obj) {
+        super();
+        this.idTanque = obj.getIdTanque();
+        this.descricao = obj.getDescricao();
+        this.capacidade = obj.getCapacidade();
+        this.modelo = obj.getModelo();
+        this.dataFabricacao = obj.getDataFabricacao();
+        this.ativo = obj.getAtivo();
+
+
+    }
 
 }

@@ -1,6 +1,5 @@
 package com.agromilk.br.repository;
 
-import com.agromilk.br.entity.MarcaEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.List;
 
 public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
     @Query( value = "SELECT tanque FROM TanqueEntity tanque "
@@ -17,18 +16,16 @@ public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
             + " AND ( :idTanque IS NULL OR tanque.idTanque = :idTanque ) "
             + " AND ( :descricao IS NULL OR tanque.descricao LIKE :descricao ) "
             + " AND ( :capacidade IS NULL OR tanque.capacidade = :capacidade ) "
-            + " AND ( :nomeMarca IS NULL OR tanque.marca.nomeMarca = :nomeMarca ) "
             + " AND ( :modelo IS NULL OR tanque.modelo LIKE :modelo ) "
             + " AND ( :dataFabricacao IS NULL OR tanque.dataFabricacao = :dataFabricacao ) "
             + " AND ( :ativo IS NULL OR tanque.ativo = :ativo ) ")
-    Page<TanqueEntity> findByFilter(Long idTanque,
-                                 String descricao,
-                                 Double capacidade,
-                                 MarcaEntity nomeMarca,
-                                 String modelo,
-                                 LocalDate dataFabricacao,
-                                 Boolean ativo,
-                                 Pageable pageable);
+    List<TanqueEntity> findByFilter(Long idTanque,
+                                    String descricao,
+                                    Double capacidade,
+                                    String modelo,
+                                    LocalDate dataFabricacao,
+                                    Boolean ativo,
+                                    Pageable pageable);
 
     @Query( value = "UPDATE TanqueEntity  tanque " +
             " SET tanque.quantidadeAtual = quantidadeAtual + :quantidade " +

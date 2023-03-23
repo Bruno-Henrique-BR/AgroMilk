@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
 
@@ -26,7 +27,7 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " AND ( :nomeLote IS NULL OR animal.lote.nomeLote = :nomeLote ) "
            + " AND ( :nomeRaca IS NULL OR animal.raca.nomeRaca = :nomeRaca ) "
            + " AND ( :lactacao IS NULL OR animal.lactacao = :lactacao ) ")
-   Page<AnimalEntity> findByFilter(Long idAnimal,
+   List<AnimalEntity> findByFilter(Long idAnimal,
                                    String codigo,
                                    String apelido,
                                    LocalDate dataNascimento,

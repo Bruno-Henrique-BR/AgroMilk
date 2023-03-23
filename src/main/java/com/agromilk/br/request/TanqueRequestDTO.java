@@ -1,11 +1,8 @@
 package com.agromilk.br.request;
 
-import com.agromilk.br.entity.MarcaEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -19,15 +16,14 @@ public class TanqueRequestDTO {
     @NotNull(message = "Capacidade é obrigatório")
     private Double capacidade;
 
-    @NotNull(message = "Marca é obrigatório")
-    private Long idMarca;
 
     @NotNull(message = "Modelo é obrigatório")
     private String modelo;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @NotNull(message = "Data de fabricação é obrigatório")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "mm/DD/yyyy")
     private LocalDate dataFabricacao;
+
+
 
     private Boolean ativo;
 

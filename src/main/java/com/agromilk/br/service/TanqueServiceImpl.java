@@ -1,17 +1,14 @@
 package com.agromilk.br.service;
 
-import com.agromilk.br.constants.MarcaConstants;
-import com.agromilk.br.constants.RacaConstants;
 import com.agromilk.br.constants.TanqueConstants;
-import com.agromilk.br.entity.MarcaEntity;
+import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.exception.BadRequestException;
-import com.agromilk.br.repository.MarcaRepository;
 import com.agromilk.br.repository.TanqueRepository;
-import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.request.TanqueRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -32,13 +30,11 @@ public class TanqueServiceImpl implements TanqueService {
     @Autowired
     private TanqueRepository tanqueRepository;
 
-    @Autowired
-    private MarcaRepository marcaRepository;
 
 
-    public TanqueServiceImpl(TanqueRepository tanqueRepository, MarcaRepository marcaRepository) {
+
+    public TanqueServiceImpl(TanqueRepository tanqueRepository) {
         this.tanqueRepository = tanqueRepository;
-        this.marcaRepository = marcaRepository;
     }
 
 
@@ -57,11 +53,10 @@ public class TanqueServiceImpl implements TanqueService {
     }
 
     @Override
-    public Page<TanqueEntity> listar(
+    public List<TanqueEntity> listar(
             Long idTanque,
             String descricao,
             Double capacidade,
-            MarcaEntity nomeMarca,
             String modelo,
             LocalDate dataFabricacao,
             Boolean ativo,
@@ -69,11 +64,10 @@ public class TanqueServiceImpl implements TanqueService {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<TanqueEntity> lista = tanqueRepository.findByFilter(
+        List<TanqueEntity> lista = tanqueRepository.findByFilter(
                 idTanque,
                 descricao,
                 capacidade,
-                nomeMarca,
                 modelo,
                 dataFabricacao,
                 ativo,
@@ -83,11 +77,6 @@ public class TanqueServiceImpl implements TanqueService {
     }
     private TanqueEntity saveTanque(TanqueRequestDTO dto)
             throws NotFoundException {
-        Optional<MarcaEntity> marca = marcaRepository
-                .findById(dto.getIdMarca());
-        if (!marca.isPresent()) {
-            throw new NotFoundException(MarcaConstants.IDMARCA_NOTFOUND);
-        }
         TanqueEntity saveTanque;
         if(nonNull(dto.getIdTanque())) {
             Optional<TanqueEntity> optionalTanque = tanqueRepository.findById(dto.getIdTanque());
@@ -101,7 +90,6 @@ public class TanqueServiceImpl implements TanqueService {
         }
         saveTanque.setDescricao(dto.getDescricao());
         saveTanque.setCapacidade(dto.getCapacidade());
-        saveTanque.setMarca(marca.get());
         saveTanque.setModelo(dto.getModelo());
         saveTanque.setDataFabricacao(dto.getDataFabricacao());
         saveTanque.setAtivo(dto.getAtivo());
@@ -110,7 +98,11 @@ public class TanqueServiceImpl implements TanqueService {
         return saveTanque;
 
     }
-
+    public TanqueEntity findById(Long idTanque) throws ObjectNotFoundException {
+        Optional<TanqueEntity> obj = tanqueRepository.findById(idTanque);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + idTanque + ", Tipo: " + TanqueEntity.class.getName()));
+    }
     public TanqueEntity salvar(TanqueRequestDTO dto)
             throws NotFoundException {
 

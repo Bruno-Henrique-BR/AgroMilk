@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -99,7 +100,7 @@ public class AnimalServiceImpl implements AnimalService {
 
 
     @Override
-    public Page<AnimalEntity> listar(
+    public List<AnimalEntity> listar(
             Long idAnimal,
             String codigo,
             String apelido,
@@ -113,7 +114,7 @@ public class AnimalServiceImpl implements AnimalService {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<AnimalEntity> lista = animalRepository.findByFilter(
+        List<AnimalEntity> lista = animalRepository.findByFilter(
                 idAnimal,
                 codigo,
                 apelido,

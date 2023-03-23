@@ -19,10 +19,6 @@ public class TanqueEntity {
 
     private Double capacidade = 0.0;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_MARCA",referencedColumnName = "ID_MARCA")
-    private MarcaEntity marca;
-
     private String modelo;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")

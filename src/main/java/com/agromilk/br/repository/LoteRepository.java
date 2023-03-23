@@ -16,7 +16,7 @@ public interface LoteRepository extends JpaRepository<LoteEntity, Long> {
             + " AND ( :idLote IS NULL OR lote.idLote = :idLote ) "
             + " AND ( :nomeLote IS NULL OR lote.nomeLote LIKE :nomeLote ) "
             + " AND ( :descricao IS NULL OR lote.descricao LIKE :descricao ) ")
-    Page<LoteEntity> findByFilter(Long idLote,
+    List<LoteEntity> findByFilter(Long idLote,
                                String nomeLote,
                                String descricao,
                                Pageable pageable);

@@ -15,7 +15,7 @@ public interface   RacaRepository extends JpaRepository<RacaEntity, Long> {
             + " AND ( :idRaca IS NULL OR raca.idRaca = :idRaca ) "
             + " AND ( :nomeRaca IS NULL OR raca.nomeRaca LIKE :nomeRaca ) "
             + " AND ( :descricao IS NULL OR raca.descricao LIKE :descricao ) ")
-    Page<RacaEntity> findByFilter(Long idRaca,
+    List<RacaEntity> findByFilter(Long idRaca,
                                    String nomeRaca,
                                    String descricao,
                                    Pageable pageable);
