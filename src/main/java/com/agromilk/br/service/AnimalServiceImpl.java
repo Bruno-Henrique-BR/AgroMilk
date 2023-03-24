@@ -10,6 +10,7 @@ import com.agromilk.br.repository.RacaRepository;
 import com.agromilk.br.request.AnimalRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -80,6 +81,12 @@ public class AnimalServiceImpl implements AnimalService {
                 pageable);
 
         return lista;
+    }
+
+    public AnimalEntity findById(Long idAnimal) throws ObjectNotFoundException {
+        Optional<AnimalEntity> obj = animalRepository.findById(idAnimal);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + idAnimal + ", Tipo: " + AnimalEntity.class.getName()));
     }
 
     @Override

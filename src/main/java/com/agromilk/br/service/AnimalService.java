@@ -3,6 +3,7 @@ package com.agromilk.br.service;
 import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.request.AnimalRequestDTO;
 import javassist.NotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -29,6 +30,9 @@ public interface AnimalService {
     AnimalEntity salvar(AnimalRequestDTO dto) throws NotFoundException;
 
     AnimalEntity atualizar(AnimalRequestDTO dto, Long idAnimal) throws Exception;
+
+    AnimalEntity findById(Long idAnimal) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
+
 
     Long animais();
 

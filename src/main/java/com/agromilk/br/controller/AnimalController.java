@@ -1,11 +1,13 @@
 package com.agromilk.br.controller;
 
+import com.agromilk.br.dto.AnimalDTO;
 import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.AnimalRequestDTO;
 import com.agromilk.br.service.AnimalService;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +50,11 @@ public class AnimalController {
         AnimalEntity animalDTO = this.animalService.atualizar(dto, idAnimal);
         return new ResponseEntity<>(animalDTO, OK);
     }
-
+    @GetMapping(value = "/{idAnimal}")
+    public ResponseEntity<AnimalDTO> findById(@PathVariable Long idAnimal) throws ObjectNotFoundException {
+        AnimalEntity obj = animalService.findById(idAnimal);
+        return ResponseEntity.ok().body(new AnimalDTO(obj));
+    }
     @GetMapping
     public ResponseEntity<List<AnimalEntity>> listarTodos(
             @RequestParam(required = false) Long idAnimal,
