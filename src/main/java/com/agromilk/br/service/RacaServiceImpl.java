@@ -83,7 +83,7 @@ public class RacaServiceImpl implements RacaService {
         else {
             saveRaca = new RacaEntity();
         }
-        saveRaca.setNomeRaca(dto.getNome());
+        saveRaca.setNomeRaca(dto.getNomeRaca());
         saveRaca.setDescricao(dto.getDescricao());
         saveRaca = racaRepository.save(saveRaca);
         return saveRaca;

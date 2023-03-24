@@ -1,12 +1,9 @@
 package com.agromilk.br.controller;
 
-import com.agromilk.br.dto.OrdenhaDTO;
 import com.agromilk.br.entity.OrdenhaEntity;
-import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.service.OrdenhaService;
 import com.agromilk.br.util.Paginacao;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.time.LocalDate;
 
 import static org.springframework.http.HttpStatus.CREATED;

@@ -85,7 +85,7 @@ public class LoteServiceImpl implements LoteService {
         else {
             saveLote = new LoteEntity();
         }
-        saveLote.setNomeLote(dto.getNome());
+        saveLote.setNomeLote(dto.getNomeLote());
         saveLote.setDescricao(dto.getDescricao());
         saveLote = loteRepository.save(saveLote);
         return saveLote;

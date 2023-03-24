@@ -10,7 +10,7 @@ public class LoteRequestDTO {
     private Long idLote;
 
     @NotEmpty(message = "Nome do lote é obrigatório")
-    private String nome;
+    private String nomeLote;
     private String descricao;
 
 }

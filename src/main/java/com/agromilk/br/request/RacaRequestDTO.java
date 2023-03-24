@@ -10,7 +10,7 @@ public class RacaRequestDTO {
 
     private Long idRaca;
     @NotEmpty(message = "Nome da raça é obrigatório")
-    private String nome;
+    private String nomeRaca;
     @NotEmpty(message = "Descricao da raça é obrigatório")
     private String descricao;
 
