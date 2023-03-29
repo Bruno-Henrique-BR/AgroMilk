@@ -105,7 +105,10 @@ public class AnimalServiceImpl implements AnimalService {
         return media;
     }
 
+    public List<AnimalEntity> findByIdLote(Long idLote) {
 
+        return animalRepository.findByIdLote(idLote);
+    }
     @Override
     public List<AnimalEntity> listar(
             Long idAnimal,

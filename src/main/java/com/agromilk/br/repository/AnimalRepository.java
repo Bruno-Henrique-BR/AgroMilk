@@ -53,6 +53,11 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " AND ( :quantidade IS NULL OR ordenha.quantidade < :quantidade ) "
            + " GROUP BY animal.idAnimal")
    Page<AnimalEntity> animaisOrdenhaAbaixoMedia(Double quantidade, Pageable pageable);
+   @Query( value = "SELECT animal FROM AnimalEntity  animal "
+           + " WHERE 1=1 "
+           + " AND ( :idLote IS NULL OR animal.lote.idLote = :idLote ) ")
+   List<AnimalEntity> findByIdLote(Long idLote);
+
 
 }
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -54,6 +55,13 @@ public class AnimalController {
     public ResponseEntity<AnimalDTO> findById(@PathVariable Long idAnimal) throws ObjectNotFoundException {
         AnimalEntity obj = animalService.findById(idAnimal);
         return ResponseEntity.ok().body(new AnimalDTO(obj));
+    }
+
+    @GetMapping(value = "/lote/{idLote}")
+    public ResponseEntity<List<AnimalDTO>> findByIdLote(@PathVariable Long idLote) {
+        List<AnimalEntity> list = animalService.findByIdLote(idLote);
+        List<AnimalDTO> listDTO = list.stream().map(obj -> new AnimalDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
     @GetMapping
     public ResponseEntity<List<AnimalEntity>> listarTodos(

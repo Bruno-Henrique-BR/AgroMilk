@@ -25,6 +25,7 @@ public interface AnimalService {
             String nomeRaca,
             Boolean lactacao,
             Pageable pageable) throws Exception;
+    List<AnimalEntity> findByIdLote(Long idLote);
 
     void excluir(Long idLote) throws Exception;
     AnimalEntity salvar(AnimalRequestDTO dto) throws NotFoundException;

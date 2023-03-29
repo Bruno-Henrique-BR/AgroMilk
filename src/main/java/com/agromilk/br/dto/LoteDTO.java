@@ -12,7 +12,7 @@ import java.util.List;
 @EqualsAndHashCode()
 public class LoteDTO {
     private Long idLote;
-    private String nome;
+    private String nomeLote;
     private String descricao;
     private List<AnimalEntity> list = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class LoteDTO {
     public LoteDTO(LoteEntity obj) {
         super();
         this.idLote = obj.getIdLote();
-        this.nome = obj.getNomeLote();
+        this.nomeLote = obj.getNomeLote();
         this.descricao = obj.getDescricao();
         this.list = obj.getList();
     }
