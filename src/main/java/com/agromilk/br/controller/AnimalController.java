@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
-@CrossOrigin(   origins = "http://localhost:4200")
-
+@CrossOrigin(origins = {"${allowed.origin}"})
 @RestController
 @RequestMapping("agromilk/animal")
 public class AnimalController {
@@ -55,6 +55,12 @@ public class AnimalController {
     public ResponseEntity<AnimalDTO> findById(@PathVariable Long idAnimal) throws ObjectNotFoundException {
         AnimalEntity obj = animalService.findById(idAnimal);
         return ResponseEntity.ok().body(new AnimalDTO(obj));
+    }
+
+    @GetMapping("/pesquisar")
+    public ResponseEntity<List<AnimalEntity>> pesquisar(@RequestParam String apelido) throws Exception {
+        List<AnimalEntity> animais = animalService.pesquisar(apelido);
+        return new ResponseEntity<>(animais, HttpStatus.OK);
     }
 
     @GetMapping(value = "/lote/{idLote}")

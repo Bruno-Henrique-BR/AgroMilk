@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
-
+@CrossOrigin(origins = {"${allowed.origin}"})
 @RestController
 @RequestMapping("agromilk/coleta")
 public class ColetaController {

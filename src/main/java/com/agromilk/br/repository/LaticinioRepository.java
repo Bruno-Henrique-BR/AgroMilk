@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface LaticinioRepository extends JpaRepository<LaticinioEntity, Long> {
     @Query( value = "SELECT laticinio FROM LaticinioEntity laticinio "
@@ -17,12 +18,12 @@ public interface LaticinioRepository extends JpaRepository<LaticinioEntity, Long
             + " AND ( :cnpj IS NULL OR laticinio.cnpj LIKE :cnpj ) "
             + " AND ( :endereco IS NULL OR laticinio.endereco LIKE :endereco ) "
             + " AND ( :telefone IS NULL OR laticinio.telefone LIKE :telefone ) ")
-    Page<LaticinioEntity> findByFilter(Long idLaticinio,
-                                         String razaoSocial,
-                                         String cnpj,
-                                         String endereco,
-                                         String telefone,
-                                         Pageable pageable);
+    List<LaticinioEntity> findByFilter(Long idLaticinio,
+                                       String razaoSocial,
+                                       String cnpj,
+                                       String endereco,
+                                       String telefone,
+                                       Pageable pageable);
 
     Boolean existsByCnpj(String cnpj);
 }

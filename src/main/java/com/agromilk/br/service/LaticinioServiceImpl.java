@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -33,7 +34,7 @@ public class LaticinioServiceImpl implements LaticinioService {
     }
 
     @Override
-    public Page<LaticinioEntity> listar(
+    public List<LaticinioEntity> listar(
             Long idLaticinio,
             String razaoSocial,
             String cnpj,
@@ -44,7 +45,7 @@ public class LaticinioServiceImpl implements LaticinioService {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<LaticinioEntity> lista = laticinioRepository.findByFilter(
+        List<LaticinioEntity> lista = laticinioRepository.findByFilter(
                 idLaticinio,
                 razaoSocial,
                 cnpj,

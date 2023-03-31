@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
 
@@ -17,16 +18,13 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
             + " AND ( :data IS NULL OR ordenha.data = :data ) "
             + " AND ( :quantidade IS NULL OR ordenha.quantidade = :quantidade ) "
             + " AND ( :idAnimal IS NULL OR ordenha.animal.idAnimal = :idAnimal ) "
-            + " AND ( :idTanque IS NULL OR ordenha.tanque.idTanque = :idTanque ) "
-            + " AND ( :nomeFuncionario IS NULL OR ordenha.funcionario.nomeFuncionario = :nomeFuncionario ) ")
-
-    Page<OrdenhaEntity> findByFilter(Long idOrdenha,
-                                  LocalDate data,
-                                  Long quantidade,
-                                  Long idAnimal,
-                                  Long idTanque,
-                                  String nomeFuncionario,
-                                  Pageable pageable);
+            + " AND ( :idTanque IS NULL OR ordenha.tanque.idTanque = :idTanque ) ")
+    List<OrdenhaEntity> findByFilter(Long idOrdenha,
+                                     LocalDate data,
+                                     Long quantidade,
+                                     Long idAnimal,
+                                     Long idTanque,
+                                     Pageable pageable);
 
     @Query( value = "SELECT AVG(ordenha.quantidade) FROM OrdenhaEntity ordenha ")
     Double verificarMediaLitro();

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -52,24 +53,22 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     }
 
     @Override
-    public Page<OrdenhaEntity> listar(
+    public List<OrdenhaEntity> listar(
             Long idOrdenha,
             LocalDate data,
             Long quantidade,
             Long idAnimal,
             Long idTanque,
-            String nomeFuncionario,
             Pageable pageable) throws Exception {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<OrdenhaEntity> lista = ordenhaRepository.findByFilter(
+        List<OrdenhaEntity> lista = ordenhaRepository.findByFilter(
                 idOrdenha,
                 data,
                 quantidade,
                 idAnimal,
                 idTanque,
-                nomeFuncionario,
                 pageable);
 
         return lista;
@@ -83,11 +82,11 @@ public class OrdenhaServiceImpl implements OrdenhaService {
             throw new NotFoundException(AnimalConstants.IDANIMAL_NOTFOUND);
         }
 
-        Optional<FuncionarioEntity> funcionario = funcionarioRepository
-                .findById(dto.getIdFuncionario());
-        if (!funcionario.isPresent()) {
-            throw new NotFoundException(FuncionarioConstants.IDFUNCIONARIO_NOTFOUND);
-        }
+//        Optional<FuncionarioEntity> funcionario = funcionarioRepository
+//                .findById(dto.getIdFuncionario());
+//        if (!funcionario.isPresent()) {
+//            throw new NotFoundException(FuncionarioConstants.IDFUNCIONARIO_NOTFOUND);
+//        }
 
         Optional<TanqueEntity> tanque = tanqueRepository
                 .findById(dto.getIdTanque());
@@ -109,7 +108,7 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         saveOrdenha.setQuantidade(dto.getQuantidade());
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
-        saveOrdenha.setFuncionario(funcionario.get());
+//        saveOrdenha.setFuncionario(funcionario.get());
         this.validate(dto);
         saveOrdenha = ordenhaRepository.save(saveOrdenha);
         return saveOrdenha;

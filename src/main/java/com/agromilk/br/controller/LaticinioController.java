@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
-
+@CrossOrigin(origins = {"${allowed.origin}"})
 @RestController
 @RequestMapping("agromilk/laticinio")
 public class LaticinioController {
@@ -45,7 +47,7 @@ public class LaticinioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<LaticinioEntity>> listarTodos(
+    public ResponseEntity<List<LaticinioEntity>> listarTodos(
             @RequestParam(required = false) Long idLaticinio,
             @RequestParam(required = false) String razaoSocial,
             @RequestParam(required = false) String cnpj,
@@ -55,7 +57,7 @@ public class LaticinioController {
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
                     value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
 
-        Page<LaticinioEntity> response = laticinioService.listar(
+        List<LaticinioEntity> response = laticinioService.listar(
                 idLaticinio,
                 razaoSocial,
                 cnpj,

@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
-
+@CrossOrigin(origins = {"${allowed.origin}"})
 @RestController
 @RequestMapping("agromilk/ordenha")
 public class OrdenhaController {
@@ -45,7 +46,7 @@ public class OrdenhaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<OrdenhaEntity>> listarTodos(
+    public ResponseEntity<List<OrdenhaEntity>> listarTodos(
             @RequestParam(required = false) Long idOrdenha,
             @RequestParam(required = false) LocalDate data,
             @RequestParam(required = false) Long quantidade,
@@ -57,13 +58,12 @@ public class OrdenhaController {
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
                     value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
 
-        Page<OrdenhaEntity> response = ordenhaService.listar(
+        List<OrdenhaEntity> response = ordenhaService.listar(
                 idOrdenha,
                 data,
                 quantidade,
                 idAnimal,
                 idTanque,
-                nomeFuncionario,
                 pageable);
         return new ResponseEntity<>(response, OK);
     }

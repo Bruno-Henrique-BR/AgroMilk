@@ -8,16 +8,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface OrdenhaService {
 
-    Page<OrdenhaEntity> listar(
+    List<OrdenhaEntity> listar(
             Long idOrdenha,
             LocalDate data,
             Long quantidade,
             Long idAnimal,
             Long idTanque,
-            String nomeFuncionario,
             Pageable pageable) throws Exception;
     void excluir(Long idOrdenha) throws Exception;
     OrdenhaEntity salvar(OrdenhaRequestDTO dto) throws Exception;

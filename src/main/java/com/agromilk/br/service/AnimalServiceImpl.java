@@ -83,6 +83,11 @@ public class AnimalServiceImpl implements AnimalService {
         return lista;
     }
 
+    @Override
+    public List<AnimalEntity> pesquisar(String apelido) {
+        return animalRepository.findByApelidoContainingIgnoreCase(apelido);
+    }
+
     public AnimalEntity findById(Long idAnimal) throws ObjectNotFoundException {
         Optional<AnimalEntity> obj = animalRepository.findById(idAnimal);
         return obj.orElseThrow(() -> new ObjectNotFoundException(

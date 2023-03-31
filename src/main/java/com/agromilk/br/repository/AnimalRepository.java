@@ -15,6 +15,7 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
    Boolean existsByRacaIdRaca(Long idRaca);
 
    Boolean existsByLoteIdLote(Long idLote);
+   List<AnimalEntity> findByApelidoContainingIgnoreCase(String apelido);
 
    @Query( value = "SELECT animal FROM AnimalEntity animal "
            + " WHERE 1=1 "

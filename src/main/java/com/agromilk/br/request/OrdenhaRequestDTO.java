@@ -5,6 +5,8 @@ import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.entity.UsuarioEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,19 +20,15 @@ public class OrdenhaRequestDTO {
     private Long idOrdenha;
 
     @NotNull(message = "Data de ordenha é obrigatorio")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
     private LocalDate data;
-
     @NotNull(message = "Quantidade é obrigatorio")
     private Double quantidade;
-
     @NotNull(message = "Animal é obrigatorio")
     private Long idAnimal;
-
     @NotNull(message = "Tanque é obrigatorio")
     private Long idTanque;
 
-    @NotNull(message = "Funcionario é obrigatorio")
-    private Long idFuncionario;
 
 }
