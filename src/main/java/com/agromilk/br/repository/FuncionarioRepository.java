@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Long> {
 
@@ -20,13 +21,13 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
             + " AND ( :dataNascimento IS NULL OR funcionario.dataNascimento = :dataNascimento ) "
             + " AND ( :endereco IS NULL OR funcionario.endereco LIKE :endereco ) "
             + " AND ( :telefone IS NULL OR funcionario.telefone LIKE :telefone ) ")
-    Page<FuncionarioEntity> findByFilter(Long idFuncionario,
-                                  String nomeFuncionario,
-                                  String cpf,
-                                  LocalDate dataNascimento,
-                                  String endereco,
-                                  String telefone,
-                                  Pageable pageable);
+    List<FuncionarioEntity> findByFilter(Long idFuncionario,
+                                         String nomeFuncionario,
+                                         String cpf,
+                                         LocalDate dataNascimento,
+                                         String endereco,
+                                         String telefone,
+                                         Pageable pageable);
 
     Boolean existsByCpf(String cpf);
 

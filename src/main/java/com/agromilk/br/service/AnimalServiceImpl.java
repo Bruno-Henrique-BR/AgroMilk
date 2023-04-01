@@ -46,7 +46,18 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
+    @Transactional
     public void excluir(Long idAnimal) throws Exception {
+        Optional<AnimalEntity> animalOptional = animalRepository.findById(idAnimal);
+        if (!animalOptional.isPresent()) {
+            throw new Exception("Animal não encontrado");
+        }
+        AnimalEntity animal = animalOptional.get();
+
+        // Exclui todas as ordenhas relacionadas ao animal
+        ordenhaRepository.deleteByAnimalId(idAnimal);
+
+        // Exclui o animal
         animalRepository.deleteById(idAnimal);
     }
 

@@ -28,10 +28,10 @@ public class OrdenhaEntity {
 
     @NotNull(message = "Quantidade é obrigatorio")
     private Double quantidade;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ANIMAL", referencedColumnName = "ID_ANIMAL")
     private AnimalEntity animal;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_TANQUE", referencedColumnName = "ID_TANQUE")
     private TanqueEntity tanque;
     @ManyToOne

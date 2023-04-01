@@ -3,6 +3,8 @@ package com.agromilk.br.request;
 import com.agromilk.br.entity.LaticinioEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 
 import javax.persistence.JoinColumn;
@@ -26,6 +28,7 @@ public class ColetaRequestDTO {
 
     private String descricao;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy'T'HH:mm:ss", timezone = "America/Sao_Paulo")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
     private LocalDateTime data;
 }

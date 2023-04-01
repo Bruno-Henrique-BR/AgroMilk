@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -52,7 +53,7 @@ public class FuncionarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<FuncionarioEntity>> listarTodos(
+    public ResponseEntity<List<FuncionarioEntity>> listarTodos(
             @RequestParam(required = false) Long idFuncionario,
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String cpf,
@@ -63,7 +64,7 @@ public class FuncionarioController {
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
                     value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
 
-        Page<FuncionarioEntity> response = funcionarioService.listar(
+        List<FuncionarioEntity> response = funcionarioService.listar(
                 idFuncionario,
                 nome,
                 cpf,

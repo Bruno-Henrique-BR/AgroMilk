@@ -23,7 +23,7 @@ public class FuncionarioDTO {
 
     private String cpf;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDate dataNascimento;
 
     private String endereco;

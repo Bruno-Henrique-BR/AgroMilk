@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -33,7 +34,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public Page<FuncionarioEntity> listar(
+    public List<FuncionarioEntity> listar(
             Long idFuncionario,
             String nome,
             String cpf,
@@ -46,7 +47,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<FuncionarioEntity> lista = funcionarioRepository.findByFilter(
+        List<FuncionarioEntity> lista = funcionarioRepository.findByFilter(
                 idFuncionario,
                 nome,
                 cpf,
@@ -86,7 +87,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         else {
             saveFuncionario = new FuncionarioEntity();
         }
-        saveFuncionario.setNomeFuncionario(dto.getNome());
+        saveFuncionario.setNomeFuncionario(dto.getNomeFuncionario());
         saveFuncionario.setCpf(dto.getCpf());
         saveFuncionario.setDataNascimento(dto.getDataNascimento());
         saveFuncionario.setEndereco(dto.getEndereco());
