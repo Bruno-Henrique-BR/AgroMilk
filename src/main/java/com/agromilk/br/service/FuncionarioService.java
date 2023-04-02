@@ -1,11 +1,13 @@
 package com.agromilk.br.service;
 
 
+import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.request.FuncionarioRequestDTO;
 import com.agromilk.br.request.LoteRequestDTO;
 import javassist.NotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,5 +29,8 @@ public interface FuncionarioService {
     FuncionarioEntity salvar(FuncionarioRequestDTO dto) throws NotFoundException;
 
     FuncionarioEntity atualizar(FuncionarioRequestDTO dto, Long idFuncionario) throws Exception;
+
+    FuncionarioEntity findById(Long idFuncionario) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
+
 
 }

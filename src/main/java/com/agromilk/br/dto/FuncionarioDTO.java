@@ -1,6 +1,10 @@
 package com.agromilk.br.dto;
 
+import com.agromilk.br.entity.AnimalEntity;
+import com.agromilk.br.entity.FuncionarioEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.br.CPF;
@@ -19,15 +23,32 @@ public class FuncionarioDTO {
 
     private Long idFuncionario;
 
-    private String nome;
+    private String nomeFuncionario;
 
     private String cpf;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "America/Sao_Paulo")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
     private String endereco;
 
     private String telefone;
+
+
+    public FuncionarioDTO() {
+        super();
+    }
+
+    public FuncionarioDTO(FuncionarioEntity obj) {
+        super();
+        this.idFuncionario = obj.getIdFuncionario();
+        this.nomeFuncionario = obj.getNomeFuncionario();
+        this.cpf = obj.getCpf();
+        this.dataNascimento = obj.getDataNascimento();
+        this.endereco = obj.getEndereco();
+        this.telefone = obj.getTelefone();
+
+
+    }
 
 }

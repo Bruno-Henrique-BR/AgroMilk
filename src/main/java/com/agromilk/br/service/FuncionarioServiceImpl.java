@@ -1,6 +1,7 @@
 package com.agromilk.br.service;
 
 import com.agromilk.br.constants.FuncionarioConstants;
+import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.exception.ConflictException;
@@ -8,6 +9,7 @@ import com.agromilk.br.repository.FuncionarioRepository;
 import com.agromilk.br.request.FuncionarioRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,10 +61,21 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
         return lista;
     }
+
+    public FuncionarioEntity findById(Long idFuncionario) throws ObjectNotFoundException {
+        Optional<FuncionarioEntity> obj = funcionarioRepository.findById(idFuncionario);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + idFuncionario + ", Tipo: " + FuncionarioEntity.class.getName()));
+    }
     private void validate(FuncionarioRequestDTO funcionario) throws NotFoundException {
         Boolean exists = this.funcionarioRepository.existsByCpf(funcionario.getCpf());
-        if (Boolean.TRUE.equals(exists)){
-            throw new ConflictException(FuncionarioConstants.CPJEXISTS_CONFLICT);
+        Optional<FuncionarioEntity> optionalFuncionario = funcionarioRepository.findById(funcionario.getIdFuncionario());
+
+        if (!optionalFuncionario.isPresent()) {
+
+            if (Boolean.TRUE.equals(exists)) {
+                throw new ConflictException(FuncionarioConstants.CPJEXISTS_CONFLICT);
+            }
         }
     }
 

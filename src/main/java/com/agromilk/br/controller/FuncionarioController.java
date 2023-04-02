@@ -1,5 +1,8 @@
 package com.agromilk.br.controller;
 
+import com.agromilk.br.dto.AnimalDTO;
+import com.agromilk.br.dto.FuncionarioDTO;
+import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.exception.BadRequestException;
@@ -9,6 +12,7 @@ import com.agromilk.br.service.FuncionarioService;
 import com.agromilk.br.service.LoteService;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +54,12 @@ public class FuncionarioController {
             throws Exception {
         FuncionarioEntity funcionarioDTO = this.funcionarioService.atualizar(dto, idFuncionario);
         return new ResponseEntity<>(funcionarioDTO, OK);
+    }
+
+    @GetMapping(value = "/{idFuncionario}")
+    public ResponseEntity<FuncionarioDTO> findById(@PathVariable Long idFuncionario) throws ObjectNotFoundException {
+        FuncionarioEntity obj = funcionarioService.findById(idFuncionario);
+        return ResponseEntity.ok().body(new FuncionarioDTO(obj));
     }
 
     @GetMapping
