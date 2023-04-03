@@ -197,7 +197,7 @@ public class AnimalServiceImpl implements AnimalService {
             throws NotFoundException {
 
         if (nonNull(dto.getIdAnimal())) {
-            throw new NotFoundException(TanqueConstants.IDTANQUE_INSERT);
+            throw new NotFoundException(AnimalConstants.IDANIMAL_INSERT);
         }
         return saveAnimal(dto);
     }

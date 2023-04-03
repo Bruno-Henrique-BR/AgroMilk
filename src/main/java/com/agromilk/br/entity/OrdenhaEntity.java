@@ -2,6 +2,8 @@ package com.agromilk.br.entity;
 
 //import com.agromilk.br.util.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +25,8 @@ public class OrdenhaEntity {
     private Long idOrdenha;
 
     @NotNull(message = "Data de ordenha é obrigatorio")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate data;
 
     @NotNull(message = "Quantidade é obrigatorio")

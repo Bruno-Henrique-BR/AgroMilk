@@ -111,9 +111,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     }
 
+
+
     public FuncionarioEntity salvar(FuncionarioRequestDTO dto)
             throws NotFoundException {
-        this.validate(dto);
 
         if (nonNull(dto.getIdFuncionario())) {
             throw new NotFoundException(FuncionarioConstants.IIDFUNCIONARIO_INSERT);

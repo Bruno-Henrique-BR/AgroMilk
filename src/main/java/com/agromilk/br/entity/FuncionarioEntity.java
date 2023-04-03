@@ -24,7 +24,7 @@ public class FuncionarioEntity {
     @CPF
     private String cpf;
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate dataNascimento;
 
     private String endereco;

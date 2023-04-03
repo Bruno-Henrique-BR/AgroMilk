@@ -23,7 +23,7 @@ public class FuncionarioRequestDTO {
     private String cpf;
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate dataNascimento;
 
     @NotEmpty(message = "Endereço é obrigatório")

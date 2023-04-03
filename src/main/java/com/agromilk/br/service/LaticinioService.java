@@ -6,6 +6,7 @@ import com.agromilk.br.entity.LaticinioEntity;
 import com.agromilk.br.request.FuncionarioRequestDTO;
 import com.agromilk.br.request.LaticinioRequestDTO;
 import javassist.NotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,4 +27,7 @@ public interface LaticinioService {
     LaticinioEntity salvar(LaticinioRequestDTO dto) throws NotFoundException;
 
     LaticinioEntity atualizar(LaticinioRequestDTO dto, Long idLaticinio) throws Exception;
+
+    LaticinioEntity findById(Long idLaticinio) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
+
 }

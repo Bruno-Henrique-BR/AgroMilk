@@ -18,12 +18,13 @@ public class AnimalRequestDTO {
         private String apelido;
 
         @JsonDeserialize(using = LocalDateDeserializer.class)
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
         private LocalDate dataNascimento;
 
         @JsonDeserialize(using = LocalDateDeserializer.class)
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
         private LocalDate dataCompra;
+
 
         @NotNull(message = "Cor é obrigatório")
         private String cor;
