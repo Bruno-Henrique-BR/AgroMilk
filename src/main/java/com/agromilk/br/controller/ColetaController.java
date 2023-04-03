@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -46,7 +47,7 @@ public class ColetaController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ColetaEntity>> listarTodos(
+    public ResponseEntity<List<ColetaEntity>> listarTodos(
             @RequestParam(required = false) Long idColeta,
             @RequestParam(required = false) Long idTanque,
             @RequestParam(required = false) Long idLaticinio,
@@ -59,7 +60,7 @@ public class ColetaController {
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
                     value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
 
-        Page<ColetaEntity> response = coletaService.listar(
+        List<ColetaEntity> response = coletaService.listar(
                 idColeta,
                 idTanque,
                 idLaticinio,

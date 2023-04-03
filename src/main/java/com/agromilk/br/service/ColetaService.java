@@ -9,10 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ColetaService {
 
-    Page<ColetaEntity> listar(
+    List<ColetaEntity> listar(
             Long idColeta,
             Long idTanque,
             Long idLaticinio,

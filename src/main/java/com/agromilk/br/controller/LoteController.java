@@ -1,6 +1,7 @@
 package com.agromilk.br.controller;
 
 import com.agromilk.br.dto.LoteDTO;
+import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.LoteRequestDTO;
@@ -43,6 +44,16 @@ public class LoteController {
     public ResponseEntity<LoteDTO> findById(@PathVariable Long idLote) throws ObjectNotFoundException {
         LoteEntity obj = loteService.findById(idLote);
         return ResponseEntity.ok().body(new LoteDTO(obj));
+    }
+    @PostMapping("/lotes/{idLote}/adicionar-animal")
+    public ResponseEntity<LoteEntity> adicionarAnimalAoLote(@PathVariable Long idLote, @RequestBody AnimalEntity animal, LoteRequestDTO dto) throws Exception {
+        LoteEntity lote = loteService.findById(idLote);
+        if (lote == null) {
+            return ResponseEntity.notFound().build();
+        }
+        loteService.adicionarAnimal(idLote, animal);
+        loteService.atualizar(dto, idLote);
+        return ResponseEntity.ok().body(lote);
     }
 
     @PutMapping("/{idLote}")

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface ColetaRepository extends JpaRepository<ColetaEntity, Long> {
 
@@ -20,8 +21,7 @@ public interface ColetaRepository extends JpaRepository<ColetaEntity, Long> {
             + " AND ( :quantidade IS NULL OR coleta.quantidade = :quantidade ) "
             + " AND ( :descricao IS NULL OR coleta.descricao = :descricao ) "
             + " AND ( :data IS NULL OR coleta.data = :data ) ")
-
-    Page<ColetaEntity> findByFilter(Long idColeta,
+    List<ColetaEntity> findByFilter(Long idColeta,
                                     Long idTanque,
                                     Long idLaticinio,
                                     Double quantidade,

@@ -2,6 +2,7 @@ package com.agromilk.br.service;
 
 import com.agromilk.br.constants.LoteConstants;
 import com.agromilk.br.constants.RacaConstants;
+import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.AnimalRepository;
@@ -11,7 +12,6 @@ import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class LoteServiceImpl implements LoteService {
 
     @Autowired
     private LoteRepository loteRepository;
-
+    @Autowired
     private AnimalRepository animalRepository;
 
     public LoteServiceImpl(LoteRepository loteRepository, AnimalRepository animalRepository) {
@@ -61,7 +61,16 @@ public class LoteServiceImpl implements LoteService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + idLote + ", Tipo: " + LoteEntity.class.getName()));
     }
+    public void adicionarAnimal(Long idLote, AnimalEntity animal) throws ObjectNotFoundException {
+        LoteEntity lote = loteRepository.findById(idLote)
+                .orElseThrow(() -> new ObjectNotFoundException("Lote não encontrado"));
 
+        List<AnimalEntity> animais = lote.getList();
+        animais.add(animal);
+
+        lote.setList(animais);
+        loteRepository.save(lote);
+    }
 
     @Override
     public void excluir(Long idLote) throws Exception {

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -47,7 +48,7 @@ public class ColetaServiceImpl implements ColetaService {
     }
 
     @Override
-    public Page<ColetaEntity> listar(
+    public List<ColetaEntity> listar(
             Long idColeta,
             Long idTanque,
             Long idLaticinio,
@@ -58,7 +59,7 @@ public class ColetaServiceImpl implements ColetaService {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
 
-        Page<ColetaEntity> lista = coletaRepository.findByFilter(
+        List<ColetaEntity> lista = coletaRepository.findByFilter(
                 idColeta,
                 idTanque,
                 idLaticinio,
