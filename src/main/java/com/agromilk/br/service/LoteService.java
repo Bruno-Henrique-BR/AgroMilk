@@ -26,4 +26,6 @@ public interface LoteService {
 
     LoteEntity findById( Long idLote) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
     void adicionarAnimal(Long idLote, AnimalEntity animal) throws javassist.tools.rmi.ObjectNotFoundException;
+
+    Long lotes();
 }

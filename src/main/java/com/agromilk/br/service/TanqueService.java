@@ -29,4 +29,8 @@ public interface TanqueService {
     TanqueEntity atualizar(TanqueRequestDTO dto, Long idTanque) throws Exception;
 
     TanqueEntity findById( Long idTanque) throws ObjectNotFoundException;
+
+    Long tanques();
+
+    Double quantidadeTotalLeite();
 }

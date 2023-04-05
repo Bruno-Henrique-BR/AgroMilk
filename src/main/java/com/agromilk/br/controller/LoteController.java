@@ -88,4 +88,9 @@ public class LoteController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/qtsLotes")
+    public Long qtsLotes(){
+        return loteService.lotes();
+    }
+
 }

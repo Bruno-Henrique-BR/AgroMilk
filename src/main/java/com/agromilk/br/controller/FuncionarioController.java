@@ -90,4 +90,9 @@ public class FuncionarioController {
         funcionarioService.excluir(idFuncionario);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/qtsFuncionario")
+    public Long qtsFuncionario(){
+        return funcionarioService.funcionarios();
+    }
 }

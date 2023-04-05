@@ -82,4 +82,14 @@ public class TanqueController {
         tanqueService.excluir(idTanque);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/qtsTanques")
+    public Long qtsTanques(){
+        return tanqueService.tanques();
+    }
+
+    @GetMapping("/qtdTotalLeite")
+    public Double qtdTotalLeite(){
+        return tanqueService.quantidadeTotalLeite();
+    }
 }

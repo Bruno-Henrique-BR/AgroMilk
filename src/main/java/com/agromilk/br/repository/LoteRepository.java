@@ -22,4 +22,7 @@ public interface LoteRepository extends JpaRepository<LoteEntity, Long> {
                                Pageable pageable);
     List<LoteEntity> findByOrderByNomeLote();
 
+    @Query( value = "SELECT COUNT(lote.idLote) FROM LoteEntity  lote " )
+    Long verificarQdtLotes();
+
 }

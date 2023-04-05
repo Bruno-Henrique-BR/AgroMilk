@@ -37,7 +37,15 @@ public class TanqueServiceImpl implements TanqueService {
         this.tanqueRepository = tanqueRepository;
     }
 
+    @Override
+    public Long tanques(){
+        return tanqueRepository.verificarQdtTanques();
+    }
 
+    @Override
+    public Double quantidadeTotalLeite(){
+        return tanqueRepository.somarQuantidadesAtuais();
+    }
     @Override
     public void excluir(Long idTanque) throws Exception {
 

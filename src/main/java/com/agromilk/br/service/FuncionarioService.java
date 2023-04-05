@@ -32,5 +32,6 @@ public interface FuncionarioService {
 
     FuncionarioEntity findById(Long idFuncionario) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
 
+    Long funcionarios();
 
 }

@@ -37,7 +37,10 @@ public class LoteServiceImpl implements LoteService {
         this.loteRepository = loteRepository;
         this.animalRepository = animalRepository;
     }
-
+    @Override
+    public Long lotes(){
+        return loteRepository.verificarQdtLotes();
+    }
     @Override
     public List<LoteEntity> listar(
             Long idLote,

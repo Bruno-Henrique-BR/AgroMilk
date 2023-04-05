@@ -34,7 +34,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public FuncionarioServiceImpl(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
     }
-
+    @Override
+    public Long funcionarios(){
+        return funcionarioRepository.verificarQdtFuncionarios();
+    }
     @Override
     public List<FuncionarioEntity> listar(
             Long idFuncionario,

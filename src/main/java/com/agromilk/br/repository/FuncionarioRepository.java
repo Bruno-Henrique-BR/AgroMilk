@@ -30,6 +30,7 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
                                          Pageable pageable);
 
     Boolean existsByCpf(String cpf);
-
+    @Query( value = "SELECT COUNT(funcionario.idFuncionario) FROM FuncionarioEntity  funcionario " )
+    Long verificarQdtFuncionarios();
 
 }

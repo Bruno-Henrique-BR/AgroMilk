@@ -43,4 +43,11 @@ public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
             " WHERE tanque.idTanque = :idTanque " )
     Double verificarLeite(Long idTanque);
 
+    @Query(value = "SELECT SUM(tanque.quantidadeAtual) FROM TanqueEntity tanque")
+    Double somarQuantidadesAtuais();
+
+    @Query( value = "SELECT COUNT(tanque.idTanque) FROM TanqueEntity  tanque " )
+    Long verificarQdtTanques();
+
+
 }
