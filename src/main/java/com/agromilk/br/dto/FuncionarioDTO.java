@@ -2,6 +2,7 @@ package com.agromilk.br.dto;
 
 import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.FuncionarioEntity;
+import com.agromilk.br.security.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -9,16 +10,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class FuncionarioDTO {
+public class FuncionarioDTO implements Serializable {
 
 
     private Long idFuncionario;
@@ -35,6 +38,15 @@ public class FuncionarioDTO {
 
     private String telefone;
 
+    @Email
+    private String email;
+
+    private String senha;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataCriacao;
+    //private DateTimeFormatter dataCriacao = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
 
     public FuncionarioDTO() {
         super();
@@ -48,8 +60,19 @@ public class FuncionarioDTO {
         this.dataNascimento = obj.getDataNascimento();
         this.endereco = obj.getEndereco();
         this.telefone = obj.getTelefone();
+        this.email = obj.getEmail();
+        this.senha = obj.getSenha();
+        this.perfis = new HashSet<>();
+        addPerfil(Perfil.FUNCIONARIO);
 
+    }
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIL_FUNCIONARIO", joinColumns = @JoinColumn(name = "id_funcionario"))
+    private Set<Integer> perfis = new HashSet<>();
+
+    public void addPerfil(Perfil perfil) {
+        this.perfis.add(perfil.getCod());
     }
 
 }

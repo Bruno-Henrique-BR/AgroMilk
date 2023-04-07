@@ -1,28 +1,21 @@
 package com.agromilk.br.controller;
 
-import com.agromilk.br.dto.AnimalDTO;
 import com.agromilk.br.dto.FuncionarioDTO;
-import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.FuncionarioEntity;
-import com.agromilk.br.entity.LoteEntity;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.request.FuncionarioRequestDTO;
-import com.agromilk.br.request.LoteRequestDTO;
 import com.agromilk.br.service.FuncionarioService;
-import com.agromilk.br.service.LoteService;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,7 +32,6 @@ public class FuncionarioController {
     public FuncionarioController(FuncionarioService funcionarioService) {
         this.funcionarioService = funcionarioService;
     }
-
     @PostMapping
     public ResponseEntity<FuncionarioEntity> cadastrarFuncionario(
             @RequestBody @Valid FuncionarioRequestDTO dto)
@@ -47,7 +39,6 @@ public class FuncionarioController {
         FuncionarioEntity response = funcionarioService.salvar(dto);
         return new ResponseEntity<>(response, CREATED);
     }
-
     @PutMapping("/{idFuncionario}")
     public ResponseEntity<FuncionarioEntity> atualizarFuncionario(@PathVariable Long idFuncionario,
                                                     @RequestBody @Valid FuncionarioRequestDTO dto)
@@ -90,7 +81,6 @@ public class FuncionarioController {
         funcionarioService.excluir(idFuncionario);
         return ResponseEntity.noContent().build();
     }
-
     @GetMapping("/qtsFuncionario")
     public Long qtsFuncionario(){
         return funcionarioService.funcionarios();

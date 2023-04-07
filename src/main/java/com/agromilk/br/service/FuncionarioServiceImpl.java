@@ -14,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -30,7 +33,8 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
-
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     public FuncionarioServiceImpl(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
     }
@@ -108,6 +112,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         saveFuncionario.setDataNascimento(dto.getDataNascimento());
         saveFuncionario.setEndereco(dto.getEndereco());
         saveFuncionario.setTelefone(dto.getTelefone());
+        saveFuncionario.setEmail(dto.getEmail());
+        saveFuncionario.setSenha(encoder.encode(dto.getSenha())); // codifica a senha antes de salvar
+        Set<Integer> perfis = new HashSet<>(dto.getPerfis());
+        saveFuncionario.setPerfis(perfis);
         saveFuncionario = funcionarioRepository.save(saveFuncionario);
 
         return saveFuncionario;

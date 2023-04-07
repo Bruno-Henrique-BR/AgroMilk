@@ -2,15 +2,16 @@ package com.agromilk.br.repository;
 
 import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.LoteEntity;
-import com.agromilk.br.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import java.util.Optional;
+@Repository
 public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Long> {
 
     @Query( value = "SELECT funcionario FROM FuncionarioEntity funcionario "
@@ -32,5 +33,8 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
     Boolean existsByCpf(String cpf);
     @Query( value = "SELECT COUNT(funcionario.idFuncionario) FROM FuncionarioEntity  funcionario " )
     Long verificarQdtFuncionarios();
+
+    Optional<FuncionarioEntity> findByEmail(String email);
+
 
 }
