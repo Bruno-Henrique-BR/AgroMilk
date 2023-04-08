@@ -43,7 +43,6 @@ public class FuncionarioRequestDTO {
     @Email(message = "Email inválido")
     private String email;
 
-    @NotNull(message = "Perfil é obrigatório")
     private Perfil perfil;
 
     private List<Integer> perfis;

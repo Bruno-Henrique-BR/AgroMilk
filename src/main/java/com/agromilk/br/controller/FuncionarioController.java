@@ -32,10 +32,12 @@ public class FuncionarioController {
     public FuncionarioController(FuncionarioService funcionarioService) {
         this.funcionarioService = funcionarioService;
     }
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<FuncionarioEntity> cadastrarFuncionario(
             @RequestBody @Valid FuncionarioRequestDTO dto)
             throws NotFoundException, BadRequestException {
+
         FuncionarioEntity response = funcionarioService.salvar(dto);
         return new ResponseEntity<>(response, CREATED);
     }
