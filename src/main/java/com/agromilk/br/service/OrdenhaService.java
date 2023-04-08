@@ -1,9 +1,11 @@
 package com.agromilk.br.service;
 
 
+import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import javassist.NotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,5 +25,8 @@ public interface OrdenhaService {
     OrdenhaEntity salvar(OrdenhaRequestDTO dto) throws Exception;
 
     OrdenhaEntity atualizar(OrdenhaRequestDTO dto, Long idOrdenha) throws Exception;
+
+    OrdenhaEntity findById(Long idOrdenha) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
+
 
 }

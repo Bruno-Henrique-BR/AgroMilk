@@ -21,7 +21,7 @@ public class OrdenhaRequestDTO {
 
     @NotNull(message = "Data de ordenha é obrigatorio")
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate data;
     @NotNull(message = "Quantidade é obrigatorio")
     private Double quantidade;

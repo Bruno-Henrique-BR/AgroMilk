@@ -1,9 +1,11 @@
 package com.agromilk.br.controller;
 
+import com.agromilk.br.dto.OrdenhaDTO;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.service.OrdenhaService;
 import com.agromilk.br.util.Paginacao;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +45,11 @@ public class OrdenhaController {
             throws Exception {
         OrdenhaEntity ordenhaDTO = this.ordenhaService.atualizar(dto, idOrdenha);
         return new ResponseEntity<>(ordenhaDTO, OK);
+    }
+    @GetMapping(value = "/{idOrdenha}")
+    public ResponseEntity<OrdenhaDTO> findById(@PathVariable Long idOrdenha) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException {
+        OrdenhaEntity obj = ordenhaService.findById(idOrdenha);
+        return ResponseEntity.ok().body(new OrdenhaDTO(obj));
     }
 
     @GetMapping

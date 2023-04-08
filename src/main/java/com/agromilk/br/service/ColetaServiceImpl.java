@@ -9,6 +9,7 @@ import com.agromilk.br.request.ColetaRequestDTO;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -141,5 +142,10 @@ public class ColetaServiceImpl implements ColetaService {
         dto.setIdColeta(idColeta);
 
         return saveColeta(dto);
+    }
+    public ColetaEntity findById(Long idColeta) throws javassist.tools.rmi.ObjectNotFoundException {
+        Optional<ColetaEntity> obj = coletaRepository.findById(idColeta);
+        return obj.orElseThrow(() -> new javassist.tools.rmi.ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + idColeta + ", Tipo: " + ColetaEntity.class.getName()));
     }
 }

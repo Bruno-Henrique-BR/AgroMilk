@@ -1,9 +1,13 @@
 package com.agromilk.br.controller;
 
+import com.agromilk.br.dto.AnimalDTO;
+import com.agromilk.br.dto.ColetaDTO;
+import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.ColetaEntity;
 import com.agromilk.br.request.ColetaRequestDTO;
 import com.agromilk.br.service.ColetaService;
 import com.agromilk.br.util.Paginacao;
+import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +48,11 @@ public class ColetaController {
             throws Exception {
         ColetaEntity coletaDTO = this.coletaService.atualizar(dto, idColeta);
         return new ResponseEntity<>(coletaDTO, OK);
+    }
+    @GetMapping(value = "/{idColeta}")
+    public ResponseEntity<ColetaDTO> findById(@PathVariable Long idColeta) throws ObjectNotFoundException {
+        ColetaEntity obj = coletaService.findById(idColeta);
+        return ResponseEntity.ok().body(new ColetaDTO(obj));
     }
 
     @GetMapping

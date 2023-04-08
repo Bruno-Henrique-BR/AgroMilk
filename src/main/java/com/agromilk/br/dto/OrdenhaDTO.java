@@ -1,10 +1,15 @@
 package com.agromilk.br.dto;
 
+import com.agromilk.br.entity.AnimalEntity;
+import com.agromilk.br.entity.OrdenhaEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -12,14 +17,29 @@ public class OrdenhaDTO {
 
     private Long idOrdenha;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "America/Sao_Paulo")
-    private LocalDateTime data;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
+    private LocalDate data;
 
     private Double quantidade;
 
-    private AnimalDTO animal;
+    private Long animal;
 
-    private TanqueDTO tanque;
+    private Long tanque;
 
-    private FuncionarioDTO funcionario;
+    private Long funcionario;
+
+    public OrdenhaDTO() {
+        super();
+    }
+
+    public OrdenhaDTO(OrdenhaEntity obj) {
+        super();
+        this.idOrdenha = obj.getIdOrdenha();
+        this.data = obj.getData();
+        this.quantidade = obj.getQuantidade();
+        this.animal = obj.getAnimal().getIdAnimal();
+        this.tanque = obj.getTanque().getIdTanque();
+
+    }
 }

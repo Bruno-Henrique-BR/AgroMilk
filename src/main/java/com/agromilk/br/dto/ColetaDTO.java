@@ -1,5 +1,7 @@
 package com.agromilk.br.dto;
 
+import com.agromilk.br.entity.AnimalEntity;
+import com.agromilk.br.entity.ColetaEntity;
 import com.agromilk.br.entity.LaticinioEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -30,4 +32,20 @@ public class ColetaDTO {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate data;
+
+    public ColetaDTO() {
+        super();
+    }
+
+    public ColetaDTO(ColetaEntity obj) {
+        super();
+        this.idColeta = obj.getIdColeta();
+        this.tanque = obj.getTanque();
+        this.laticinio = obj.getLaticinio();
+        this.quantidade = obj.getQuantidade();
+        this.descricao = obj.getDescricao();
+        this.data = obj.getData();
+
+
+    }
 }

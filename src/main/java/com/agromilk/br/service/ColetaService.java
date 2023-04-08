@@ -5,6 +5,7 @@ import com.agromilk.br.entity.ColetaEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.ColetaRequestDTO;
 import com.agromilk.br.request.OrdenhaRequestDTO;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -25,5 +26,8 @@ public interface ColetaService {
     ColetaEntity salvar(ColetaRequestDTO dto) throws Exception;
 
     ColetaEntity atualizar(ColetaRequestDTO dto, Long idColeta) throws Exception;
+
+    ColetaEntity findById(Long idColeta) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
+
 
 }

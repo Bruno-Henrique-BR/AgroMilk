@@ -11,6 +11,7 @@ import com.agromilk.br.repository.TanqueRepository;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -150,4 +151,11 @@ public class OrdenhaServiceImpl implements OrdenhaService {
 
         return saveOrdenha(dto);
     }
+
+    public OrdenhaEntity findById(Long idOrdenha) throws javassist.tools.rmi.ObjectNotFoundException {
+        Optional<OrdenhaEntity> obj = ordenhaRepository.findById(idOrdenha);
+        return obj.orElseThrow(() -> new javassist.tools.rmi.ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + idOrdenha + ", Tipo: " + OrdenhaEntity.class.getName()));
+    }
+
 }
