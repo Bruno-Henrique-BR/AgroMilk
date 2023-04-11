@@ -2,6 +2,7 @@ package com.agromilk.br.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.*;
 import org.hibernate.annotations.Formula;
@@ -40,5 +41,7 @@ public class AnimalEntity {
     private Boolean lactacao;
     @Formula("(SELECT AVG(ordenha.quantidade) FROM ORDENHA ordenha WHERE ordenha.id_animal = id_animal)")
     private Double media;
+    @Enumerated(EnumType.STRING)
+    private CategoriaAnimal categoria;
 
 }
