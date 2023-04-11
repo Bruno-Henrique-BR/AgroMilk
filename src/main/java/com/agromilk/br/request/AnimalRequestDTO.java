@@ -1,5 +1,6 @@
 package com.agromilk.br.request;
 
+import com.agromilk.br.repository.OrdenhaRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 @Data
 public class AnimalRequestDTO {
 
-
+        private OrdenhaRepository ordenhaRepository;
         private Long idAnimal;
         @NotNull(message = "Codigo é obrigatório")
         private String codigo;
@@ -37,7 +38,7 @@ public class AnimalRequestDTO {
 
         @NotNull(message = "Lactação é obrigatório")
         private Boolean lactacao;
-
+        private Double mediaAnimal;
 
 
 }

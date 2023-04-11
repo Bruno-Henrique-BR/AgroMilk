@@ -80,6 +80,8 @@ public class AnimalController {
             @RequestParam(required = false) String nomeLote,
             @RequestParam(required = false) String nomeRaca,
             @RequestParam(required = false) Boolean lactacao,
+            @RequestParam(required = false) Double media,
+
 
 
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
@@ -95,6 +97,7 @@ public class AnimalController {
                 nomeLote,
                 nomeRaca,
                 lactacao,
+                media,
                 pageable);
         return new ResponseEntity<>(response, OK);
     }

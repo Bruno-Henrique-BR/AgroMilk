@@ -27,7 +27,8 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " AND ( :cor IS NULL OR animal.cor LIKE :cor ) "
            + " AND ( :nomeLote IS NULL OR animal.lote.nomeLote = :nomeLote ) "
            + " AND ( :nomeRaca IS NULL OR animal.raca.nomeRaca = :nomeRaca ) "
-           + " AND ( :lactacao IS NULL OR animal.lactacao = :lactacao ) ")
+           + " AND ( :lactacao IS NULL OR animal.lactacao = :lactacao ) "
+           + " AND ( :media IS NULL OR animal.media = :media ) ")
    List<AnimalEntity> findByFilter(Long idAnimal,
                                    String codigo,
                                    String apelido,
@@ -37,6 +38,7 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
                                    String nomeLote,
                                    String nomeRaca,
                                    Boolean lactacao,
+                                   Double media,
                                    Pageable pageable);
    @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal " )
    Long verificarQdtAnimais();

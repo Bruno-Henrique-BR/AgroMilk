@@ -33,7 +33,6 @@ public class FuncionarioRequestDTO {
     @NotEmpty(message = "Endereço é obrigatório")
     private String endereco;
 
-    @NotEmpty(message = "Telefone é obrigatório")
     private String telefone;
 
     @NotEmpty(message = "Senha é obrigatório")

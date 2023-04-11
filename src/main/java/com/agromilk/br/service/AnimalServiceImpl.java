@@ -136,6 +136,7 @@ public class AnimalServiceImpl implements AnimalService {
             String nomeLote,
             String nomeRaca,
             Boolean lactacao,
+            Double media,
             Pageable pageable) throws Exception {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
@@ -150,6 +151,7 @@ public class AnimalServiceImpl implements AnimalService {
                 nomeLote,
                 nomeRaca,
                 lactacao,
+                media,
                 pageable);
 
         return lista;
@@ -157,6 +159,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     private AnimalEntity saveAnimal(AnimalRequestDTO dto)
             throws NotFoundException {
+
         Optional<LoteEntity> lote = loteRepository
                 .findById(dto.getIdLote());
         if (!lote.isPresent()) {
