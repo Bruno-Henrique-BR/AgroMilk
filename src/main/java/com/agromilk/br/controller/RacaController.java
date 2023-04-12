@@ -53,7 +53,7 @@ public class RacaController {
             @RequestParam(required = false) String descricao,
 
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
-                    value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
+                    value = Integer.MAX_VALUE) Pageable pageable) throws Exception {
 
         List<RacaEntity> response = racaService.listar(
                 idRaca,

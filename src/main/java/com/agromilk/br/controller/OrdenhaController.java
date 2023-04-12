@@ -63,7 +63,7 @@ public class OrdenhaController {
 
 
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
-                    value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
+                    value = Integer.MAX_VALUE) Pageable pageable) throws Exception {
 
         List<OrdenhaEntity> response = ordenhaService.listar(
                 idOrdenha,
