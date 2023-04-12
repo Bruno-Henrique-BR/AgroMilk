@@ -18,6 +18,10 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
     @Query(value = "DELETE FROM OrdenhaEntity ordenha "
             + "WHERE ordenha.animal.idAnimal = :idAnimal")
     void deleteByAnimalId(@Param("idAnimal") Long idAnimal);
+    @Modifying
+    @Query(value = "DELETE FROM OrdenhaEntity ordenha WHERE ordenha.idOrdenha = :idOrdenha")
+    void deleteById(@Param("idOrdenha") Long idOrdenha);
+
     @Query( value = "SELECT ordenha FROM OrdenhaEntity ordenha "
             + " WHERE 1=1 "
             + " AND ( :idOrdenha IS NULL OR ordenha.idOrdenha = :idOrdenha ) "
