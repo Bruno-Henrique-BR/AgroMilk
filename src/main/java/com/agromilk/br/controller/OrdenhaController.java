@@ -32,16 +32,16 @@ public class OrdenhaController {
         this.ordenhaService = ordenhaService;
     }
 
-//    @PostMapping
-//    public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(
-//            @RequestBody @Valid OrdenhaRequestDTO dto)
-//            throws Exception {
-//        OrdenhaEntity response = ordenhaService.salvar(dto);
-//        return new ResponseEntity<>(response, CREATED);
-//    }
-//
-
     @PostMapping
+    public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(
+            @RequestBody @Valid OrdenhaRequestDTO dto)
+            throws Exception {
+        OrdenhaEntity response = ordenhaService.salvar(dto);
+        return new ResponseEntity<>(response, CREATED);
+    }
+
+
+    @PostMapping("/multiplas")
     public ResponseEntity<?> cadastrarOrdenhas(@RequestBody List<OrdenhaRequestDTO> ordenhas) {
         try {
             ordenhaService.cadastrarOrdenhas(ordenhas);
