@@ -20,4 +20,18 @@ public class LoteEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "lote")
     private List<AnimalEntity> list = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "lote")
+    private List<AnimalEntity> animais = new ArrayList<>();
+
+    // getters and setters for animais
+    public List<AnimalEntity> getAnimais() {
+        return animais;
+    }
+
+    public void setAnimais(List<AnimalEntity> animais) {
+        this.animais = animais;
+    }
+
 }

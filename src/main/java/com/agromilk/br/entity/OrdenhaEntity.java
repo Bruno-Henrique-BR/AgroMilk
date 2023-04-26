@@ -37,9 +37,7 @@ public class OrdenhaEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_TANQUE", referencedColumnName = "ID_TANQUE")
     private TanqueEntity tanque;
-    @ManyToOne
-    @JoinColumn(name = "ID_USUARIO",referencedColumnName = "ID_USUARIO")
-    private UsuarioEntity usuario;
+
     @ManyToOne
     @JoinColumn(name = "ID_FUNCIONARIO",referencedColumnName = "ID_FUNCIONARIO")
     private FuncionarioEntity funcionario;

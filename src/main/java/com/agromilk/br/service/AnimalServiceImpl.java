@@ -190,7 +190,6 @@ public class AnimalServiceImpl implements AnimalService {
         saveAnimal.setLote(lote.get());
         saveAnimal.setRaca(raca.get());
         saveAnimal.setLactacao(dto.getLactacao());
-        saveAnimal.setCategoria(dto.getCategoria());
         saveAnimal = animalRepository.save(saveAnimal);
         return saveAnimal;
 

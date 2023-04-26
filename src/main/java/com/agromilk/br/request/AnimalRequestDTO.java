@@ -1,16 +1,11 @@
 package com.agromilk.br.request;
 
-import com.agromilk.br.entity.CategoriaAnimal;
 import com.agromilk.br.repository.OrdenhaRepository;
-import com.agromilk.br.util.CategoriaAnimalDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 @Data
@@ -44,8 +39,7 @@ public class AnimalRequestDTO {
         @NotNull(message = "Lactação é obrigatório")
         private Boolean lactacao;
         private Double mediaAnimal;
-        @JsonDeserialize(using = CategoriaAnimalDeserializer.class)
-        private CategoriaAnimal categoria;
+
 
 
 

@@ -1,10 +1,8 @@
 package com.agromilk.br.dto;
 
 import com.agromilk.br.entity.AnimalEntity;
-import com.agromilk.br.entity.CategoriaAnimal;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,8 +35,7 @@ public class AnimalDTO {
     private Long raca;
 
     private Boolean lactacao;
-    @Enumerated(EnumType.STRING)
-    private CategoriaAnimal categoria;
+
     public AnimalDTO() {
         super();
     }
@@ -54,7 +51,6 @@ public class AnimalDTO {
         this.lote = obj.getLote().getIdLote();
         this.raca = obj.getRaca().getIdRaca();
         this.lactacao = obj.getLactacao();
-        this.categoria = obj.getCategoria();
 
     }
 

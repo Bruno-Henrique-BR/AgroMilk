@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,13 +32,25 @@ public class OrdenhaController {
         this.ordenhaService = ordenhaService;
     }
 
+//    @PostMapping
+//    public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(
+//            @RequestBody @Valid OrdenhaRequestDTO dto)
+//            throws Exception {
+//        OrdenhaEntity response = ordenhaService.salvar(dto);
+//        return new ResponseEntity<>(response, CREATED);
+//    }
+//
+
     @PostMapping
-    public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(
-            @RequestBody @Valid OrdenhaRequestDTO dto)
-            throws Exception {
-        OrdenhaEntity response = ordenhaService.salvar(dto);
-        return new ResponseEntity<>(response, CREATED);
+    public ResponseEntity<?> cadastrarOrdenhas(@RequestBody List<OrdenhaRequestDTO> ordenhas) {
+        try {
+            ordenhaService.cadastrarOrdenhas(ordenhas);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
+
 
     @PutMapping("/{idOrdenha}")
     public ResponseEntity<OrdenhaEntity> atualizarOrdenha(@PathVariable Long idOrdenha,
@@ -74,6 +87,8 @@ public class OrdenhaController {
                 pageable);
         return new ResponseEntity<>(response, OK);
     }
+
+
     @DeleteMapping("/{idOrdenha}")
     public ResponseEntity<OrdenhaEntity> excluir(@PathVariable Long idOrdenha) throws Exception {
         ordenhaService.excluir(idOrdenha);

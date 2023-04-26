@@ -2,6 +2,7 @@ package com.agromilk.br.repository;
 
 import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
+import com.agromilk.br.request.OrdenhaRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

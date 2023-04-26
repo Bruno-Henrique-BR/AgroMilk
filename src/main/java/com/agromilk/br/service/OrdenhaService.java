@@ -28,5 +28,8 @@ public interface OrdenhaService {
 
     OrdenhaEntity findById(Long idOrdenha) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
 
+    void cadastrarOrdenhas(List<OrdenhaRequestDTO> listaOrdenhas) throws Exception;
+
+
 
 }

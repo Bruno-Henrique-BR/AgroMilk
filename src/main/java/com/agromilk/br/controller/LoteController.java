@@ -45,16 +45,23 @@ public class LoteController {
         LoteEntity obj = loteService.findById(idLote);
         return ResponseEntity.ok().body(new LoteDTO(obj));
     }
-    @PostMapping("/lotes/{idLote}/adicionar-animal")
-    public ResponseEntity<LoteEntity> adicionarAnimalAoLote(@PathVariable Long idLote, @RequestBody AnimalEntity animal, LoteRequestDTO dto) throws Exception {
-        LoteEntity lote = loteService.findById(idLote);
-        if (lote == null) {
+    @PostMapping("/{idLote}/animais/{idAnimal}")
+    public ResponseEntity<Void> adicionarAnimalAoLoteEMovimento(
+            @PathVariable Long idLote,
+            @PathVariable Long idAnimal)
+            throws Exception {
+        try {
+            loteService.adicionarAnimalEMovimento(idLote, idAnimal);
+            return ResponseEntity.ok().build();
+        } catch (ObjectNotFoundException e) {
+            // Tratar exceção caso o lote ou o animal não sejam encontrados
             return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            // Tratar outras exceções
+            return ResponseEntity.status(500).build();
         }
-        loteService.adicionarAnimal(idLote, animal);
-        loteService.atualizar(dto, idLote);
-        return ResponseEntity.ok().body(lote);
     }
+
 
     @PutMapping("/{idLote}")
     public ResponseEntity<LoteEntity> atualizarLote(@PathVariable Long idLote,

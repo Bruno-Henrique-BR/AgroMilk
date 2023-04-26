@@ -17,6 +17,7 @@ public interface LoteService {
             String nome,
             String descricao,
             Pageable pageable) throws Exception;
+    void adicionarAnimalEMovimento(Long idLote, Long idAnimal) throws Exception;
 
     void excluir(Long idLote) throws Exception;
 

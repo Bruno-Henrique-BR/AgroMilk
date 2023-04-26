@@ -1,18 +1,13 @@
 package com.agromilk.br.request;
 
-import com.agromilk.br.entity.AnimalEntity;
-import com.agromilk.br.entity.FuncionarioEntity;
-import com.agromilk.br.entity.TanqueEntity;
-import com.agromilk.br.entity.UsuarioEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 @Data
 public class OrdenhaRequestDTO {
 
