@@ -66,15 +66,72 @@ public class LoteServiceImpl implements LoteService {
         return lista;
     }
 
-    public void adicionarAnimalEMovimento(Long idLote, Long idAnimal) throws Exception {
-        LoteEntity lote = loteRepository.findById(idLote).orElseThrow(() -> new ObjectNotFoundException("Lote não encontrado."));
-        AnimalEntity animal = animalRepository.findById(idAnimal).orElseThrow(() -> new ObjectNotFoundException("Animal não encontrado."));
+//    public void adicionarAnimalEMovimento(Long idLote, Long idAnimal) throws Exception {
+//        LoteEntity lote = loteRepository.findById(idLote).orElseThrow(() -> new ObjectNotFoundException("Lote não encontrado."));
+//        AnimalEntity animal = animalRepository.findById(idAnimal).orElseThrow(() -> new ObjectNotFoundException("Animal não encontrado."));
+//
+//        // Verificar se o animal já está no lote atual
+//        if (animal.getLote() != null && animal.getLote().getIdLote().equals(lote.getIdLote())) {
+//            throw new Exception("O animal já está no lote atual.");
+//        }
+//
+//
+//        // Salvar data de saída do animal do lote anterior
+//        LoteEntity loteAnterior = animal.getLote();
+//        if (loteAnterior != null && !loteAnterior.equals(lote)) {
+//            MovimentoEntity ultimoMovimento = movimentoRepository.findFirstByAnimalOrderByDataEntradaDesc(animal);
+//            if (ultimoMovimento != null) {
+//                ultimoMovimento.setDataSaida(LocalDate.now());
+//                movimentoRepository.save(ultimoMovimento);
+//            }
+//        }
+//
+//        // Adicionar animal ao lote atual
+//        lote.getAnimais().add(animal);
+//        animal.setLote(lote);
+//        loteRepository.save(lote);
+//        // Atualizar lote do animal
+//        animal.setLote(lote);
+//        animalRepository.save(animal);
+//
+//        // Salvar movimento
+//        MovimentoEntity movimento = new MovimentoEntity();
+//        movimento.setDataEntrada(LocalDate.now());
+//        movimento.setAnimal(animal);
+//        movimento.setLote(lote);
+//        movimentoRepository.save(movimento);
+//    }
+    public List<AnimalEntity> findAnimaisSemLoteOuLoteDiferente(LoteEntity lote) {
+        return animalRepository.findAnimaisSemLoteOuLoteDiferente(lote);
+    }
 
-        // Verificar se o animal já está no lote atual
-        if (animal.getLote() != null && animal.getLote().getIdLote().equals(lote.getIdLote())) {
+
+
+
+    @Override
+    public void adicionarAnimaisEMovimento(Long idLote, List<Long> idAnimais) throws Exception {
+        LoteEntity lote = loteRepository.findById(idLote)
+                .orElseThrow(() -> new ObjectNotFoundException("Lote não encontrado."));
+
+        List<AnimalEntity> animaisDisponiveis = animalRepository.findAnimaisSemLoteOuLoteDiferente(lote);
+
+        for (Long idAnimal : idAnimais) {
+            AnimalEntity animal = animaisDisponiveis.stream()
+                    .filter(a -> a.getIdAnimal().equals(idAnimal))
+                    .findFirst()
+                    .orElseThrow(() -> new ObjectNotFoundException("Animal não encontrado."));
+
+            adicionarAnimalEMovimento(lote, animal.getIdAnimal());
+        }
+    }
+
+    public void adicionarAnimalEMovimento(LoteEntity lote, Long idAnimal) throws Exception {
+        AnimalEntity animal = animalRepository.findById(idAnimal)
+                .orElseThrow(() -> new ObjectNotFoundException("Animal não encontrado."));
+
+        if (animal.getLote() != null && animal.getLote().equals(lote)) {
             throw new Exception("O animal já está no lote atual.");
         }
-
 
         // Salvar data de saída do animal do lote anterior
         LoteEntity loteAnterior = animal.getLote();
@@ -90,8 +147,8 @@ public class LoteServiceImpl implements LoteService {
         lote.getAnimais().add(animal);
         animal.setLote(lote);
         loteRepository.save(lote);
+
         // Atualizar lote do animal
-        animal.setLote(lote);
         animalRepository.save(animal);
 
         // Salvar movimento
@@ -101,6 +158,8 @@ public class LoteServiceImpl implements LoteService {
         movimento.setLote(lote);
         movimentoRepository.save(movimento);
     }
+
+
 
 
     public LoteEntity findById(Long idLote) throws ObjectNotFoundException {

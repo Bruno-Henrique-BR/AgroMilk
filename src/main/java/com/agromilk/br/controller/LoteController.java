@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -45,22 +46,42 @@ public class LoteController {
         LoteEntity obj = loteService.findById(idLote);
         return ResponseEntity.ok().body(new LoteDTO(obj));
     }
-    @PostMapping("/{idLote}/animais/{idAnimal}")
-    public ResponseEntity<Void> adicionarAnimalAoLoteEMovimento(
+//    @PostMapping("/{idLote}/animais/{idAnimal}")
+//    public ResponseEntity<Void> adicionarAnimalAoLoteEMovimento(
+//            @PathVariable Long idLote,
+//            @PathVariable Long idAnimal)
+//            throws Exception {
+//        try {
+//            loteService.adicionarAnimalEMovimento(idLote, idAnimal);
+//            return ResponseEntity.ok().build();
+//        } catch (ObjectNotFoundException e) {
+//            // Tratar exceção caso o lote ou o animal não sejam encontrados
+//            return ResponseEntity.notFound().build();
+//        } catch (Exception e) {
+//            // Tratar outras exceções
+//            return ResponseEntity.status(500).build();
+//        }
+//    }
+
+    @PostMapping("/{idLote}/animais")
+    public ResponseEntity<Void> adicionarAnimaisAoLoteEMovimento(
             @PathVariable Long idLote,
-            @PathVariable Long idAnimal)
+            @RequestBody List<Long> idAnimais)
             throws Exception {
         try {
-            loteService.adicionarAnimalEMovimento(idLote, idAnimal);
+            for (Long idAnimal : idAnimais) {
+                loteService.adicionarAnimaisEMovimento(idLote, Collections.singletonList(idAnimal));
+            }
             return ResponseEntity.ok().build();
         } catch (ObjectNotFoundException e) {
-            // Tratar exceção caso o lote ou o animal não sejam encontrados
+            // Tratar exceção caso o lote ou algum animal não seja encontrado
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             // Tratar outras exceções
             return ResponseEntity.status(500).build();
         }
     }
+
 
 
     @PutMapping("/{idLote}")

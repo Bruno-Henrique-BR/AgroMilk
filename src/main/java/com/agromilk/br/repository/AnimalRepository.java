@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
@@ -13,7 +14,8 @@ import java.util.List;
 public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
 
    Boolean existsByRacaIdRaca(Long idRaca);
-
+   @Query("SELECT a FROM AnimalEntity a WHERE a.lote IS NULL OR a.lote != :lote")
+   List<AnimalEntity> findAnimaisSemLoteOuLoteDiferente(@Param("lote") LoteEntity lote);
    Boolean existsByLoteIdLote(Long idLote);
    List<AnimalEntity> findByApelidoContainingIgnoreCase(String apelido);
 
@@ -56,12 +58,13 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " AND ( :quantidade IS NULL OR ordenha.quantidade < :quantidade ) "
            + " GROUP BY animal.idAnimal")
    Page<AnimalEntity> animaisOrdenhaAbaixoMedia(Double quantidade, Pageable pageable);
-   @Query( value = "SELECT animal FROM AnimalEntity  animal "
-           + " WHERE 1=1 "
-           + " AND ( :idLote IS NULL OR animal.lote.idLote = :idLote ) ")
-   List<AnimalEntity> findByIdLote(Long idLote);
+   @Query(value = "SELECT animal FROM AnimalEntity animal WHERE (:idLote IS NULL OR animal.lote.idLote = :idLote)")
+   List<AnimalEntity> findByIdLote(@Param("idLote") Long idLote);
 
 
+   @Query("SELECT animal FROM AnimalEntity animal LEFT JOIN animal.lote lote WHERE lote.idLote != :idLote OR lote.idLote IS NULL")
+   List<AnimalEntity> findAnimaisNaoContemNoLote(@Param("idLote") Long idLote);
 }
+
 
 

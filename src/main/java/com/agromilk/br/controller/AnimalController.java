@@ -63,12 +63,14 @@ public class AnimalController {
         return new ResponseEntity<>(animais, HttpStatus.OK);
     }
 
+
     @GetMapping(value = "/lote/{idLote}")
     public ResponseEntity<List<AnimalDTO>> findByIdLote(@PathVariable Long idLote) {
         List<AnimalEntity> list = animalService.findByIdLote(idLote);
-        List<AnimalDTO> listDTO = list.stream().map(obj -> new AnimalDTO(obj)).collect(Collectors.toList());
+        List<AnimalDTO> listDTO = list.stream().map(AnimalDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
+
     @GetMapping
     public ResponseEntity<List<AnimalEntity>> listarTodos(
             @RequestParam(required = false) Long idAnimal,
@@ -100,6 +102,12 @@ public class AnimalController {
                 media,
                 pageable);
         return new ResponseEntity<>(response, OK);
+    }
+    @GetMapping("/lote/{idLote}/nao-contem")
+    public ResponseEntity<List<AnimalDTO>> findAnimaisNaoContemNoLote(@PathVariable Long idLote) {
+        List<AnimalEntity> list = animalService.findAnimaisNaoContemNoLote(idLote);
+        List<AnimalDTO> listDTO = list.stream().map(AnimalDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @GetMapping("/listarAnimais")

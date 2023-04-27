@@ -17,8 +17,9 @@ public interface LoteService {
             String nome,
             String descricao,
             Pageable pageable) throws Exception;
-    void adicionarAnimalEMovimento(Long idLote, Long idAnimal) throws Exception;
-
+    //void adicionarAnimalEMovimento(Long idLote, Long idAnimal) throws Exception;
+    void adicionarAnimalEMovimento(LoteEntity lote, Long idAnimal) throws Exception;
+    void adicionarAnimaisEMovimento(Long idLote, List<Long> idAnimais) throws Exception;
     void excluir(Long idLote) throws Exception;
 
     LoteEntity salvar(LoteRequestDTO dto) throws NotFoundException;

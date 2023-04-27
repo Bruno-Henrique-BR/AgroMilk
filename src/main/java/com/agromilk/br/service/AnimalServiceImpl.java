@@ -98,6 +98,9 @@ public class AnimalServiceImpl implements AnimalService {
     public List<AnimalEntity> pesquisar(String apelido) {
         return animalRepository.findByApelidoContainingIgnoreCase(apelido);
     }
+    public List<AnimalEntity> findAnimaisNaoContemNoLote(Long idLote) {
+        return animalRepository.findAnimaisNaoContemNoLote(idLote);
+    }
 
     public AnimalEntity findById(Long idAnimal) throws ObjectNotFoundException {
         Optional<AnimalEntity> obj = animalRepository.findById(idAnimal);
