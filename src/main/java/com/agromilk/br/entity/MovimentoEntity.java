@@ -1,10 +1,10 @@
 package com.agromilk.br.entity;
-
-
 import lombok.Data;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Data
@@ -29,15 +29,7 @@ public class MovimentoEntity {
     @Column(name = "data_saida")
     private LocalDate dataSaida;
 
-    public MovimentoEntity() {
-    }
-
-    public MovimentoEntity(AnimalEntity animal, LoteEntity lote, LocalDate dataEntrada) {
-        this.animal = animal;
-        this.lote = lote;
-        this.dataEntrada = dataEntrada;
-    }
-
-    // getters e setters
+    @Formula("EXTRACT(DAY FROM age(data_saida, data_entrada))")
+    private Long dias;
+    
 }
-
