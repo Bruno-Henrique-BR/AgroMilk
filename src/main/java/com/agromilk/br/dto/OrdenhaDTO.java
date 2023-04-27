@@ -9,8 +9,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class OrdenhaDTO {
@@ -19,7 +22,7 @@ public class OrdenhaDTO {
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
-    private LocalDate data;
+    private @NotNull(message = "Data de ordenha é obrigatorio") Date data;
 
     private Double quantidade;
 

@@ -23,12 +23,12 @@ public interface OrdenhaService {
             Pageable pageable) throws Exception;
     void excluir(Long idOrdenha) throws Exception;
     OrdenhaEntity salvar(OrdenhaRequestDTO dto) throws Exception;
+    OrdenhaEntity salvarOrdenha(OrdenhaRequestDTO dto) throws Exception;
 
     OrdenhaEntity atualizar(OrdenhaRequestDTO dto, Long idOrdenha) throws Exception;
 
     OrdenhaEntity findById(Long idOrdenha) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
 
-    void cadastrarOrdenhas(List<OrdenhaRequestDTO> listaOrdenhas) throws Exception;
 
 
 

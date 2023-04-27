@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,47 +49,6 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         this.tanqueRepository = tanqueRepository;
     }
 
-    public void cadastrarOrdenhas(List<OrdenhaRequestDTO> listaOrdenhas) throws Exception {
-        for (OrdenhaRequestDTO dto : listaOrdenhas) {
-            // Validação dos dados
-            if (isNull(dto.getIdAnimal())) {
-                throw new BadRequestException(AnimalConstants.IDANIMAL_NOTFOUND);
-            }
-            if (isNull(dto.getIdTanque())) {
-                throw new BadRequestException(TanqueConstants.IDTANQUE_NOTFOUND);
-            }
-            if (isNull(dto.getData())) {
-                throw new BadRequestException(OrdenhaConstants.ORDENHA_DATA_NOTFOUND);
-            }
-            if (dto.getQuantidade() == null || dto.getQuantidade() <= 0) {
-                throw new BadRequestException(OrdenhaConstants.ORDENHA_QUANTIDADE_INVALID);
-            }
-            Optional<TanqueEntity> tanque = tanqueRepository.findById(dto.getIdTanque());
-            if (!tanque.isPresent()) {
-                throw new NotFoundException(TanqueConstants.IDTANQUE_NOTFOUND);
-            }
-            Double soma = dto.getQuantidade() + tanque.get().getQuantidadeAtual();
-            Double capacidadeTanque = tanque.get().getCapacidade();
-            if (soma > capacidadeTanque) {
-                throw new Exception(TanqueConstants.TANQUE_FULL);
-            }
-
-            // Persistência da ordenha
-            OrdenhaEntity ordenha = new OrdenhaEntity();
-            ordenha.setData(dto.getData());
-            ordenha.setQuantidade(dto.getQuantidade());
-            Optional<AnimalEntity> animal = animalRepository.findById(dto.getIdAnimal());
-            if (!animal.isPresent()) {
-                throw new NotFoundException(AnimalConstants.IDANIMAL_NOTFOUND);
-            }
-            ordenha.setAnimal(animal.get());
-            ordenha.setTanque(tanque.get());
-            ordenhaRepository.save(ordenha);
-
-            // Atualização da quantidade do tanque
-            tanqueRepository.enviarLeiteTanque(tanque.get().getIdTanque(), dto.getQuantidade());
-        }
-    }
 
     @Override
     public void excluir(Long idOrdenha) throws Exception {
@@ -185,6 +145,39 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         return saveOrdenha(dto);
     }
 
+
+
+    public OrdenhaEntity salvarOrdenha(OrdenhaRequestDTO dto) throws Exception {
+        Optional<AnimalEntity> animal = animalRepository.findById(dto.getIdAnimal());
+        if (!animal.isPresent()) {
+            throw new NotFoundException(AnimalConstants.IDANIMAL_NOTFOUND);
+        }
+
+        Optional<TanqueEntity> tanque = tanqueRepository.findById(dto.getIdTanque());
+        if (!tanque.isPresent()) {
+            throw new NotFoundException(TanqueConstants.IDTANQUE_NOTFOUND);
+        }
+
+        OrdenhaEntity saveOrdenha;
+        if (nonNull(dto.getIdOrdenha())) {
+            Optional<OrdenhaEntity> optionalOrdenha = ordenhaRepository.findById(dto.getIdOrdenha());
+            if (!optionalOrdenha.isPresent()) {
+                throw new NotFoundException(OrdenhaConstants.IDORDENHA_NOTFOUND);
+            }
+            saveOrdenha = optionalOrdenha.get();
+        } else {
+            saveOrdenha = new OrdenhaEntity();
+        }
+        saveOrdenha.setData(new Date());
+        saveOrdenha.setQuantidade(dto.getQuantidade());
+        saveOrdenha.setAnimal(animal.get());
+        saveOrdenha.setTanque(tanque.get());
+        validate(dto);
+        saveOrdenha = ordenhaRepository.save(saveOrdenha);
+        return saveOrdenha;
+    }
+
+
     public OrdenhaEntity atualizar(OrdenhaRequestDTO dto, Long idOrdenha) throws Exception {
         if (isNull(idOrdenha)) {
             throw new BadRequestException(OrdenhaConstants.IDORDENHA_NOTFOUND);
@@ -199,6 +192,7 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         return obj.orElseThrow(() -> new javassist.tools.rmi.ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + idOrdenha + ", Tipo: " + OrdenhaEntity.class.getName()));
     }
+
 
 
 

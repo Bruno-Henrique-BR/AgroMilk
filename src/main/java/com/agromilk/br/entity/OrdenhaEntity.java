@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "ORDENHA")
@@ -27,7 +28,7 @@ public class OrdenhaEntity {
     @NotNull(message = "Data de ordenha é obrigatorio")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
-    private LocalDate data;
+    private Date data;
 
     @NotNull(message = "Quantidade é obrigatorio")
     private Double quantidade;

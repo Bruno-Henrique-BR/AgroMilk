@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -33,7 +34,7 @@ public class OrdenhaController {
     }
 
     @PostMapping
-    public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(
+    public ResponseEntity<OrdenhaEntity> cadastrarOrdenhaa(
             @RequestBody @Valid OrdenhaRequestDTO dto)
             throws Exception {
         OrdenhaEntity response = ordenhaService.salvar(dto);
@@ -41,15 +42,14 @@ public class OrdenhaController {
     }
 
 
-    @PostMapping("/multiplas")
-    public ResponseEntity<?> cadastrarOrdenhas(@RequestBody List<OrdenhaRequestDTO> ordenhas) {
-        try {
-            ordenhaService.cadastrarOrdenhas(ordenhas);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+
+    @PostMapping("/ordenhas")
+    public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(@RequestBody OrdenhaRequestDTO dto) throws Exception {
+        // Aqui você pode tratar e salvar a ordenha no banco de dados
+        OrdenhaEntity response = ordenhaService.salvarOrdenha(dto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 
 
     @PutMapping("/{idOrdenha}")
