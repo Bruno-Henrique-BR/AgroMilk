@@ -19,7 +19,7 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
    Boolean existsByLoteIdLote(Long idLote);
    List<AnimalEntity> findByApelidoContainingIgnoreCase(String apelido);
 
-   @Query( value = "SELECT animal FROM AnimalEntity animal "
+   @Query(value = "SELECT animal FROM AnimalEntity animal "
            + " WHERE 1=1 "
            + " AND ( :idAnimal IS NULL OR animal.idAnimal = :idAnimal ) "
            + " AND ( :codigo IS NULL OR animal.codigo LIKE :codigo ) "
@@ -30,7 +30,8 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " AND ( :nomeLote IS NULL OR animal.lote.nomeLote = :nomeLote ) "
            + " AND ( :nomeRaca IS NULL OR animal.raca.nomeRaca = :nomeRaca ) "
            + " AND ( :lactacao IS NULL OR animal.lactacao = :lactacao ) "
-           + " AND ( :media IS NULL OR animal.media = :media ) ")
+           + " AND ( :media IS NULL OR animal.media = :media ) "
+           + " ORDER BY animal.idAnimal")
    List<AnimalEntity> findByFilter(Long idAnimal,
                                    String codigo,
                                    String apelido,
@@ -42,6 +43,7 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
                                    Boolean lactacao,
                                    Double media,
                                    Pageable pageable);
+
    @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal " )
    Long verificarQdtAnimais();
    @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal "

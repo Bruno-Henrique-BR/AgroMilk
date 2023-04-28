@@ -31,5 +31,5 @@ public class MovimentoEntity {
 
     @Formula("EXTRACT(DAY FROM age(data_saida, data_entrada))")
     private Long dias;
-    
+
 }
