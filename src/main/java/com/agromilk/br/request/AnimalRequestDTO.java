@@ -1,8 +1,13 @@
 package com.agromilk.br.request;
 
 import com.agromilk.br.repository.OrdenhaRepository;
+import com.agromilk.br.util.LenientLocalDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.OptBoolean;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 
@@ -22,9 +27,14 @@ public class AnimalRequestDTO {
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
         private LocalDate dataNascimento;
 
-        @JsonDeserialize(using = LocalDateDeserializer.class)
+
+        @JsonDeserialize(using = LenientLocalDateDeserializer.class)
+        @JsonSerialize(using = ToStringSerializer.class)
+        @JsonInclude(JsonInclude.Include.ALWAYS)
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
         private LocalDate dataCompra;
+
+
 
 
         @NotNull(message = "Cor é obrigatório")

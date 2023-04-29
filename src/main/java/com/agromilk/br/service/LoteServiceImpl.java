@@ -178,15 +178,18 @@ public class LoteServiceImpl implements LoteService {
         loteRepository.save(lote);
     }
 
+
     @Override
     public void excluir(Long idLote) throws Exception {
+
         Boolean hasAnimal = animalRepository.existsByLoteIdLote(idLote);
         if(Boolean.TRUE.equals(hasAnimal)){
             throw new Exception(LoteConstants.IDLOTE_NOT_DELETED);
         }
+        movimentoRepository.deleteByLoteId(idLote);
+
         loteRepository.deleteById(idLote);
     }
-
     private LoteEntity saveLote(LoteRequestDTO dto)
             throws NotFoundException{
         LoteEntity saveLote;

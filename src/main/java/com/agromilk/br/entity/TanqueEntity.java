@@ -24,8 +24,6 @@ public class TanqueEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataFabricacao;
 
-    private Boolean ativo;
-
     private Double quantidadeAtual;
 
 

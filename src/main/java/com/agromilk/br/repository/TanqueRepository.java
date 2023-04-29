@@ -17,14 +17,12 @@ public interface TanqueRepository extends JpaRepository<TanqueEntity, Long> {
             + " AND ( :descricao IS NULL OR tanque.descricao LIKE :descricao ) "
             + " AND ( :capacidade IS NULL OR tanque.capacidade = :capacidade ) "
             + " AND ( :modelo IS NULL OR tanque.modelo LIKE :modelo ) "
-            + " AND ( :dataFabricacao IS NULL OR tanque.dataFabricacao = :dataFabricacao ) "
-            + " AND ( :ativo IS NULL OR tanque.ativo = :ativo ) ")
+            + " AND ( :dataFabricacao IS NULL OR tanque.dataFabricacao = :dataFabricacao ) ")
     List<TanqueEntity> findByFilter(Long idTanque,
                                     String descricao,
                                     Double capacidade,
                                     String modelo,
                                     LocalDate dataFabricacao,
-                                    Boolean ativo,
                                     Pageable pageable);
 
     @Query( value = "UPDATE TanqueEntity  tanque " +

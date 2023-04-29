@@ -23,10 +23,6 @@ public class TanqueRequestDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "mm/DD/yyyy")
     private LocalDate dataFabricacao;
 
-
-
-    private Boolean ativo;
-
     private Double quantidadeAtual = 0.0;
 
 }

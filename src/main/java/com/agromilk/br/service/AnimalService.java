@@ -28,10 +28,15 @@ public interface AnimalService {
             Pageable pageable) throws Exception;
     List<AnimalEntity> findByIdLote(Long idLote);
 
-    void excluir(Long idLote) throws Exception;
+    void excluir(Long idAnimal) throws Exception;
+
     AnimalEntity salvar(AnimalRequestDTO dto) throws NotFoundException;
 
     AnimalEntity atualizar(AnimalRequestDTO dto, Long idAnimal) throws Exception;
+    List<AnimalEntity> listarPorIdLote(Long idLote);
+
+    List<AnimalEntity> listarPorIdRaca(Long idRaca);
+
 
     AnimalEntity findById(Long idAnimal) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
 

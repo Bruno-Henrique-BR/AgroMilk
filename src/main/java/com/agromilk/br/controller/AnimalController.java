@@ -127,6 +127,17 @@ public class AnimalController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping(value = "/lote/{idLote}/animais")
+    public ResponseEntity<List<AnimalEntity>> listarPorIdLote(@PathVariable Long idLote) {
+        List<AnimalEntity> animais = animalService.listarPorIdLote(idLote);
+        return ResponseEntity.ok().body(animais);
+    }
+    @GetMapping(value = "/raca/{idRaca}/animais")
+    public ResponseEntity<List<AnimalEntity>> listarPorIdRaca(@PathVariable Long idRaca) {
+        List<AnimalEntity> animais = animalService.listarPorIdRaca(idRaca);
+        return ResponseEntity.ok().body(animais);
+    }
+
     @GetMapping("/qtsAnimal")
     public Long qtsAnimal(){
         return animalService.animais();

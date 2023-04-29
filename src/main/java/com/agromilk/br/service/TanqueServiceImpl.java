@@ -1,16 +1,16 @@
 package com.agromilk.br.service;
 
+import com.agromilk.br.constants.LoteConstants;
 import com.agromilk.br.constants.TanqueConstants;
-import com.agromilk.br.entity.RacaEntity;
 import com.agromilk.br.entity.TanqueEntity;
 import com.agromilk.br.exception.BadRequestException;
+import com.agromilk.br.repository.OrdenhaRepository;
 import com.agromilk.br.repository.TanqueRepository;
 import com.agromilk.br.request.TanqueRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,11 +30,14 @@ public class TanqueServiceImpl implements TanqueService {
     @Autowired
     private TanqueRepository tanqueRepository;
 
+    private OrdenhaRepository ordenhaRepository;
 
 
 
-    public TanqueServiceImpl(TanqueRepository tanqueRepository) {
+
+    public TanqueServiceImpl(TanqueRepository tanqueRepository, OrdenhaRepository ordenhaRepository) {
         this.tanqueRepository = tanqueRepository;
+        this.ordenhaRepository = ordenhaRepository;
     }
 
     @Override
@@ -57,7 +60,10 @@ public class TanqueServiceImpl implements TanqueService {
         if(tanque > 0) {
             throw new Exception(TanqueConstants.TANQUE_CONTEM_LEITE);
         }
-            tanqueRepository.deleteById(idTanque);
+
+        ordenhaRepository.deleteByTanqueId(idTanque);
+
+        tanqueRepository.deleteById(idTanque);
     }
 
     @Override
@@ -67,7 +73,6 @@ public class TanqueServiceImpl implements TanqueService {
             Double capacidade,
             String modelo,
             LocalDate dataFabricacao,
-            Boolean ativo,
             Pageable pageable) throws Exception {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
@@ -78,7 +83,6 @@ public class TanqueServiceImpl implements TanqueService {
                 capacidade,
                 modelo,
                 dataFabricacao,
-                ativo,
                 pageable);
 
         return lista;
@@ -100,7 +104,6 @@ public class TanqueServiceImpl implements TanqueService {
         saveTanque.setCapacidade(dto.getCapacidade());
         saveTanque.setModelo(dto.getModelo());
         saveTanque.setDataFabricacao(dto.getDataFabricacao());
-        saveTanque.setAtivo(dto.getAtivo());
         saveTanque.setQuantidadeAtual(dto.getQuantidadeAtual());
         saveTanque = tanqueRepository.save(saveTanque);
         return saveTanque;

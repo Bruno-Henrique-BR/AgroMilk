@@ -1,6 +1,8 @@
 package com.agromilk.br.entity;
 
+import com.agromilk.br.util.LenientLocalDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.OptBoolean;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -26,9 +28,10 @@ public class AnimalEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate dataNascimento;
 
-    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonDeserialize(using = LenientLocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate dataCompra;
+
     private String cor;
     @ManyToOne
     @JoinColumn(name = "ID_LOTE",referencedColumnName = "ID_LOTE")

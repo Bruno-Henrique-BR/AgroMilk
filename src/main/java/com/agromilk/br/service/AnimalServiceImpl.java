@@ -3,10 +3,7 @@ package com.agromilk.br.service;
 import com.agromilk.br.constants.*;
 import com.agromilk.br.entity.*;
 import com.agromilk.br.exception.BadRequestException;
-import com.agromilk.br.repository.AnimalRepository;
-import com.agromilk.br.repository.LoteRepository;
-import com.agromilk.br.repository.OrdenhaRepository;
-import com.agromilk.br.repository.RacaRepository;
+import com.agromilk.br.repository.*;
 import com.agromilk.br.request.AnimalRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
@@ -38,11 +35,14 @@ public class AnimalServiceImpl implements AnimalService {
 
     private OrdenhaRepository ordenhaRepository;
 
-    public AnimalServiceImpl(AnimalRepository animalRepository, LoteRepository loteRepository, RacaRepository racaRepository, OrdenhaRepository ordenhaRepository) {
+    private MovimentoRepository movimentoRepository;
+
+    public AnimalServiceImpl(AnimalRepository animalRepository, LoteRepository loteRepository, RacaRepository racaRepository, OrdenhaRepository ordenhaRepository, MovimentoRepository movimentoRepository) {
         this.animalRepository = animalRepository;
         this.loteRepository = loteRepository;
         this.racaRepository = racaRepository;
         this.ordenhaRepository = ordenhaRepository;
+        this.movimentoRepository = movimentoRepository;
     }
 
     @Override
@@ -56,6 +56,9 @@ public class AnimalServiceImpl implements AnimalService {
 
         // Exclui todas as ordenhas relacionadas ao animal
         ordenhaRepository.deleteByAnimalId(idAnimal);
+
+        // Exclui todas os movimentos relacionados ao animal
+        movimentoRepository.deleteByAnimalId(idAnimal);
 
         // Exclui o animal
         animalRepository.deleteById(idAnimal);
@@ -215,5 +218,14 @@ public class AnimalServiceImpl implements AnimalService {
 
         return saveAnimal(dto);
     }
+
+    public List<AnimalEntity> listarPorIdLote(Long idLote) {
+        return animalRepository.findByLoteIdLote(idLote);
+    }
+
+    public List<AnimalEntity> listarPorIdRaca(Long idRaca) {
+        return animalRepository.findByRacaIdRaca(idRaca);
+    }
+
 
 }

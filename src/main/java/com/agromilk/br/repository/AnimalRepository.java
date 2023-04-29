@@ -66,6 +66,10 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
 
    @Query("SELECT animal FROM AnimalEntity animal LEFT JOIN animal.lote lote WHERE lote.idLote != :idLote OR lote.idLote IS NULL")
    List<AnimalEntity> findAnimaisNaoContemNoLote(@Param("idLote") Long idLote);
+
+   List<AnimalEntity> findByLoteIdLote(Long idLote);
+
+   List<AnimalEntity> findByRacaIdRaca(Long idRaca);
 }
 
 

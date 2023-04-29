@@ -23,7 +23,9 @@ public class TanqueDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataFabricacao;
 
-    private Boolean ativo;
+
+    private Double quantidadeAtual = 0.0;
+
     public TanqueDTO() {
         super();
     }
@@ -35,7 +37,7 @@ public class TanqueDTO {
         this.capacidade = obj.getCapacidade();
         this.modelo = obj.getModelo();
         this.dataFabricacao = obj.getDataFabricacao();
-        this.ativo = obj.getAtivo();
+        this.quantidadeAtual = obj.getQuantidadeAtual();
 
 
     }
