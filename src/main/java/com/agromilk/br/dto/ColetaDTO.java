@@ -21,9 +21,9 @@ public class ColetaDTO {
 
     private Long idColeta;
 
-    private TanqueEntity tanque;
+    private Long tanque;
 
-    private LaticinioEntity laticinio;
+    private Long laticinio;
 
     private Double quantidade;
 
@@ -40,8 +40,8 @@ public class ColetaDTO {
     public ColetaDTO(ColetaEntity obj) {
         super();
         this.idColeta = obj.getIdColeta();
-        this.tanque = obj.getTanque();
-        this.laticinio = obj.getLaticinio();
+        this.tanque = obj.getTanque().getIdTanque();
+        this.laticinio = obj.getLaticinio().getIdLaticinio();
         this.quantidade = obj.getQuantidade();
         this.descricao = obj.getDescricao();
         this.data = obj.getData();
