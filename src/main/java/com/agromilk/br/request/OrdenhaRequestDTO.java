@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -16,9 +17,11 @@ public class OrdenhaRequestDTO {
 
     private Long idOrdenha;
 
-    @NotNull(message = "Data de ordenha é obrigatorio")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
+
+
+    @NotNull(message = "Data de ordenha é obrigatório")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date data;
     @NotNull(message = "Quantidade é obrigatorio")
     private Double quantidade;
