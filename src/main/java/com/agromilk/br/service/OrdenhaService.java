@@ -17,7 +17,8 @@ public interface OrdenhaService {
     List<OrdenhaEntity> listar(
             Long idOrdenha,
             LocalDate data,
-            Long quantidade,
+            Double primeiraOrdenha,
+            Double segundaOrdenha,
             Long idAnimal,
             Long idTanque,
             Pageable pageable) throws Exception;

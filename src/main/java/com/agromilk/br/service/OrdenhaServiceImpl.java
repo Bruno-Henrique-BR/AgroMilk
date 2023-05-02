@@ -59,7 +59,8 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     public List<OrdenhaEntity> listar(
             Long idOrdenha,
             LocalDate data,
-            Long quantidade,
+            Double primeiraOrdenha,
+            Double segundaOrdenha,
             Long idAnimal,
             Long idTanque,
             Pageable pageable) throws Exception {
@@ -69,7 +70,8 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         List<OrdenhaEntity> lista = ordenhaRepository.findByFilter(
                 idOrdenha,
                 data,
-                quantidade,
+                primeiraOrdenha,
+                segundaOrdenha,
                 idAnimal,
                 idTanque,
                 pageable);
@@ -108,7 +110,8 @@ public class OrdenhaServiceImpl implements OrdenhaService {
             saveOrdenha = new OrdenhaEntity();
         }
         saveOrdenha.setData(dto.getData());
-        saveOrdenha.setQuantidade(dto.getQuantidade());
+        saveOrdenha.setPrimeiraOrdenha(dto.getPrimeiraOrdenha());
+        saveOrdenha.setSegundaOrdenha(dto.getSegundaOrdenha());
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
 //        saveOrdenha.setFuncionario(funcionario.get());
@@ -119,22 +122,22 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     }
 
     private void validate(OrdenhaRequestDTO dto) throws Exception {
-        Optional<TanqueEntity> tanque = tanqueRepository
-                .findById(dto.getIdTanque());
+        Optional<TanqueEntity> tanque = tanqueRepository.findById(dto.getIdTanque());
         if (!tanque.isPresent()) {
             throw new NotFoundException(TanqueConstants.IDTANQUE_NOTFOUND);
         }
-        if(dto.getQuantidade() < 0){
+        if (dto.getPrimeiraOrdenha() < 0 || dto.getSegundaOrdenha() < 0) {
             throw new Exception(TanqueConstants.TANQUE_VALOR_INVALID);
         }
-        Double soma = dto.getQuantidade() + tanque.get().getQuantidadeAtual();
+        Double soma = dto.getPrimeiraOrdenha() + dto.getSegundaOrdenha() + tanque.get().getQuantidadeAtual();
         Double capacidadeTanque = tanque.get().getCapacidade();
-        if(soma <= capacidadeTanque) {
-            tanqueRepository.enviarLeiteTanque(tanque.get().getIdTanque(), dto.getQuantidade());
-        }else{
+        if (soma <= capacidadeTanque) {
+            tanqueRepository.enviarLeiteTanque(tanque.get().getIdTanque(), dto.getPrimeiraOrdenha() + dto.getSegundaOrdenha());
+        } else {
             throw new Exception(TanqueConstants.TANQUE_FULL);
         }
     }
+
 
     public OrdenhaEntity salvar(OrdenhaRequestDTO dto)
             throws Exception {
@@ -169,7 +172,8 @@ public class OrdenhaServiceImpl implements OrdenhaService {
             saveOrdenha = new OrdenhaEntity();
         }
         saveOrdenha.setData(new Date());
-        saveOrdenha.setQuantidade(dto.getQuantidade());
+        saveOrdenha.setPrimeiraOrdenha(dto.getPrimeiraOrdenha());
+        saveOrdenha.setSegundaOrdenha(dto.getSegundaOrdenha());
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
         validate(dto);

@@ -84,18 +84,7 @@ public class AnimalServiceImpl implements AnimalService {
         return ordenhaRepository.verificarMediaLitro();
     }
 
-    @Override
-    public Page<AnimalEntity> listarAnimais(
-            Pageable pageable) throws Exception {
 
-        pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
-         Double quantidade = ordenhaRepository.verificarMediaLitro();
-        Page<AnimalEntity> lista = animalRepository.animaisOrdenhaAbaixoMedia(
-                quantidade,
-                pageable);
-
-        return lista;
-    }
 
     @Override
     public List<AnimalEntity> pesquisar(String apelido) {

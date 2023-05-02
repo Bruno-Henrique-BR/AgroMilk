@@ -110,17 +110,6 @@ public class AnimalController {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @GetMapping("/listarAnimais")
-    public ResponseEntity<Page<AnimalEntity>> listarTodos(
-
-            @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
-                    value = Paginacao.DEFAULT_PAGE_SIZE) Pageable pageable) throws Exception {
-
-        Page<AnimalEntity> response = animalService.listarAnimais(
-                pageable);
-        return new ResponseEntity<>(response, OK);
-    }
-
     @DeleteMapping("/{idAnimal}")
     public ResponseEntity<AnimalEntity> excluir(@PathVariable Long idAnimal) throws Exception {
         animalService.excluir(idAnimal);

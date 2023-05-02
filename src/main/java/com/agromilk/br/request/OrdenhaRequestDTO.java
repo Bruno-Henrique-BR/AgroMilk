@@ -24,7 +24,8 @@ public class OrdenhaRequestDTO {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date data;
     @NotNull(message = "Quantidade é obrigatorio")
-    private Double quantidade;
+    private Double primeiraOrdenha;
+    private Double segundaOrdenha;
     @NotNull(message = "Animal é obrigatorio")
     private Long idAnimal;
     private Long idTanque;

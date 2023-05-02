@@ -52,8 +52,6 @@ public interface AnimalService {
 
     Double porcentagemSecas();
 
-    Page<AnimalEntity> listarAnimais(
-            Pageable pageable) throws Exception;
 
     List<AnimalEntity> pesquisar(String apelido) throws Exception;
 

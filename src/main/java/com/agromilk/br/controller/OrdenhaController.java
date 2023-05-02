@@ -69,7 +69,8 @@ public class OrdenhaController {
     public ResponseEntity<List<OrdenhaEntity>> listarTodos(
             @RequestParam(required = false) Long idOrdenha,
             @RequestParam(required = false) LocalDate data,
-            @RequestParam(required = false) Long quantidade,
+            @RequestParam(required = false) Double primeiraOrdenha,
+            @RequestParam(required = false) Double segundaOrdenha,
             @RequestParam(required = false) Long idAnimal,
             @RequestParam(required = false) Long idTanque,
             @RequestParam(required = false) String nomeFuncionario,
@@ -81,7 +82,8 @@ public class OrdenhaController {
         List<OrdenhaEntity> response = ordenhaService.listar(
                 idOrdenha,
                 data,
-                quantidade,
+                primeiraOrdenha,
+                segundaOrdenha,
                 idAnimal,
                 idTanque,
                 pageable);

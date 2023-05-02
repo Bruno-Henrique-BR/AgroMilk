@@ -30,8 +30,10 @@ public class OrdenhaEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private Date data;
 
-    @NotNull(message = "Quantidade é obrigatorio")
-    private Double quantidade;
+    @Column(name = "primeira_Ordenha")
+    private Double primeiraOrdenha;
+
+    private Double segundaOrdenha;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ANIMAL", referencedColumnName = "ID_ANIMAL")
     private AnimalEntity animal;

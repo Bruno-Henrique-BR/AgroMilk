@@ -24,7 +24,8 @@ public class OrdenhaDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private @NotNull(message = "Data de ordenha é obrigatorio") Date data;
 
-    private Double quantidade;
+    private Double primeiraOrdenha;
+    private Double segundaOrdenha;
 
     private Long animal;
 
@@ -40,7 +41,8 @@ public class OrdenhaDTO {
         super();
         this.idOrdenha = obj.getIdOrdenha();
         this.data = obj.getData();
-        this.quantidade = obj.getQuantidade();
+        this.primeiraOrdenha = obj.getPrimeiraOrdenha();
+        this.segundaOrdenha = obj.getSegundaOrdenha();
         this.animal = obj.getAnimal().getIdAnimal();
         this.tanque = obj.getTanque().getIdTanque();
 

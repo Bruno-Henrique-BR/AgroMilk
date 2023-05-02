@@ -28,29 +28,37 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
     @Query(value = "DELETE FROM OrdenhaEntity ordenha WHERE ordenha.idOrdenha = :idOrdenha")
     void deleteById(@Param("idOrdenha") Long idOrdenha);
 
-    @Query( value = "SELECT ordenha FROM OrdenhaEntity ordenha "
+    @Query(value = "SELECT ordenha FROM OrdenhaEntity ordenha "
             + " WHERE 1=1 "
             + " AND ( :idOrdenha IS NULL OR ordenha.idOrdenha = :idOrdenha ) "
             + " AND ( :data IS NULL OR ordenha.data = :data ) "
-            + " AND ( :quantidade IS NULL OR ordenha.quantidade = :quantidade ) "
+            + " AND ( :primeiraOrdenha IS NULL OR ordenha.primeiraOrdenha = :primeiraOrdenha ) "
+            + " AND ( :segundaOrdenha IS NULL OR ordenha.segundaOrdenha = :segundaOrdenha ) "
             + " AND ( :idAnimal IS NULL OR ordenha.animal.idAnimal = :idAnimal ) "
             + " AND ( :idTanque IS NULL OR ordenha.tanque.idTanque = :idTanque ) ")
     List<OrdenhaEntity> findByFilter(Long idOrdenha,
                                      LocalDate data,
-                                     Long quantidade,
+                                     Double primeiraOrdenha,
+                                     Double segundaOrdenha,
                                      Long idAnimal,
                                      Long idTanque,
                                      Pageable pageable);
 
-    @Query( value = "SELECT AVG(ordenha.quantidade) FROM OrdenhaEntity ordenha ")
+
+    @Query(value = "SELECT AVG(ordenha.primeiraOrdenha + ordenha.segundaOrdenha) FROM OrdenhaEntity ordenha")
     Double verificarMediaLitro();
 
 
-    @Query(value = "SELECT AVG(ordenha.quantidade) FROM OrdenhaEntity ordenha WHERE ordenha.animal.idAnimal = :idAnimal")
-    Double mediaAnimal(Long idAnimal);
 
-    @Query( value = "SELECT sum(ordenha.quantidade) FROM OrdenhaEntity ordenha")
-    Long totalDeLeiteProduzido();
+
+
+    @Query(value = "SELECT AVG(ordenha.primeiraOrdenha + ordenha.segundaOrdenha) FROM OrdenhaEntity ordenha WHERE ordenha.animal.idAnimal = :idAnimal")
+    Double mediaAnimal(@Param("idAnimal") Long idAnimal);
+
+
+    @Query(value = "SELECT SUM(ordenha.primeiraOrdenha + ordenha.segundaOrdenha) FROM OrdenhaEntity ordenha")
+    Double totalDeLeiteProduzido();
+
 
 
 
