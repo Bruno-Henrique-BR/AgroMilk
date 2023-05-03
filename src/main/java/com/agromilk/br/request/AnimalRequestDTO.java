@@ -4,7 +4,6 @@ import com.agromilk.br.repository.OrdenhaRepository;
 import com.agromilk.br.util.LenientLocalDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.OptBoolean;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -49,8 +48,6 @@ public class AnimalRequestDTO {
         @NotNull(message = "Lactação é obrigatório")
         private Boolean lactacao;
         private Double mediaAnimal;
-
-
 
 
 }
