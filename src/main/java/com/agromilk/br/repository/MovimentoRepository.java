@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MovimentoRepository extends JpaRepository<MovimentoEntity, Long> {
 
@@ -25,6 +26,13 @@ public interface MovimentoRepository extends JpaRepository<MovimentoEntity, Long
     @Query(value = "DELETE FROM MovimentoEntity movimento "
             + "WHERE movimento.lote.idLote = :idLote")
     void deleteByLoteId(@Param("idLote") Long idLote);
+    List<MovimentoEntity> findByAnimalOrderByDataEntradaDesc(AnimalEntity animal);
     MovimentoEntity findFirstByAnimalOrderByDataEntradaDesc(AnimalEntity animal);
+    @Query("SELECT m FROM MovimentoEntity m WHERE m.animal = :animal ORDER BY m.id DESC")
+    MovimentoEntity findFirstByAnimalOrderByidMovimentoDesc(@Param("animal") AnimalEntity animal);
+
+    @Query("SELECT m FROM MovimentoEntity m WHERE m.animal = :animal AND m.dataSaida IS NULL ORDER BY m.id DESC")
+    MovimentoEntity findLastUnfinishedMovementByAnimal(@Param("animal") AnimalEntity animal);
+
 }
 

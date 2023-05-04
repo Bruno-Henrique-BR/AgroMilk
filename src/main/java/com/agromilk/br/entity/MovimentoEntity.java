@@ -29,7 +29,7 @@ public class MovimentoEntity {
     @Column(name = "data_saida")
     private LocalDate dataSaida;
 
-    @Formula("EXTRACT(DAY FROM age(data_saida, data_entrada))")
     private Long dias;
+
 
 }

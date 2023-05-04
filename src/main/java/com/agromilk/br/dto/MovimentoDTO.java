@@ -24,7 +24,7 @@ public class MovimentoDTO {
 
     private LocalDate dataSaida;
 
-    private Long dias;
+    private Integer dias;
 
     public MovimentoDTO(MovimentoEntity obj) {
         super();

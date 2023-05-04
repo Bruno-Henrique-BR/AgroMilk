@@ -125,23 +125,20 @@ public class LoteServiceImpl implements LoteService {
         }
     }
 
-    public void adicionarAnimalEMovimento(LoteEntity lote, Long idAnimal) throws Exception {
-        AnimalEntity animal = animalRepository.findById(idAnimal)
-                .orElseThrow(() -> new ObjectNotFoundException("Animal não encontrado."));
+   public void adicionarAnimalEMovimento(LoteEntity lote, Long idAnimal) throws Exception {
+       AnimalEntity animal = animalRepository.findById(idAnimal)
+               .orElseThrow(() -> new ObjectNotFoundException("Animal não encontrado."));
 
-        if (animal.getLote() != null && animal.getLote().equals(lote)) {
-            throw new Exception("O animal já está no lote atual.");
-        }
+       if (animal.getLote() != null && animal.getLote().equals(lote)) {
+           throw new Exception("O animal já está no lote atual.");
+       }
 
-        // Salvar data de saída do animal do lote anterior
-        LoteEntity loteAnterior = animal.getLote();
-        if (loteAnterior != null && !loteAnterior.equals(lote)) {
-            MovimentoEntity ultimoMovimento = movimentoRepository.findFirstByAnimalOrderByDataEntradaDesc(animal);
-            if (ultimoMovimento != null) {
-                ultimoMovimento.setDataSaida(LocalDate.now());
-                movimentoRepository.save(ultimoMovimento);
-            }
-        }
+       // Salvar data de saída do último movimento do animal
+       MovimentoEntity ultimoMovimento = movimentoRepository.findLastUnfinishedMovementByAnimal(animal);
+       if (ultimoMovimento != null) {
+           ultimoMovimento.setDataSaida(LocalDate.now());
+           movimentoRepository.save(ultimoMovimento);
+       }
 
         // Adicionar animal ao lote atual
         lote.getAnimais().add(animal);
@@ -151,12 +148,13 @@ public class LoteServiceImpl implements LoteService {
         // Atualizar lote do animal
         animalRepository.save(animal);
 
-        // Salvar movimento
-        MovimentoEntity movimento = new MovimentoEntity();
-        movimento.setDataEntrada(LocalDate.now());
-        movimento.setAnimal(animal);
-        movimento.setLote(lote);
-        movimentoRepository.save(movimento);
+        // Salvar novo movimento
+        MovimentoEntity novoMovimento = new MovimentoEntity();
+        novoMovimento.setDataEntrada(LocalDate.now());
+        novoMovimento.setAnimal(animal);
+        novoMovimento.setLote(lote);
+
+        movimentoRepository.save(novoMovimento);
     }
 
 
