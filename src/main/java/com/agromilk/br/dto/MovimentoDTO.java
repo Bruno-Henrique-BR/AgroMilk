@@ -10,6 +10,8 @@ import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 @Data
 @EqualsAndHashCode()
 public class MovimentoDTO {
@@ -34,5 +36,13 @@ public class MovimentoDTO {
         this.dataEntrada = obj.getDataEntrada();
         this.dataSaida = obj.getDataSaida();
 
+        // Calcula a diferença em dias
+        if (dataSaida != null) {
+            this.dias = (int) ChronoUnit.DAYS.between(dataEntrada, dataSaida);
+        } else {
+            // Caso a data de saída seja nula, define dias como null
+            this.dias = null;
+        }
     }
+
 }
