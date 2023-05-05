@@ -20,10 +20,8 @@ public interface AnimalService {
             String apelido,
             LocalDate dataNascimento,
             LocalDate dataCompra,
-            String cor,
             String nomeLote,
             String nomeRaca,
-            Boolean lactacao,
             Double media,
             Pageable pageable) throws Exception;
     List<AnimalEntity> findByIdLote(Long idLote);
@@ -39,6 +37,7 @@ public interface AnimalService {
 
 
     AnimalEntity findById(Long idAnimal) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
+    List<AnimalEntity> listarAnimaisLactantes();
 
     Long animais();
 

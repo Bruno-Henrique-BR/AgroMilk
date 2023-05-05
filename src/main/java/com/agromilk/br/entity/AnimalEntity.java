@@ -32,7 +32,6 @@ public class AnimalEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
     private LocalDate dataCompra;
 
-    private String cor;
     @ManyToOne
     @JoinColumn(name = "ID_LOTE",referencedColumnName = "ID_LOTE")
     private LoteEntity lote;
@@ -41,7 +40,6 @@ public class AnimalEntity {
     @JoinColumn(name = "ID_RACA", referencedColumnName = "ID_RACA")
     private RacaEntity raca;
 
-    private Boolean lactacao;
     @Formula("(SELECT AVG((ordenha.primeira_Ordenha + ordenha.segunda_Ordenha) / 2) FROM ORDENHA ordenha WHERE ordenha.id_animal = id_animal)")
     private Double media;
 

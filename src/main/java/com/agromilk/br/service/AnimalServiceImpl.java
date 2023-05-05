@@ -71,7 +71,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public Long animaisLactacao(){
-        return animalRepository.verificarQdtAnimaisLactacao();
+        return animalRepository.verificarQtdAnimaisLactantes();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public Double porcentagemLactantes() {
         Double qtdAnimal = Double.valueOf(animalRepository.verificarQdtAnimais());
-        Double qtdAnimalLactantes = Double.valueOf(animalRepository.verificarQdtAnimaisLactacao());
+        Double qtdAnimalLactantes = Double.valueOf(animalRepository.verificarQtdAnimaisLactantes());
         Double media = 100/qtdAnimal*qtdAnimalLactantes;
         return media;
     }
@@ -127,10 +127,8 @@ public class AnimalServiceImpl implements AnimalService {
             String apelido,
             LocalDate dataNascimento,
             LocalDate dataCompra,
-            String cor,
             String nomeLote,
             String nomeRaca,
-            Boolean lactacao,
             Double media,
             Pageable pageable) throws Exception {
 
@@ -142,10 +140,8 @@ public class AnimalServiceImpl implements AnimalService {
                 apelido,
                 dataNascimento,
                 dataCompra,
-                cor,
                 nomeLote,
                 nomeRaca,
-                lactacao,
                 media,
                 pageable);
 
@@ -181,10 +177,8 @@ public class AnimalServiceImpl implements AnimalService {
         saveAnimal.setApelido(dto.getApelido());
         saveAnimal.setDataNascimento(dto.getDataNascimento());
         saveAnimal.setDataCompra(dto.getDataCompra());
-        saveAnimal.setCor(dto.getCor());
         saveAnimal.setLote(lote.get());
         saveAnimal.setRaca(raca.get());
-        saveAnimal.setLactacao(dto.getLactacao());
         saveAnimal = animalRepository.save(saveAnimal);
         return saveAnimal;
 
@@ -207,6 +201,11 @@ public class AnimalServiceImpl implements AnimalService {
 
         return saveAnimal(dto);
     }
+    public List<AnimalEntity> listarAnimaisLactantes() {
+        return animalRepository.listarAnimaisLactantes();
+
+    }
+
 
     public List<AnimalEntity> listarPorIdLote(Long idLote) {
         return animalRepository.findByLoteIdLote(idLote);

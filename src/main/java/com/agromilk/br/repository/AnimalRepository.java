@@ -26,10 +26,8 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " AND ( :apelido IS NULL OR animal.apelido LIKE :apelido ) "
            + " AND ( :dataNascimento IS NULL OR animal.dataNascimento = :dataNascimento ) "
            + " AND ( :dataCompra IS NULL OR animal.dataCompra = :dataCompra ) "
-           + " AND ( :cor IS NULL OR animal.cor LIKE :cor ) "
            + " AND ( :nomeLote IS NULL OR animal.lote.nomeLote = :nomeLote ) "
            + " AND ( :nomeRaca IS NULL OR animal.raca.nomeRaca = :nomeRaca ) "
-           + " AND ( :lactacao IS NULL OR animal.lactacao = :lactacao ) "
            + " AND ( :media IS NULL OR animal.media = :media ) "
            + " ORDER BY animal.idAnimal")
    List<AnimalEntity> findByFilter(Long idAnimal,
@@ -37,23 +35,26 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
                                    String apelido,
                                    LocalDate dataNascimento,
                                    LocalDate dataCompra,
-                                   String cor,
                                    String nomeLote,
                                    String nomeRaca,
-                                   Boolean lactacao,
                                    Double media,
                                    Pageable pageable);
 
    @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal " )
    Long verificarQdtAnimais();
-   @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal "
-   + " WHERE animal.lactacao = true ")
-   Long verificarQdtAnimaisLactacao();
+
+   @Query(value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity animal "
+           + "WHERE animal.lote.tipoLote = 'LACTANTES'")
+   Long verificarQtdAnimaisLactantes();
+
 
    @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal "
-           + " WHERE animal.lactacao = false ")
+           + " WHERE animal.lote.tipoLote = 'SECAS' ")
    Long verificarQdtAnimaisSecas();
 
+
+   @Query("SELECT animal FROM AnimalEntity animal JOIN animal.lote lote WHERE lote.tipoLote = 'LACTANTES'")
+   List<AnimalEntity> listarAnimaisLactantes();
 
    @Query(value = "SELECT animal FROM AnimalEntity animal WHERE (:idLote IS NULL OR animal.lote.idLote = :idLote)")
    List<AnimalEntity> findByIdLote(@Param("idLote") Long idLote);

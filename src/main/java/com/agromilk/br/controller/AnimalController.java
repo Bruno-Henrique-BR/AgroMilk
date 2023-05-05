@@ -78,10 +78,8 @@ public class AnimalController {
             @RequestParam(required = false) String apelido,
             @RequestParam(required = false) LocalDate dataNascimento,
             @RequestParam(required = false) LocalDate dataCompra,
-            @RequestParam(required = false) String cor,
             @RequestParam(required = false) String nomeLote,
             @RequestParam(required = false) String nomeRaca,
-            @RequestParam(required = false) Boolean lactacao,
             @RequestParam(required = false) Double media,
 
 
@@ -95,14 +93,19 @@ public class AnimalController {
                 apelido,
                 dataNascimento,
                 dataCompra,
-                cor,
                 nomeLote,
                 nomeRaca,
-                lactacao,
                 media,
                 pageable);
         return new ResponseEntity<>(response, OK);
     }
+
+    @GetMapping("/lactantes")
+    public ResponseEntity<List<AnimalEntity>> listarAnimaisLactantes() {
+        List<AnimalEntity> animais = animalService.listarAnimaisLactantes();
+        return ResponseEntity.ok().body(animais);
+    }
+
     @GetMapping("/lote/{idLote}/nao-contem")
     public ResponseEntity<List<AnimalDTO>> findAnimaisNaoContemNoLote(@PathVariable Long idLote) {
         List<AnimalEntity> list = animalService.findAnimaisNaoContemNoLote(idLote);

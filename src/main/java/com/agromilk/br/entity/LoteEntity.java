@@ -17,6 +17,11 @@ public class LoteEntity {
     private Long idLote;
     private String nomeLote;
     private String descricao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TIPO_LOTE")
+    private TipoLoteEnum tipoLote;
+
     @JsonIgnore
     @OneToMany(mappedBy = "lote")
     private List<AnimalEntity> list = new ArrayList<>();
