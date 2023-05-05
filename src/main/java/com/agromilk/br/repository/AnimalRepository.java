@@ -52,8 +52,7 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + " WHERE animal.lote.tipoLote = 'SECAS' ")
    Long verificarQdtAnimaisSecas();
 
-
-   @Query("SELECT animal FROM AnimalEntity animal JOIN animal.lote lote WHERE lote.tipoLote = 'LACTANTES'")
+   @Query("SELECT animal FROM AnimalEntity animal JOIN animal.lote lote WHERE lote.tipoLote = 'LACTANTES' ORDER BY animal.idAnimal")
    List<AnimalEntity> listarAnimaisLactantes();
 
    @Query(value = "SELECT animal FROM AnimalEntity animal WHERE (:idLote IS NULL OR animal.lote.idLote = :idLote)")
