@@ -1,5 +1,6 @@
 package com.agromilk.br.repository;
 
+import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
@@ -58,6 +59,13 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
 
     @Query(value = "SELECT SUM(ordenha.primeiraOrdenha + ordenha.segundaOrdenha) FROM OrdenhaEntity ordenha")
     Double totalDeLeiteProduzido();
+
+    @Query("SELECT CONCAT(YEAR(o.data), '-', TO_CHAR(o.data, 'TMMonth')) AS mes, SUM(o.primeiraOrdenha + o.segundaOrdenha) AS somaProducaoLeite " +
+            "FROM OrdenhaEntity o " +
+            "GROUP BY YEAR(o.data), TO_CHAR(o.data, 'TMMonth') " +
+            "ORDER BY YEAR(o.data), MIN(o.data)")
+    List<Object[]> obterSomaProducaoLeitePorMes();
+
 
 
 

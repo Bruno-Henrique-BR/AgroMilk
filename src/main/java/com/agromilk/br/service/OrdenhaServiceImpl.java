@@ -2,6 +2,7 @@ package com.agromilk.br.service;
 
 
 import com.agromilk.br.constants.*;
+import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.entity.*;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.AnimalRepository;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -197,7 +199,21 @@ public class OrdenhaServiceImpl implements OrdenhaService {
                 "Objeto não encontrado! Id: " + idOrdenha + ", Tipo: " + OrdenhaEntity.class.getName()));
     }
 
+    public List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeite() {
+        List<ProducaoLeiteMensalDTO> graficoProducaoLeite = new ArrayList<>();
 
+        // Realize a consulta no banco de dados para obter a soma da produção de leite de todos os animais por mês
+        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeitePorMes();
 
+        // Mapeie o resultado da consulta para a lista de DTOs do gráfico de produção de leite
+        for (Object[] resultado : resultadoConsulta) {
+            String mes = (String) resultado[0];
+            Double producaoLeite = (Double) resultado[1];
 
+            ProducaoLeiteMensalDTO dto = new ProducaoLeiteMensalDTO(mes, producaoLeite);
+            graficoProducaoLeite.add(dto);
+        }
+
+        return graficoProducaoLeite;
+    }
 }

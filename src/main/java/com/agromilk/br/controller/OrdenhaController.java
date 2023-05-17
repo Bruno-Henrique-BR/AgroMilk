@@ -1,6 +1,7 @@
 package com.agromilk.br.controller;
 
 import com.agromilk.br.dto.OrdenhaDTO;
+import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.service.OrdenhaService;
@@ -96,4 +97,11 @@ public class OrdenhaController {
         ordenhaService.excluir(idOrdenha);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/grafico-producao-leite")
+    public ResponseEntity<List<ProducaoLeiteMensalDTO>> obterGraficoProducaoLeite() {
+        List<ProducaoLeiteMensalDTO> graficoProducaoLeite = ordenhaService.obterGraficoProducaoLeite();
+        return ResponseEntity.ok().body(graficoProducaoLeite);
+    }
+
 }

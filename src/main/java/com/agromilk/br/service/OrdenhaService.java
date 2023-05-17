@@ -1,6 +1,7 @@
 package com.agromilk.br.service;
 
 
+import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
@@ -29,6 +30,7 @@ public interface OrdenhaService {
     OrdenhaEntity atualizar(OrdenhaRequestDTO dto, Long idOrdenha) throws Exception;
 
     OrdenhaEntity findById(Long idOrdenha) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
+    List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeite();
 
 
 
