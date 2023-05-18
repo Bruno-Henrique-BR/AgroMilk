@@ -104,4 +104,10 @@ public class OrdenhaController {
         return ResponseEntity.ok().body(graficoProducaoLeite);
     }
 
+    @GetMapping("/grafico-producao-leite/{idAnimal}")
+    public ResponseEntity<List<ProducaoLeiteMensalDTO>> obterGraficoProducaoLeiteAnimal(@PathVariable Long idAnimal) {
+        List<ProducaoLeiteMensalDTO> graficoProducaoLeite = ordenhaService.obterGraficoProducaoLeiteAnimal(idAnimal);
+        return ResponseEntity.ok().body(graficoProducaoLeite);
+    }
+
 }

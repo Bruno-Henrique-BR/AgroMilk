@@ -216,4 +216,22 @@ public class OrdenhaServiceImpl implements OrdenhaService {
 
         return graficoProducaoLeite;
     }
+
+    public List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeiteAnimal(Long idAnimal) {
+        List<ProducaoLeiteMensalDTO> graficoProducaoLeite = new ArrayList<>();
+
+        // Realize a consulta no banco de dados para obter a soma da produção de leite de todos os animais por mês
+        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeitePorMesAnimal(idAnimal);
+
+        // Mapeie o resultado da consulta para a lista de DTOs do gráfico de produção de leite
+        for (Object[] resultado : resultadoConsulta) {
+            String mes = (String) resultado[0];
+            Double producaoLeite = (Double) resultado[1];
+
+            ProducaoLeiteMensalDTO dto = new ProducaoLeiteMensalDTO(mes, producaoLeite);
+            graficoProducaoLeite.add(dto);
+        }
+
+        return graficoProducaoLeite;
+    }
 }
