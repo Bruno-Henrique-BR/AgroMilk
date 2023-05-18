@@ -1,10 +1,6 @@
 package com.agromilk.br.repository;
 
-import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
-import com.agromilk.br.entity.AnimalEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
-import com.agromilk.br.request.OrdenhaRequestDTO;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -72,6 +68,20 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
             "GROUP BY YEAR(o.data), TO_CHAR(o.data, 'TMMonth') " +
             "ORDER BY YEAR(o.data), MIN(o.data)")
     List<Object[]> obterSomaProducaoLeitePorMesAnimal(@Param("idAnimal") Long idAnimal);
+
+    @Query("SELECT CONCAT(EXTRACT(YEAR FROM o.data), '-', EXTRACT(WEEK FROM o.data)) AS semana, SUM(o.primeiraOrdenha + o.segundaOrdenha) AS somaProducaoLeite " +
+            "FROM OrdenhaEntity o " +
+            "GROUP BY EXTRACT(YEAR FROM o.data), EXTRACT(WEEK FROM o.data) " +
+            "ORDER BY EXTRACT(YEAR FROM o.data), MIN(o.data)")
+    List<Object[]> obterSomaProducaoLeitePorSemana();
+
+    @Query("SELECT CONCAT(EXTRACT(YEAR FROM o.data), '-', EXTRACT(WEEK FROM o.data)) AS semana, SUM(o.primeiraOrdenha + o.segundaOrdenha) AS somaProducaoLeite " +
+            "FROM OrdenhaEntity o " +
+            "WHERE o.animal.idAnimal = :idAnimal " +
+            "GROUP BY EXTRACT(YEAR FROM o.data), EXTRACT(WEEK FROM o.data) " +
+            "ORDER BY EXTRACT(YEAR FROM o.data), MIN(o.data)")
+    List<Object[]> obterSomaProducaoLeitePorSemanaAnimal(@Param("idAnimal") Long idAnimal);
+
 
 
 

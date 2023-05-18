@@ -3,6 +3,7 @@ package com.agromilk.br.service;
 
 import com.agromilk.br.constants.*;
 import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
+import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
 import com.agromilk.br.entity.*;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.AnimalRepository;
@@ -12,16 +13,13 @@ import com.agromilk.br.repository.TanqueRepository;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.util.Paginacao;
 import javassist.NotFoundException;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -217,6 +215,25 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         return graficoProducaoLeite;
     }
 
+    public List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeitePorSemana() {
+        List<ProducaoLeiteSemanalDTO> graficoProducaoLeiteSemana = new ArrayList<>();
+
+        // Realize a consulta no banco de dados para obter a soma da produção de leite de todos os animais por mês
+        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeitePorSemana();
+
+        // Mapeie o resultado da consulta para a lista de DTOs do gráfico de produção de leite
+        for (Object[] resultado : resultadoConsulta) {
+            String semana = (String) resultado[0];
+            Double producaoLeite = (Double) resultado[1];
+
+            ProducaoLeiteSemanalDTO dto = new ProducaoLeiteSemanalDTO(semana, producaoLeite);
+            graficoProducaoLeiteSemana.add(dto);
+        }
+
+        return graficoProducaoLeiteSemana;
+    }
+
+
     public List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeiteAnimal(Long idAnimal) {
         List<ProducaoLeiteMensalDTO> graficoProducaoLeite = new ArrayList<>();
 
@@ -229,6 +246,24 @@ public class OrdenhaServiceImpl implements OrdenhaService {
             Double producaoLeite = (Double) resultado[1];
 
             ProducaoLeiteMensalDTO dto = new ProducaoLeiteMensalDTO(mes, producaoLeite);
+            graficoProducaoLeite.add(dto);
+        }
+
+        return graficoProducaoLeite;
+    }
+
+    public List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeiteSemanalAnimal(Long idAnimal) {
+        List<ProducaoLeiteSemanalDTO> graficoProducaoLeite = new ArrayList<>();
+
+        // Realize a consulta no banco de dados para obter a soma da produção de leite de todos os animais por mês
+        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeitePorSemanaAnimal(idAnimal);
+
+        // Mapeie o resultado da consulta para a lista de DTOs do gráfico de produção de leite
+        for (Object[] resultado : resultadoConsulta) {
+            String semana = (String) resultado[0];
+            Double producaoLeite = (Double) resultado[1];
+
+            ProducaoLeiteSemanalDTO dto = new ProducaoLeiteSemanalDTO(semana, producaoLeite);
             graficoProducaoLeite.add(dto);
         }
 
