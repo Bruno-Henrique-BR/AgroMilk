@@ -205,7 +205,15 @@ public class AnimalServiceImpl implements AnimalService {
         return animalRepository.listarAnimaisLactantes();
 
     }
+    public List<AnimalEntity> getMelhoresVacas() {
+        PageRequest pageable = PageRequest.of(0, 5); // Retorna apenas as 5 primeiras vacas
+        return animalRepository.findTop5ByOrderByMediaDesc(pageable);
+    }
 
+    public List<AnimalEntity> getPioresVacas() {
+        PageRequest pageable = PageRequest.of(0, 5); // Retorna apenas as 5 primeiras vacas
+        return animalRepository.findTop5ByOrderByMediaAsc(pageable);
+    }
 
     public List<AnimalEntity> listarPorIdLote(Long idLote) {
         return animalRepository.findByLoteIdLote(idLote);

@@ -158,4 +158,16 @@ public class AnimalController {
     public Double porcentagemSecas(){
         return animalService.porcentagemSecas();
     }
+
+    @GetMapping("/melhores")
+    public ResponseEntity<List<AnimalEntity>> getMelhoresVacas() {
+        List<AnimalEntity> melhoresVacas = animalService.getMelhoresVacas();
+        return ResponseEntity.ok(melhoresVacas);
+    }
+
+    @GetMapping("/piores")
+    public ResponseEntity<List<AnimalEntity>> getPioresVacas() {
+        List<AnimalEntity> pioresVacas = animalService.getPioresVacas();
+        return ResponseEntity.ok(pioresVacas);
+    }
 }

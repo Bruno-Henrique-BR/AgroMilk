@@ -55,4 +55,10 @@ public interface AnimalService {
     List<AnimalEntity> pesquisar(String apelido) throws Exception;
 
     List<AnimalEntity> findAnimaisNaoContemNoLote(Long idLote);
+
+    List<AnimalEntity> getMelhoresVacas();
+
+    List<AnimalEntity> getPioresVacas();
+
+
 }
