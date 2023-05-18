@@ -34,19 +34,12 @@ public class AnimalRequestDTO {
         private LocalDate dataCompra;
 
 
-
-
-        @NotNull(message = "Cor é obrigatório")
-        private String cor;
-
         @NotNull(message = "Lote é obrigatório")
         private Long idLote;
 
         @NotNull(message = "Raça é obrigatório")
         private Long idRaca;
-
-        @NotNull(message = "Lactação é obrigatório")
-        private Boolean lactacao;
+        
         private Double mediaAnimal;
 
 
