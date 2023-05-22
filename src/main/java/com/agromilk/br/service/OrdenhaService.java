@@ -3,6 +3,7 @@ package com.agromilk.br.service;
 
 import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
+import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
 import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
@@ -36,9 +37,12 @@ public interface OrdenhaService {
     List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeiteAnimal(Long idAnimal);
     List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeiteSemanalAnimal(Long idAnimal);
 
+    List<TaxaOcupacaoTanqueDTO> obterGraficoTaxaOcupacaoTanques();
 
 
 
 
 
-}
+
+
+    }

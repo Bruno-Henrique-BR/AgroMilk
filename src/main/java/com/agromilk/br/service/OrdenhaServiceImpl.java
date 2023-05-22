@@ -4,6 +4,7 @@ package com.agromilk.br.service;
 import com.agromilk.br.constants.*;
 import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
+import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
 import com.agromilk.br.entity.*;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.AnimalRepository;
@@ -269,4 +270,30 @@ public class OrdenhaServiceImpl implements OrdenhaService {
 
         return graficoProducaoLeite;
     }
+    public List<TaxaOcupacaoTanqueDTO> obterGraficoTaxaOcupacaoTanques() {
+        List<TanqueEntity> tanques = tanqueRepository.findAll(); // Supondo que você tenha um repositório para acessar os tanques
+
+        List<TaxaOcupacaoTanqueDTO> graficoTaxaOcupacaoTanques = new ArrayList<>();
+
+        for (TanqueEntity tanque : tanques) {
+            Double taxaOcupacao = calcularTaxaOcupacaoTanque(tanque); // Método para calcular a taxa de ocupação de um tanque específico
+
+            TaxaOcupacaoTanqueDTO taxaOcupacaoTanqueDTO = new TaxaOcupacaoTanqueDTO(tanque.getIdTanque(), tanque.getModelo(), taxaOcupacao);
+            graficoTaxaOcupacaoTanques.add(taxaOcupacaoTanqueDTO);
+        }
+
+        return graficoTaxaOcupacaoTanques;
+    }
+    private double calcularTaxaOcupacaoTanque(TanqueEntity tanque) {
+
+        double capacidadeTanque = tanque.getCapacidade();
+        double quantidadeLeiteArmazenada = tanque.getQuantidadeAtual();
+
+        if (capacidadeTanque == 0) {
+            return 0;
+        }
+
+        return quantidadeLeiteArmazenada / capacidadeTanque * 100;
+    }
+
 }

@@ -3,6 +3,7 @@ package com.agromilk.br.controller;
 import com.agromilk.br.dto.OrdenhaDTO;
 import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
+import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.service.OrdenhaService;
@@ -97,6 +98,11 @@ public class OrdenhaController {
     public ResponseEntity<OrdenhaEntity> excluir(@PathVariable Long idOrdenha) throws Exception {
         ordenhaService.excluir(idOrdenha);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/grafico-taxa-ocupacao-tanques")
+    public ResponseEntity<List<TaxaOcupacaoTanqueDTO>> obterGraficoTaxaOcupacaoTanques() {
+        List<TaxaOcupacaoTanqueDTO> graficoTaxaOcupacaoTanques = ordenhaService.obterGraficoTaxaOcupacaoTanques();
+        return ResponseEntity.ok().body(graficoTaxaOcupacaoTanques);
     }
 
     @GetMapping("/grafico-producao-leite")
