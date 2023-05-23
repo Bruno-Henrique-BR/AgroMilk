@@ -22,7 +22,7 @@ public class OrdenhaDTO {
 
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
-    private @NotNull(message = "Data de ordenha é obrigatorio") Date data;
+    private Date data;
 
     private Double primeiraOrdenha;
     private Double segundaOrdenha;

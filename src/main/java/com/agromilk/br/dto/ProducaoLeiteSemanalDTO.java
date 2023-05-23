@@ -12,7 +12,7 @@ public class ProducaoLeiteSemanalDTO {
     private Double producaoLeite;
 
     public ProducaoLeiteSemanalDTO() {
-        // Default constructor
+        // Construtor padrão
     }
 
     public ProducaoLeiteSemanalDTO(String semana, Double producaoLeite) {
@@ -20,5 +20,19 @@ public class ProducaoLeiteSemanalDTO {
         this.producaoLeite = producaoLeite;
     }
 
-    // Getters and setters
+    public String getSemana() {
+        return semana;
+    }
+
+    public void setSemana(String semana) {
+        this.semana = semana;
+    }
+
+    public Double getProducaoLeite() {
+        return producaoLeite;
+    }
+
+    public void setProducaoLeite(Double producaoLeite) {
+        this.producaoLeite = producaoLeite;
+    }
 }

@@ -1,5 +1,6 @@
 package com.agromilk.br.repository;
 
+import com.agromilk.br.dto.ProducaoLeiteDiariaDTO;
 import com.agromilk.br.entity.OrdenhaEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
@@ -83,10 +85,11 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
     List<Object[]> obterSomaProducaoLeitePorSemanaAnimal(@Param("idAnimal") Long idAnimal);
 
 
-
-
-
-
+    @Query("SELECT EXTRACT(DAY FROM o.data) as dataDia, SUM(o.primeiraOrdenha + o.segundaOrdenha) AS somaProducaoLeite " +
+            "FROM OrdenhaEntity o " +
+            "GROUP BY EXTRACT(DAY FROM o.data) " +
+            "ORDER BY EXTRACT(DAY FROM o.data) DESC")
+    List<Object[]> obterSomaProducaoLeiteUltimosSeteDias(Pageable pageable);
 
 
 }

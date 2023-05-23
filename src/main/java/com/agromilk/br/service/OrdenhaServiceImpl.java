@@ -2,6 +2,7 @@ package com.agromilk.br.service;
 
 
 import com.agromilk.br.constants.*;
+import com.agromilk.br.dto.ProducaoLeiteDiariaDTO;
 import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
 import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
@@ -21,6 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -216,6 +220,7 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         return graficoProducaoLeite;
     }
 
+
     public List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeitePorSemana() {
         List<ProducaoLeiteSemanalDTO> graficoProducaoLeiteSemana = new ArrayList<>();
 
@@ -232,6 +237,21 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         }
 
         return graficoProducaoLeiteSemana;
+    }
+
+    public List<ProducaoLeiteDiariaDTO> obterSomaProducaoLeiteUltimos7Dias() {
+        List<ProducaoLeiteDiariaDTO> graficoProducaoLeiteDiaria = new ArrayList<>();
+        Pageable pageable = PageRequest.of(0, 7); // Limita a 7 registros
+        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeiteUltimosSeteDias(pageable);
+
+        for (Object[] resultado : resultadoConsulta) {
+            Integer dataDia = (Integer) resultado[0];
+            Double somaProducaoLeite = (Double) resultado[1];
+
+            ProducaoLeiteDiariaDTO dto = new ProducaoLeiteDiariaDTO(dataDia.toString(), somaProducaoLeite);
+            graficoProducaoLeiteDiaria.add(dto);
+        }
+        return graficoProducaoLeiteDiaria;
     }
 
 

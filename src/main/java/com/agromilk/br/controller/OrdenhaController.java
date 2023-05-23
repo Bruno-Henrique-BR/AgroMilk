@@ -1,9 +1,6 @@
 package com.agromilk.br.controller;
 
-import com.agromilk.br.dto.OrdenhaDTO;
-import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
-import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
-import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
+import com.agromilk.br.dto.*;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.service.OrdenhaService;
@@ -18,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +116,13 @@ public class OrdenhaController {
         List<ProducaoLeiteSemanalDTO> graficoProducaoLeitePorSemana = ordenhaService.obterGraficoProducaoLeitePorSemana();
         return ResponseEntity.ok().body(graficoProducaoLeitePorSemana);
     }
+
+    @GetMapping("/grafico-producao-ultimos-7-dias")
+    public ResponseEntity<List<ProducaoLeiteDiariaDTO>> obterProducaoLeiteUltimos7Dias() {
+        List<ProducaoLeiteDiariaDTO> graficoProducaoLeiteDiaria = ordenhaService.obterSomaProducaoLeiteUltimos7Dias();
+        return ResponseEntity.ok().body(graficoProducaoLeiteDiaria);
+    }
+
     @GetMapping("/grafico-producao-leite-semana/{idAnimal}")
     public ResponseEntity<List<ProducaoLeiteSemanalDTO>> obterSomaProducaoLeitePorSemanaAnimal(@PathVariable Long idAnimal) {
         List<ProducaoLeiteSemanalDTO> graficoProducaoLeitePorSemanaAnimal = ordenhaService.obterGraficoProducaoLeiteSemanalAnimal(idAnimal);

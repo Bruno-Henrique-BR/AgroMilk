@@ -1,6 +1,7 @@
 package com.agromilk.br.service;
 
 
+import com.agromilk.br.dto.ProducaoLeiteDiariaDTO;
 import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
 import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
 import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
@@ -33,6 +34,7 @@ public interface OrdenhaService {
 
     OrdenhaEntity findById(Long idOrdenha) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
     List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeite();
+    List<ProducaoLeiteDiariaDTO> obterSomaProducaoLeiteUltimos7Dias();
     List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeitePorSemana();
     List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeiteAnimal(Long idAnimal);
     List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeiteSemanalAnimal(Long idAnimal);
