@@ -35,6 +35,7 @@ public interface OrdenhaService {
     OrdenhaEntity findById(Long idOrdenha) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
     List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeite();
     List<ProducaoLeiteDiariaDTO> obterSomaProducaoLeiteUltimos7Dias();
+    List<ProducaoLeiteDiariaDTO> obterSomaProducaoLeiteUltimos7DiasAnimal(Long idAnimal);
     List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeitePorSemana();
     List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeiteAnimal(Long idAnimal);
     List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeiteSemanalAnimal(Long idAnimal);

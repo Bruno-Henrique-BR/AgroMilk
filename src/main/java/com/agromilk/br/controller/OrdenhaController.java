@@ -123,6 +123,12 @@ public class OrdenhaController {
         return ResponseEntity.ok().body(graficoProducaoLeiteDiaria);
     }
 
+    @GetMapping("/grafico-producao-ultimos-7-dias/{idAnimal}")
+    public ResponseEntity<List<ProducaoLeiteDiariaDTO>> obterProducaoLeiteUltimos7DiasAnimal(@PathVariable Long idAnimal) {
+        List<ProducaoLeiteDiariaDTO> graficoProducaoLeiteDiaria = ordenhaService.obterSomaProducaoLeiteUltimos7DiasAnimal(idAnimal);
+        return ResponseEntity.ok().body(graficoProducaoLeiteDiaria);
+    }
+
     @GetMapping("/grafico-producao-leite-semana/{idAnimal}")
     public ResponseEntity<List<ProducaoLeiteSemanalDTO>> obterSomaProducaoLeitePorSemanaAnimal(@PathVariable Long idAnimal) {
         List<ProducaoLeiteSemanalDTO> graficoProducaoLeitePorSemanaAnimal = ordenhaService.obterGraficoProducaoLeiteSemanalAnimal(idAnimal);

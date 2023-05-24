@@ -254,6 +254,21 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         return graficoProducaoLeiteDiaria;
     }
 
+    public List<ProducaoLeiteDiariaDTO> obterSomaProducaoLeiteUltimos7DiasAnimal(Long idAnimal) {
+        List<ProducaoLeiteDiariaDTO> graficoProducaoLeiteDiaria = new ArrayList<>();
+        Pageable pageable = PageRequest.of(0, 7); // Limita a 7 registros
+        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeiteUltimosSeteDiasAnimal(pageable, idAnimal);
+
+        for (Object[] resultado : resultadoConsulta) {
+            Integer dataDia = (Integer) resultado[0];
+            Double somaProducaoLeite = (Double) resultado[1];
+
+            ProducaoLeiteDiariaDTO dto = new ProducaoLeiteDiariaDTO(dataDia.toString(), somaProducaoLeite);
+            graficoProducaoLeiteDiaria.add(dto);
+        }
+        return graficoProducaoLeiteDiaria;
+    }
+
 
     public List<ProducaoLeiteMensalDTO> obterGraficoProducaoLeiteAnimal(Long idAnimal) {
         List<ProducaoLeiteMensalDTO> graficoProducaoLeite = new ArrayList<>();

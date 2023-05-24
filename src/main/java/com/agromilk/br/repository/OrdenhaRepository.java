@@ -90,6 +90,12 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
             "GROUP BY EXTRACT(DAY FROM o.data) " +
             "ORDER BY EXTRACT(DAY FROM o.data) DESC")
     List<Object[]> obterSomaProducaoLeiteUltimosSeteDias(Pageable pageable);
+    @Query("SELECT EXTRACT(DAY FROM o.data) as dataDia, SUM(o.primeiraOrdenha + o.segundaOrdenha) AS somaProducaoLeite " +
+            "FROM OrdenhaEntity o " +
+            "WHERE o.animal.idAnimal = :idAnimal " +
+            "GROUP BY EXTRACT(DAY FROM o.data) " +
+            "ORDER BY EXTRACT(DAY FROM o.data) DESC")
+    List<Object[]> obterSomaProducaoLeiteUltimosSeteDiasAnimal(Pageable pageable, @Param("idAnimal") Long idAnimal);
 
 
 }
