@@ -10,16 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.crypto.Data;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -140,5 +143,18 @@ public class OrdenhaController {
         List<ProducaoLeiteMensalDTO> graficoProducaoLeite = ordenhaService.obterGraficoProducaoLeiteAnimal(idAnimal);
         return ResponseEntity.ok().body(graficoProducaoLeite);
     }
+
+
+    @GetMapping("/relatorio-producao-diaria")
+    public ResponseEntity<RelatorioProducaoDiariaDTO> obterRelatorioProducaoDiaria(
+            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicial,
+            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFinal) {
+        List<ProducaoLeiteDiariaDTO> producaoDiaria = ordenhaService.obterProducaoLeitePorPeriodo(dataInicial, dataFinal);
+        double somaProducao = producaoDiaria.stream().mapToDouble(ProducaoLeiteDiariaDTO::getSomaProducaoLeite).sum();
+
+        RelatorioProducaoDiariaDTO relatorioProducaoDiaria = new RelatorioProducaoDiariaDTO(dataInicial, dataFinal, producaoDiaria, somaProducao);
+        return ResponseEntity.ok().body(relatorioProducaoDiaria);
+    }
+
 
 }

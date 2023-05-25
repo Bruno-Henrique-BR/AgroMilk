@@ -2,10 +2,7 @@ package com.agromilk.br.service;
 
 
 import com.agromilk.br.constants.*;
-import com.agromilk.br.dto.ProducaoLeiteDiariaDTO;
-import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
-import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
-import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
+import com.agromilk.br.dto.*;
 import com.agromilk.br.entity.*;
 import com.agromilk.br.exception.BadRequestException;
 import com.agromilk.br.repository.AnimalRepository;
@@ -21,14 +18,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -330,5 +325,34 @@ public class OrdenhaServiceImpl implements OrdenhaService {
 
         return quantidadeLeiteArmazenada / capacidadeTanque * 100;
     }
+    public List<ProducaoLeiteDiariaDTO> obterProducaoLeitePorPeriodo(Date dataInicial, Date dataFinal) {
+        List<ProducaoLeiteDiariaDTO> producaoLeite = new ArrayList<>();
+
+        List<Object[]> ordenhas = ordenhaRepository.obterOrdenhasPorPeriodo(dataInicial, dataFinal);
+        for (Object[] resultado : ordenhas) {
+            Integer dataDia = (Integer) resultado[0];
+            Double somaProducaoLeite = (Double) resultado[1];
+
+            // Converter dataDia para String no formato desejado
+            String dataFormatada = formatDate(dataDia);
+
+            ProducaoLeiteDiariaDTO producaoDiaria = new ProducaoLeiteDiariaDTO(dataFormatada, somaProducaoLeite);
+            producaoLeite.add(producaoDiaria);
+        }
+
+        return producaoLeite;
+    }
+
+    private String formatDate(Integer dataDia) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+        data.setDate(dataDia);
+        return format.format(data);
+    }
+
+
+
+
+
 
 }

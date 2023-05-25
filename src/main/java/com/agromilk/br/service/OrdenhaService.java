@@ -1,10 +1,7 @@
 package com.agromilk.br.service;
 
 
-import com.agromilk.br.dto.ProducaoLeiteDiariaDTO;
-import com.agromilk.br.dto.ProducaoLeiteMensalDTO;
-import com.agromilk.br.dto.ProducaoLeiteSemanalDTO;
-import com.agromilk.br.dto.TaxaOcupacaoTanqueDTO;
+import com.agromilk.br.dto.*;
 import com.agromilk.br.entity.FuncionarioEntity;
 import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
@@ -14,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface OrdenhaService {
@@ -41,6 +39,10 @@ public interface OrdenhaService {
     List<ProducaoLeiteSemanalDTO> obterGraficoProducaoLeiteSemanalAnimal(Long idAnimal);
 
     List<TaxaOcupacaoTanqueDTO> obterGraficoTaxaOcupacaoTanques();
+
+    List<ProducaoLeiteDiariaDTO> obterProducaoLeitePorPeriodo(Date dataInicial, Date dataFinal);
+
+
 
 
 
