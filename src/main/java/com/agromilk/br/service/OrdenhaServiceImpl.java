@@ -241,9 +241,11 @@ public class OrdenhaServiceImpl implements OrdenhaService {
 
         for (Object[] resultado : resultadoConsulta) {
             Integer dataDia = (Integer) resultado[0];
-            Double somaProducaoLeite = (Double) resultado[1];
+            Long quantidadeOrdenhas = (Long) resultado[1];
+            Double somaProducaoLeite = (Double) resultado[2];
 
-            ProducaoLeiteDiariaDTO dto = new ProducaoLeiteDiariaDTO(dataDia.toString(), somaProducaoLeite);
+
+            ProducaoLeiteDiariaDTO dto = new ProducaoLeiteDiariaDTO(dataDia.toString(), quantidadeOrdenhas, somaProducaoLeite);
             graficoProducaoLeiteDiaria.add(dto);
         }
         return graficoProducaoLeiteDiaria;
@@ -256,9 +258,10 @@ public class OrdenhaServiceImpl implements OrdenhaService {
 
         for (Object[] resultado : resultadoConsulta) {
             Integer dataDia = (Integer) resultado[0];
-            Double somaProducaoLeite = (Double) resultado[1];
+            Long quantidadeOrdenhas = (Long) resultado[1];
+            Double somaProducaoLeite = (Double) resultado[2];
 
-            ProducaoLeiteDiariaDTO dto = new ProducaoLeiteDiariaDTO(dataDia.toString(), somaProducaoLeite);
+            ProducaoLeiteDiariaDTO dto = new ProducaoLeiteDiariaDTO(dataDia.toString(), quantidadeOrdenhas, somaProducaoLeite);
             graficoProducaoLeiteDiaria.add(dto);
         }
         return graficoProducaoLeiteDiaria;
@@ -331,17 +334,20 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         List<Object[]> ordenhas = ordenhaRepository.obterOrdenhasPorPeriodo(dataInicial, dataFinal);
         for (Object[] resultado : ordenhas) {
             Integer dataDia = (Integer) resultado[0];
-            Double somaProducaoLeite = (Double) resultado[1];
+            Long quantidadeOrdenhas = (Long) resultado[1];
+            Double somaProducaoLeite = (Double) resultado[2];
 
             // Converter dataDia para String no formato desejado
             String dataFormatada = formatDate(dataDia);
 
-            ProducaoLeiteDiariaDTO producaoDiaria = new ProducaoLeiteDiariaDTO(dataFormatada, somaProducaoLeite);
+            ProducaoLeiteDiariaDTO producaoDiaria = new ProducaoLeiteDiariaDTO(dataFormatada, quantidadeOrdenhas, somaProducaoLeite);
             producaoLeite.add(producaoDiaria);
         }
 
         return producaoLeite;
     }
+
+
 
     private String formatDate(Integer dataDia) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
