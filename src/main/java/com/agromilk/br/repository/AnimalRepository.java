@@ -47,6 +47,10 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
            + "WHERE animal.lote.tipoLote = 'LACTANTES'")
    Long verificarQtdAnimaisLactantes();
 
+   @Query(value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity animal "
+           + "WHERE animal.lote.tipoLote = 'GESTANTES'")
+   Long verificarQtdAnimaisGestantes();
+
 
    @Query( value = "SELECT COUNT(animal.idAnimal) FROM AnimalEntity  animal "
            + " WHERE animal.lote.tipoLote = 'SECAS' ")
@@ -54,6 +58,8 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
 
    @Query("SELECT animal FROM AnimalEntity animal JOIN animal.lote lote WHERE lote.tipoLote = 'LACTANTES' ORDER BY animal.idAnimal")
    List<AnimalEntity> listarAnimaisLactantes();
+
+
 
    @Query(value = "SELECT animal FROM AnimalEntity animal WHERE (:idLote IS NULL OR animal.lote.idLote = :idLote)")
    List<AnimalEntity> findByIdLote(@Param("idLote") Long idLote);

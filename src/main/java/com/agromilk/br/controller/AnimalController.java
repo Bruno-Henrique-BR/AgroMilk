@@ -144,6 +144,11 @@ public class AnimalController {
         return animalService.animaisSeca();
     }
 
+    @GetMapping("/qtsAnimalGestantes")
+    public Long qtsAnimalGestantes(){
+        return animalService.animaisGestacao();
+    }
+
     @GetMapping("/mediaLitro")
     public Double mediaLitro(){
         return animalService.animaisMediaLitro();
@@ -157,6 +162,11 @@ public class AnimalController {
     @GetMapping("/porcentagemSecas")
     public Double porcentagemSecas(){
         return animalService.porcentagemSecas();
+    }
+
+    @GetMapping("/porcentagemGestantes")
+    public Double porcentagemGestantes(){
+        return animalService.porcentagemGestantes();
     }
 
     @GetMapping("/melhores")

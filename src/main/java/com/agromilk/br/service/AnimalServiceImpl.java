@@ -80,6 +80,11 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
+    public Long animaisGestacao(){
+        return animalRepository.verificarQtdAnimaisGestantes();
+    }
+
+    @Override
     public Double animaisMediaLitro(){
         return ordenhaRepository.verificarMediaLitro();
     }
@@ -116,6 +121,13 @@ public class AnimalServiceImpl implements AnimalService {
         return media;
     }
 
+    @Override
+    public Double porcentagemGestantes() {
+        Double qtdAnimal = Double.valueOf(animalRepository.verificarQdtAnimais());
+        Double qtdAnimalNaoGestantes = Double.valueOf(animalRepository.verificarQtdAnimaisGestantes());
+        Double media = 100/qtdAnimal*qtdAnimalNaoGestantes;
+        return media;
+    }
     public List<AnimalEntity> findByIdLote(Long idLote) {
 
         return animalRepository.findByIdLote(idLote);

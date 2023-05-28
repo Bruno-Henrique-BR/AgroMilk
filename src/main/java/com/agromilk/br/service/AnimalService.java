@@ -45,11 +45,14 @@ public interface AnimalService {
 
     Long animaisSeca();
 
+    Long animaisGestacao();
     Double animaisMediaLitro();
 
     Double porcentagemLactantes();
 
     Double porcentagemSecas();
+
+    Double porcentagemGestantes();
 
 
     List<AnimalEntity> pesquisar(String apelido) throws Exception;
