@@ -148,4 +148,9 @@ public class ColetaServiceImpl implements ColetaService {
         return obj.orElseThrow(() -> new javassist.tools.rmi.ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + idColeta + ", Tipo: " + ColetaEntity.class.getName()));
     }
+    public Integer obterQuantidadeColetasUltimos30Dias() {
+        LocalDate dataInicial = LocalDate.now().minusDays(30);
+        LocalDate dataFinal = LocalDate.now();
+        return coletaRepository.obterQuantidadeColetasUltimos30Dias(dataInicial, dataFinal);
+    }
 }

@@ -30,4 +30,17 @@ public class MovimentoController {
         animal.setIdAnimal(idAnimal);
         return movimentoService.getMovimentosByAnimal(idAnimal);
     }
+    @GetMapping("/media-dias-lactacao")
+    public Integer calcularMediaDiasLactacao() {
+        return movimentoService.calcularMediaDiasLactacao();
+    }
+
+    @GetMapping("/media-dias-gestacao")
+    public Integer calcularMediaDiasGestacao() {
+        return movimentoService.calcularMediaDiasGestacao();
+    }
+    @GetMapping("/media-dias-secas")
+    public Integer calcularMediaDiasSecas() {
+        return movimentoService.calcularMediaDiasSecas();
+    }
 }

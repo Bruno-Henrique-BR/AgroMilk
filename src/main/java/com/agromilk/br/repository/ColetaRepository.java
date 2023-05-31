@@ -28,4 +28,6 @@ public interface ColetaRepository extends JpaRepository<ColetaEntity, Long> {
                                     String descricao,
                                     LocalDate data,
                                     Pageable pageable);
+    @Query(value = "SELECT COUNT(coleta) FROM ColetaEntity coleta WHERE coleta.data >= :dataInicial AND coleta.data <= :dataFinal")
+    Integer obterQuantidadeColetasUltimos30Dias(LocalDate dataInicial, LocalDate dataFinal);
 }

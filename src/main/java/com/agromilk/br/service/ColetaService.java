@@ -29,5 +29,6 @@ public interface ColetaService {
 
     ColetaEntity findById(Long idColeta) throws ObjectNotFoundException, javassist.tools.rmi.ObjectNotFoundException;
 
+    Integer obterQuantidadeColetasUltimos30Dias();
 
-}
+    }

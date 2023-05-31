@@ -84,4 +84,11 @@ public class ColetaController {
         coletaService.excluir(idColeta);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/coletas")
+    public ResponseEntity<Integer> obterNumeroColetasUltimos30Dias() {
+        Integer numeroColetas = coletaService.obterQuantidadeColetasUltimos30Dias();
+
+        return ResponseEntity.ok(numeroColetas);
+    }
 }

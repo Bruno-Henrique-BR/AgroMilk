@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,24 @@ public interface MovimentoRepository extends JpaRepository<MovimentoEntity, Long
 
     @Query("SELECT m FROM MovimentoEntity m WHERE m.animal = :animal AND m.dataSaida IS NULL ORDER BY m.id DESC")
     MovimentoEntity findLastUnfinishedMovementByAnimal(@Param("animal") AnimalEntity animal);
+
+    @Query("SELECT AVG(EXTRACT(DAY FROM AGE(m.dataSaida, m.dataEntrada))) FROM MovimentoEntity m " +
+            "JOIN m.lote l " +
+            "WHERE l.tipoLote = 'LACTANTES'")
+    Integer calcularMediaDiasLactacao();
+
+    @Query("SELECT AVG(EXTRACT(DAY FROM AGE(m.dataSaida, m.dataEntrada))) FROM MovimentoEntity m " +
+            "JOIN m.lote l " +
+            "WHERE l.tipoLote = 'GESTANTES'")
+    Integer calcularMediaDiasGestacao();
+
+    @Query("SELECT AVG(EXTRACT(DAY FROM AGE(m.dataSaida, m.dataEntrada))) FROM MovimentoEntity m " +
+            "JOIN m.lote l " +
+            "WHERE l.tipoLote = 'SECAS'")
+    Integer calcularMediaDiasSecas();
+
+
+
 
 }
 

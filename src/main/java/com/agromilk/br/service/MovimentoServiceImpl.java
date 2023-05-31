@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,5 +28,18 @@ public class MovimentoServiceImpl implements  MovimentoService{
                 .map(MovimentoDTO::new)
                 .collect(Collectors.toList());
     }
+
+    public Integer calcularMediaDiasLactacao() {
+        return movimentoRepository.calcularMediaDiasLactacao();
+    }
+
+    public Integer calcularMediaDiasGestacao() {
+        return movimentoRepository.calcularMediaDiasGestacao();
+    }
+
+    public Integer calcularMediaDiasSecas() {
+        return movimentoRepository.calcularMediaDiasSecas();
+    }
+
 
 }

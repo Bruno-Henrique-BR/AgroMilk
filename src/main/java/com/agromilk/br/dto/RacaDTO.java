@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 public class RacaDTO {
 
     private  Long idRaca;
-    private  String nome;
+    private  String nomeRaca;
     private  String descricao;
 
     public RacaDTO() {
@@ -19,7 +19,7 @@ public class RacaDTO {
     public RacaDTO(RacaEntity obj) {
         super();
         this.idRaca = obj.getIdRaca();
-        this.nome = obj.getNomeRaca();
+        this.nomeRaca = obj.getNomeRaca();
         this.descricao = obj.getDescricao();
     }
 }
