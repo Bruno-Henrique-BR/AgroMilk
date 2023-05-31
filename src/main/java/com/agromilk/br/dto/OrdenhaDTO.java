@@ -31,8 +31,6 @@ public class OrdenhaDTO {
 
     private Long tanque;
 
-    private Long funcionario;
-
     public OrdenhaDTO() {
         super();
     }

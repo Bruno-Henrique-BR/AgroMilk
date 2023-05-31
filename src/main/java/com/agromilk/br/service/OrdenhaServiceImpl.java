@@ -17,10 +17,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -149,7 +154,6 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     }
 
 
-
     public OrdenhaEntity salvarOrdenha(OrdenhaRequestDTO dto) throws Exception {
         Optional<AnimalEntity> animal = animalRepository.findById(dto.getIdAnimal());
         if (!animal.isPresent()) {
@@ -171,15 +175,29 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         } else {
             saveOrdenha = new OrdenhaEntity();
         }
-        saveOrdenha.setData(new Date());
+
+        LocalDate dataOrdenha;
+        if (dto.getData() == null) {
+            dataOrdenha = LocalDate.now();
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(dto.getData().toInstant(), ZoneOffset.UTC);
+            dataOrdenha = LocalDate.parse(localDateTime.format(formatter), formatter);
+        }
+
+        saveOrdenha.setData(Date.from(dataOrdenha.atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
         saveOrdenha.setPrimeiraOrdenha(dto.getPrimeiraOrdenha());
         saveOrdenha.setSegundaOrdenha(dto.getSegundaOrdenha());
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
+
         validate(dto);
+
         saveOrdenha = ordenhaRepository.save(saveOrdenha);
         return saveOrdenha;
     }
+
+
 
 
     public OrdenhaEntity atualizar(OrdenhaRequestDTO dto, Long idOrdenha) throws Exception {

@@ -73,6 +73,7 @@ public class TanqueServiceImpl implements TanqueService {
             Double capacidade,
             String modelo,
             LocalDate dataFabricacao,
+            Double quantidadeAtual,
             Pageable pageable) throws Exception {
 
         pageable = PageRequest.of(Paginacao.getPageOffsetFromPageable(pageable), pageable.getPageSize(), pageable.getSort());
@@ -83,6 +84,7 @@ public class TanqueServiceImpl implements TanqueService {
                 capacidade,
                 modelo,
                 dataFabricacao,
+                quantidadeAtual,
                 pageable);
 
         return lista;

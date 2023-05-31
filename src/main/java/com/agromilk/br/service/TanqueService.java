@@ -21,6 +21,7 @@ public interface TanqueService {
             Double capacidade,
             String modelo,
             LocalDate dataFabricacao,
+            Double quantidadeAtual,
             Pageable pageable) throws Exception;
 
     TanqueEntity salvar(TanqueRequestDTO dto) throws NotFoundException;

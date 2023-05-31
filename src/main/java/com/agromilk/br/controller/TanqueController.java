@@ -61,6 +61,8 @@ public class TanqueController {
             @RequestParam(required = false) Double capacidade,
             @RequestParam(required = false) String modelo,
             @RequestParam(required = false) LocalDate dataFabricacao,
+            @RequestParam(required = false) Double quantidadeAtual,
+
 
             @PageableDefault(page = Paginacao.DEFAULT_PAGE_NUMBER,
                     value = Integer.MAX_VALUE) Pageable pageable) throws Exception {
@@ -71,6 +73,7 @@ public class TanqueController {
                 capacidade,
                 modelo,
                 dataFabricacao,
+                quantidadeAtual,
                 pageable);
         return new ResponseEntity<>(response, OK);
     }
