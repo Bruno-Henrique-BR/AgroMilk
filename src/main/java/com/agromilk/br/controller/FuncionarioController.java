@@ -95,20 +95,16 @@ public class FuncionarioController {
         return ResponseEntity.noContent().build();
     }
     @GetMapping("/usuario-logado")
-    public ResponseEntity<String> getUsuarioLogado() {
+    public ResponseEntity<String> getUsuarioLogado() throws NotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String nomeFuncionario = authentication.getName();
+        String email = authentication.getName();
 
-        try {
-            FuncionarioEntity funcionario = funcionarioService.findByUsername(nomeFuncionario);
-            String nome = funcionario.getNomeFuncionario();
+        // Aqui você pode usar o nome de usuário para buscar o funcionário correspondente
+        FuncionarioEntity funcionario = funcionarioService.findByUsername(email);
+        String nome = funcionario.getNomeFuncionario();
 
-            return ResponseEntity.ok().body(nome);
-        } catch (NotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok().body(nome);
     }
-
 
 
     @GetMapping("/qtsFuncionario")

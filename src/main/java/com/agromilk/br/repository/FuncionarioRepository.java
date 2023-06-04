@@ -33,8 +33,8 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
     Boolean existsByCpf(String cpf);
     @Query( value = "SELECT COUNT(funcionario.idFuncionario) FROM FuncionarioEntity  funcionario " )
     Long verificarQdtFuncionarios();
-    @Query("SELECT f FROM FuncionarioEntity f WHERE LOWER(TRIM(f.nomeFuncionario)) = LOWER(TRIM(:nomeFuncionario))")
-    Optional<FuncionarioEntity> findByUsername(String nomeFuncionario);
+    @Query("SELECT f FROM FuncionarioEntity f WHERE LOWER(TRIM(f.email)) = LOWER(TRIM(:email))")
+    Optional<FuncionarioEntity> findByUsername(String email);
 
     Optional<FuncionarioEntity> findByEmail(String email);
 

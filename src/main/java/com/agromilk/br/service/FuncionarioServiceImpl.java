@@ -44,8 +44,8 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
 
-    public FuncionarioEntity findByUsername(String nomeFuncionario) throws NotFoundException {
-        Optional<FuncionarioEntity> funcionarioOptional = funcionarioRepository.findByUsername(nomeFuncionario);
+    public FuncionarioEntity findByUsername(String email) throws NotFoundException {
+        Optional<FuncionarioEntity> funcionarioOptional = funcionarioRepository.findByUsername(email);
 
         if (funcionarioOptional.isPresent()) {
             return funcionarioOptional.get();
