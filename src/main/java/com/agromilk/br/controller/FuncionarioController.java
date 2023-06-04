@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -77,12 +79,38 @@ public class FuncionarioController {
                 pageable);
         return new ResponseEntity<>(response, OK);
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{idFuncionario}")
     public ResponseEntity<FuncionarioEntity> excluir(@PathVariable Long idFuncionario) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        FuncionarioEntity funcionario = funcionarioService.findById(idFuncionario);
+
+        if (funcionario.getEmail().equals(username)) {
+            throw new Exception("Você não tem permissão para excluir seu próprio usuário.");
+        }
+
         funcionarioService.excluir(idFuncionario);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/usuario-logado")
+    public ResponseEntity<String> getUsuarioLogado() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nomeFuncionario = authentication.getName();
+
+        try {
+            FuncionarioEntity funcionario = funcionarioService.findByUsername(nomeFuncionario);
+            String nome = funcionario.getNomeFuncionario();
+
+            return ResponseEntity.ok().body(nome);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
     @GetMapping("/qtsFuncionario")
     public Long qtsFuncionario(){
         return funcionarioService.funcionarios();

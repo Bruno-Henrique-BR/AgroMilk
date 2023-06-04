@@ -42,6 +42,19 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public Long funcionarios(){
         return funcionarioRepository.verificarQdtFuncionarios();
     }
+
+
+    public FuncionarioEntity findByUsername(String nomeFuncionario) throws NotFoundException {
+        Optional<FuncionarioEntity> funcionarioOptional = funcionarioRepository.findByUsername(nomeFuncionario);
+
+        if (funcionarioOptional.isPresent()) {
+            return funcionarioOptional.get();
+        } else {
+            throw new NotFoundException("Funcionário não encontrado");
+        }
+    }
+
+
     @Override
     public List<FuncionarioEntity> listar(
             Long idFuncionario,

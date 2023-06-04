@@ -166,7 +166,7 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         }
 
         OrdenhaEntity saveOrdenha;
-        if (nonNull(dto.getIdOrdenha())) {
+        if (dto.getIdOrdenha() != null) {
             Optional<OrdenhaEntity> optionalOrdenha = ordenhaRepository.findById(dto.getIdOrdenha());
             if (!optionalOrdenha.isPresent()) {
                 throw new NotFoundException(OrdenhaConstants.IDORDENHA_NOTFOUND);
@@ -180,12 +180,10 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         if (dto.getData() == null) {
             dataOrdenha = LocalDate.now();
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDateTime localDateTime = LocalDateTime.ofInstant(dto.getData().toInstant(), ZoneOffset.UTC);
-            dataOrdenha = LocalDate.parse(localDateTime.format(formatter), formatter);
+            dataOrdenha = dto.getData();
         }
 
-        saveOrdenha.setData(Date.from(dataOrdenha.atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        saveOrdenha.setData(dataOrdenha);
         saveOrdenha.setPrimeiraOrdenha(dto.getPrimeiraOrdenha());
         saveOrdenha.setSegundaOrdenha(dto.getSegundaOrdenha());
         saveOrdenha.setAnimal(animal.get());

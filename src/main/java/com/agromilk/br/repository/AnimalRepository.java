@@ -72,7 +72,7 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Long> {
 
    List<AnimalEntity> findByRacaIdRaca(Long idRaca);
 
-   @Query("SELECT animal FROM AnimalEntity animal ORDER BY animal.media DESC")
+   @Query("SELECT animal FROM AnimalEntity animal WHERE animal.media > 0 ORDER BY animal.media DESC")
    List<AnimalEntity> findTop5ByOrderByMediaDesc(Pageable pageable);
 
    @Query("SELECT animal FROM AnimalEntity animal ORDER BY animal.media ASC")

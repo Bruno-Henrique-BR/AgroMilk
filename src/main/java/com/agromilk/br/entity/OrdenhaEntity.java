@@ -28,7 +28,7 @@ public class OrdenhaEntity {
     @NotNull(message = "Data de ordenha é obrigatorio")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
-    private Date data;
+    private LocalDate data;
 
     @Column(name = "primeira_Ordenha")
     private Double primeiraOrdenha;

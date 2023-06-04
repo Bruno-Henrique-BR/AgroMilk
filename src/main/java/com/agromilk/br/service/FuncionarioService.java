@@ -34,4 +34,7 @@ public interface FuncionarioService {
 
     Long funcionarios();
 
+    FuncionarioEntity findByUsername(String nomeFuncionario) throws NotFoundException;
+
+
 }
