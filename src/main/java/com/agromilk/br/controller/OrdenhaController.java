@@ -5,23 +5,24 @@ import com.agromilk.br.entity.OrdenhaEntity;
 import com.agromilk.br.request.OrdenhaRequestDTO;
 import com.agromilk.br.service.OrdenhaService;
 import com.agromilk.br.util.Paginacao;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
-import java.time.DayOfWeek;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -47,14 +48,30 @@ public class OrdenhaController {
         return new ResponseEntity<>(response, CREATED);
     }
 
-
-
     @PostMapping("/ordenhas")
-    public ResponseEntity<OrdenhaEntity> cadastrarOrdenha(@RequestBody OrdenhaRequestDTO dto) throws Exception {
-        // Aqui você pode tratar e salvar a ordenha no banco de dados
-        OrdenhaEntity response = ordenhaService.salvarOrdenha(dto);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    public ResponseEntity<?> cadastrarOrdenha(@RequestBody Object requestBody) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<OrdenhaRequestDTO> ordenhas = new ArrayList<>();
+
+        if (requestBody instanceof List) {
+            // Se o requestBody for uma lista, convertemos diretamente para uma lista de OrdenhaRequestDTO
+            ordenhas = objectMapper.convertValue(requestBody, new TypeReference<List<OrdenhaRequestDTO>>() {});
+        } else {
+            // Se não for uma lista, assumimos que é um único objeto e convertemos para OrdenhaRequestDTO
+            OrdenhaRequestDTO dto = objectMapper.convertValue(requestBody, OrdenhaRequestDTO.class);
+            ordenhas.add(dto);
+        }
+
+        // Aqui você pode tratar e salvar as ordenhas no banco de dados
+        List<OrdenhaEntity> responses = new ArrayList<>();
+        for (OrdenhaRequestDTO dto : ordenhas) {
+            OrdenhaEntity response = ordenhaService.salvarOrdenha(dto);
+            responses.add(response);
+        }
+
+        return new ResponseEntity<>(responses, HttpStatus.CREATED);
     }
+
 
 
 
@@ -147,8 +164,8 @@ public class OrdenhaController {
 
     @GetMapping("/relatorio-producao-diaria")
     public ResponseEntity<RelatorioProducaoDiariaDTO> obterRelatorioProducaoDiaria(
-            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataInicial,
-            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataFinal) {
+            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicial,
+            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFinal) {
         List<ProducaoLeiteDiariaDTO> producaoDiaria = ordenhaService.obterProducaoLeitePorPeriodo(dataInicial, dataFinal);
         double somaProducao = producaoDiaria.stream().mapToDouble(ProducaoLeiteDiariaDTO::getSomaProducaoLeite).sum();
 

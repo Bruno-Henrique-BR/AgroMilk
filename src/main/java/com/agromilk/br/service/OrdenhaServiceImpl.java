@@ -344,7 +344,7 @@ public class OrdenhaServiceImpl implements OrdenhaService {
 
         return quantidadeLeiteArmazenada / capacidadeTanque * 100;
     }
-    public List<ProducaoLeiteDiariaDTO> obterProducaoLeitePorPeriodo(Date dataInicial, Date dataFinal) {
+    public List<ProducaoLeiteDiariaDTO> obterProducaoLeitePorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
         List<ProducaoLeiteDiariaDTO> producaoLeite = new ArrayList<>();
 
         List<Object[]> ordenhas = ordenhaRepository.obterOrdenhasPorPeriodo(dataInicial, dataFinal);

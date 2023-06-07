@@ -40,7 +40,7 @@ public interface OrdenhaService {
 
     List<TaxaOcupacaoTanqueDTO> obterGraficoTaxaOcupacaoTanques();
 
-    List<ProducaoLeiteDiariaDTO> obterProducaoLeitePorPeriodo(Date dataInicial, Date dataFinal);
+    List<ProducaoLeiteDiariaDTO> obterProducaoLeitePorPeriodo(LocalDate dataInicial, LocalDate dataFinal);
 
 
 

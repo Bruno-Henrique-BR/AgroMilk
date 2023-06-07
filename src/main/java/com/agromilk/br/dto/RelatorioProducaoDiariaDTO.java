@@ -8,13 +8,13 @@ import java.util.List;
 
 public class RelatorioProducaoDiariaDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
-    private Date dataInicial;
+    private LocalDate dataInicial;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "UTC")
-    private Date dataFinal;
+    private LocalDate dataFinal;
     private List<ProducaoLeiteDiariaDTO> producaoDiaria;
     private double somaProducao;
 
-    public RelatorioProducaoDiariaDTO(Date dataInicial, Date dataFinal, List<ProducaoLeiteDiariaDTO> producaoDiaria, double somaProducao) {
+    public RelatorioProducaoDiariaDTO(LocalDate dataInicial, LocalDate dataFinal, List<ProducaoLeiteDiariaDTO> producaoDiaria, double somaProducao) {
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.producaoDiaria = producaoDiaria;
@@ -23,19 +23,19 @@ public class RelatorioProducaoDiariaDTO {
 
     // Getters e Setters
 
-    public Date getDataInicial() {
+    public LocalDate getDataInicial() {
         return dataInicial;
     }
 
-    public void setDataInicial(Date dataInicial) {
+    public void setDataInicial(LocalDate dataInicial) {
         this.dataInicial = dataInicial;
     }
 
-    public Date getDataFinal() {
+    public LocalDate getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
+    public void setDataFinal(LocalDate dataFinal) {
         this.dataFinal = dataFinal;
     }
 

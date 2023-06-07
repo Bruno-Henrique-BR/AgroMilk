@@ -104,7 +104,7 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
             "WHERE o.data BETWEEN :dataInicial AND :dataFinal " +
             "GROUP BY EXTRACT(DAY FROM o.data) " +
             "ORDER BY EXTRACT(DAY FROM o.data) ASC")
-    List<Object[]> obterOrdenhasPorPeriodo(@Param("dataInicial") Date dataInicial, @Param("dataFinal") Date dataFinal);
+    List<Object[]> obterOrdenhasPorPeriodo(@Param("dataInicial") LocalDate dataInicial, @Param("dataFinal") LocalDate dataFinal);
 
 
 
