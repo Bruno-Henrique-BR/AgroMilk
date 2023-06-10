@@ -92,12 +92,6 @@ public class OrdenhaServiceImpl implements OrdenhaService {
             throw new NotFoundException(AnimalConstants.IDANIMAL_NOTFOUND);
         }
 
-//        Optional<FuncionarioEntity> funcionario = funcionarioRepository
-//                .findById(dto.getIdFuncionario());
-//        if (!funcionario.isPresent()) {
-//            throw new NotFoundException(FuncionarioConstants.IDFUNCIONARIO_NOTFOUND);
-//        }
-
         Optional<TanqueEntity> tanque = tanqueRepository
                 .findById(dto.getIdTanque());
         if (!tanque.isPresent()) {
@@ -119,7 +113,6 @@ public class OrdenhaServiceImpl implements OrdenhaService {
         saveOrdenha.setSegundaOrdenha(dto.getSegundaOrdenha());
         saveOrdenha.setAnimal(animal.get());
         saveOrdenha.setTanque(tanque.get());
-//        saveOrdenha.setFuncionario(funcionario.get());
         this.validate(dto);
         saveOrdenha = ordenhaRepository.save(saveOrdenha);
         return saveOrdenha;
