@@ -244,19 +244,19 @@ public class OrdenhaServiceImpl implements OrdenhaService {
     }
 
     public List<ProducaoLeiteDiariaDTO> obterSomaProducaoLeiteUltimos7Dias() {
+        LocalDate dataLimite = LocalDate.now().minusDays(7);
         List<ProducaoLeiteDiariaDTO> graficoProducaoLeiteDiaria = new ArrayList<>();
-        Pageable pageable = PageRequest.of(0, 7); // Limita a 7 registros
-        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeiteUltimosSeteDias(pageable);
+        List<Object[]> resultadoConsulta = ordenhaRepository.obterSomaProducaoLeiteUltimosSeteDias(dataLimite);
 
         for (Object[] resultado : resultadoConsulta) {
             Integer dataDia = (Integer) resultado[0];
             Long quantidadeOrdenhas = (Long) resultado[1];
             Double somaProducaoLeite = (Double) resultado[2];
 
-
             ProducaoLeiteDiariaDTO dto = new ProducaoLeiteDiariaDTO(dataDia.toString(), quantidadeOrdenhas, somaProducaoLeite);
             graficoProducaoLeiteDiaria.add(dto);
         }
+
         return graficoProducaoLeiteDiaria;
     }
 

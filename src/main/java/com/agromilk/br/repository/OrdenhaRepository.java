@@ -88,9 +88,12 @@ public interface OrdenhaRepository extends JpaRepository<OrdenhaEntity, Long> {
 
     @Query("SELECT EXTRACT(DAY FROM o.data) as dataDia, COUNT(o) as quantidadeOrdenhas, SUM(o.primeiraOrdenha + o.segundaOrdenha) AS somaProducaoLeite " +
             "FROM OrdenhaEntity o " +
+            "WHERE o.data >= :dataLimite " +
             "GROUP BY EXTRACT(DAY FROM o.data) " +
             "ORDER BY EXTRACT(DAY FROM o.data) DESC")
-    List<Object[]> obterSomaProducaoLeiteUltimosSeteDias(Pageable pageable);
+    List<Object[]> obterSomaProducaoLeiteUltimosSeteDias(@Param("dataLimite") LocalDate dataLimite);
+
+
     @Query("SELECT EXTRACT(DAY FROM o.data) as dataDia, COUNT(o) as quantidadeOrdenhas, SUM(o.primeiraOrdenha + o.segundaOrdenha) AS somaProducaoLeite " +
             "FROM OrdenhaEntity o " +
             "WHERE o.animal.idAnimal = :idAnimal " +
